@@ -28,6 +28,26 @@ alsa-utils - enables alse service
 
 alsamixer, unmute channels, set volume with scroll
 
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+
 systemctl enable networkmanager
 
 systemctl enable bluetooth.service to get rid of error in systemctl --user status pulseaudio
+
+set execution permissions to user for backlight
+sudo chmod a+w /sys/class/backlight/intel_backlight/brightness  
+
+what do we loved ini macos? screenshot!
+grim/slurp for screenshot?
+
+touchpad
+
+libinput -list-devices
+
+# enable tap and natural scroll
+input 1739:52575:MSFT0001:01_06CB:CD5F_Touchpad tap enabled
+input 1739:52575:MSFT0001:01_06CB:CD5F_Touchpad natural_scroll enabled
+input 1739:52575:MSFT0001:01_06CB:CD5F_Touchpad accel_profile flat
+input 1739:52575:MSFT0001:01_06CB:CD5F_Touchpad pointer_accel 0
