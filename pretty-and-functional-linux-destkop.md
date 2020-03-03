@@ -51,3 +51,13 @@ input 1739:52575:MSFT0001:01_06CB:CD5F_Touchpad tap enabled
 input 1739:52575:MSFT0001:01_06CB:CD5F_Touchpad natural_scroll enabled
 input 1739:52575:MSFT0001:01_06CB:CD5F_Touchpad accel_profile flat
 input 1739:52575:MSFT0001:01_06CB:CD5F_Touchpad pointer_accel 0
+
+autostart sway
+
+nano ~/.bash_profile
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+  XKB_DEFAULT_LAYOUT=us exec sway
+fi
+
+
+
