@@ -24,3 +24,12 @@ cp /etc/sway/config ~/.config/sway
 
 adding display brightness
 pulseaudio
+
+If your system keeps on using the wrong device (HDMI instead of PCH or vica versa for example), you can force ALSA to use the correct device. Start by getting a list of your audio devices with the command:
+
+cat /proc/asound/cards
+
+Note the number of the sound device that you want to make the primary. Then using a text editor, put the following into /etc/asound.conf (You may need to create /etc/asound.conf if it doesn't already exist).
+
+  defaults.pcm.card 0
+  defaults.ctl.card 0
