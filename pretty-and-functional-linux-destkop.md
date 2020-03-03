@@ -16,3 +16,11 @@ alacrity
 dmenu
 xorg xserver Wayland
 Wayland protocols
+
+mkdir .config/sway .config/waybar
+copy default sway
+copy def waybar cp /etc/xdg/waybar/* ~/.config/waybar
+cp /etc/sway/config ~/.config/sway
+
+adding display brightness
+pulseaudio
