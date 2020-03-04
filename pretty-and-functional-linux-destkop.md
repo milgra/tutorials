@@ -3,30 +3,37 @@
 ![Image](screenshot.png)
 
 # install
-Start with
-Manjaro architect
-default settings
-custom package network manager
-install display drivers 
 
-# startup
+download Manjaro architect and burn it to some external media
+
+boot up the machine from it
+
+select default settings for everything
+
+at install custom pacakages part : select network manager, we will need it for connecting to a wifi after startup
+
+at install hardware drivers part install display drivers
+
 reboot
 
-** connect to wifi **
+# startup
+
+**start network/wifi service**
 sudo systemct enable network manager 
 
 ( start ? )
 
+**connect to your wifi**
 nmcli -d WiFi connect networkname -password password
 
-** install sway with waybar and xwayland bridge so x apps can work **
-sudo pacman -S sway waybar xorg-sxserver-wayland wayland=protocols
+**install sway with waybar and xwayland bridge so x apps can work**
+sudo pacman -S sway waybar xorg-server-xwayland wayland-protocols
 
-** install default sway terminal and launcher **
+**install default sway terminal and launcher**
 sudo pacman -S dmenu alacrity 
 
-** start sway **
-type sway
+**start sway**
+sway
 
 press WIN(MAC) + ENTER to open terminal
 press WIN(MAC) + D to open dmenu and start typing to launch something
@@ -36,10 +43,10 @@ press WIN(MAC) + r to resize window
 
 # google chrome
 
-** install AUR package manager **
+**install AUR package manager**
 sudo pacman -S yay
 
-** install google chrome **
+**install google chrome**
 yay S google-chrome
 
 # copy default sway and waybar configs
@@ -54,19 +61,29 @@ cp /etc/sway/config ~/.config/sway
 
 # display brightness control
 
+install light
+
 sudo pacman -S light
 
 set execution permissions to user for backlight
 
 sudo chmod a+w /sys/class/backlight/intel_backlight/brightness  
 
+we will edit config files with nano. nano shortcuts :
+CTRL + O write file
+CTRL + X exit
+CTRL + W find
+ALT + U undo
+CTRL + K cut
+CTRL + U uncut
+
+add shortcuts to sway and waybar config
+
 nano ~/.config/sway/config
 
 bindsym XF86MonBrightnessUp exec light -A 5    # increase screen brightness
 
 bindsym XF86MonBrightnessDown exec light -U 5  # decrease screen brightness
-
-nano - ctrl w, alt u to undo, ctrl o to save, ctrl x exit
 
 nano ~/.config/waybar/config
 
@@ -81,15 +98,17 @@ now you can control display brightness with the brightness keys on the keyboard 
 
 # volume control
 
+install pulseaudio and alsa
+
 sudo pacman -S pulseaudio alsa-utils
 
 this enables and starts alsa service and installs handy utils
 
-start
-
 alsamixer
 
 unmute needed channels with M, left/right arrow to change sources
+
+add shortcuts to sway and waybar config
 
 nano ~/.config/sway/config
 
@@ -115,7 +134,6 @@ to fix bluetooth audio problems ( shown by systemctl --user status pulseaudio )
 
 systemctl enable bluetooth.service to get rid of error in systemctl
 
-
 # touchpad tweaks
 
 get your touchpad's hardware id
@@ -132,7 +150,6 @@ input 1739:52575:MSFT0001:01_06CB:CD5F_Touchpad natural_scroll enabled
 input 1739:52575:MSFT0001:01_06CB:CD5F_Touchpad accel_profile flat
 input 1739:52575:MSFT0001:01_06CB:CD5F_Touchpad pointer_accel 0
 
-
 # autostart sway
 
 nano ~/.bash_profile
@@ -141,11 +158,15 @@ or
 
 nano ~/.zshrc
 
+add this at the end of the file :
+
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
   XKB_DEFAULT_LAYOUT=us exec sway
 fi
 
 # idle, lock, sleep
+
+install swaylock and swayidle
 
 sudo pacman -S swaylock swayidle
 
@@ -159,39 +180,7 @@ exec swayidle -w \
                resume 'swaymsg "output * dpms on"' \
           before-sleep 'swaylock -f -c 000000'
 
-
-# wifi selector
-
-nano ~/.config/waybar/config
-
-add this to network :
-
-"on-click": "swaymsg exec '$term -e nmtui-connect'"
-
-# mailspring
-
-yay -S mailspring gnome-keyring
-
-at first startup gnome-keyring asks for a password, leave it blank, no other apps will use it
-
-# simplenote
-
-yay -S simplenote
-
-what do we loved ini macos? screenshot!
-grim/slurp 
-for screenshot?
-sway win key plus numbers, alt enter, alt d
- 
-# gaps
-gaps inner 5
-gaps top -10
-
-# borders
-default_border pixel 1
-default_floating_border pixel 1
-
-# language switch
+# language switching
 
 nano ~/.config/sway/config
 
@@ -205,6 +194,26 @@ input "1165:49408:ITE_Tech._Inc._ITE_Device(8910)_Keyboard" {
     	repeat_delay 250
 }
 
+# wifi selector
+
+nano ~/.config/waybar/config
+
+add this to network :
+
+"on-click": "swaymsg exec '$term -e nmtui-connect'"
+
+# sway pimping
+
+add these to sway config :
+
+**gaps**
+gaps inner 5
+gaps top -10
+
+**borders**
+default_border pixel 1
+default_floating_border pixel 1
+
 # waybar pimp
 
 dark transparent background
@@ -217,7 +226,7 @@ background-color: rgba(0,0,0,0.2);
 
 /* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
 
-modify common block css :
+modify common block css, modify color, border and add disk :
 
 #clock,
 #battery,
@@ -241,8 +250,6 @@ modify common block css :
 
 delete background colors from all individual block css's ( CTRL-K in nano )
 
-set colors to black
-
 nano ~/.config/waybar/config
 
 remove unnecessary symbols from blocks
@@ -255,16 +262,21 @@ add disk icon :
      "format":"{percentage_free}%  "
 },
 
-
 and bring icons to the left of the labels
 
-# auto-open stuff in proper app
+check everything out in my final config
 
-sudo pacman -S xdg-utils
+# dmenu over waybar
+
+waybar config :
+
+ "layer": "bottom", // Waybar at top layer
+
 
 # alacritty
 
 mkdir -p ~/.config/alacritty
+
 cp /usr/share/doc/alacritty/example/alacritty.yml ~/.config/alacritty
 
 nano ~/.config/alacritty/alacritty.yml
@@ -272,19 +284,41 @@ nano ~/.config/alacritty/alacritty.yml
 invert colors :
 
 colors:
-  # Default colors
-  primary:
-    background: '0xffffff'
-    foreground: '0x222200'
-   
+    primary:
+  	background: '0xffffcf'
+  	foreground: '0x8a8a8a'
+	dim_foreground: '0x9a9a9a'
+	bright_foreground: '0x6a6a6a'
+
+# emacs color problem fix in zsh
+
+.zshrc
+
+export TERM=xterm-256color
+
+moe-light-theme https://github.com/bbatsov/solarized-emacs
+
+
+# mailspring
+
+yay -S mailspring gnome-keyring
+
+at first startup gnome-keyring asks for a password, leave it blank, no other apps will use it
+
+# simplenote
+
+yay -S simplenote
+
+what do we loved ini macos? screenshot!
+grim/slurp 
+for screenshot?
+sway win key plus numbers, alt enter, alt d
+ 
+# auto-open stuff in proper app
+
+sudo pacman -S xdg-utils
+  
 # chromium scroll glitching fix
-
-
-# dmenu over waybar
-
-waybar config :
-
- "layer": "bottom", // Waybar at top layer
 
 # screenshot and screen grab
 
@@ -310,13 +344,13 @@ bindsym $mod+Alt+Print exec $screengrab
  
  download emacs config from github.com/milgra/linuxconfig
  
- # midnight commander for files
+# midnight commander for files
  
  the two big file managers, nautilus and kde are both terrible compared to a mac experince so better forget them
  
  sudo pacman -S mc
  
- # mounting usb drives
+# mounting usb drives
  
  sudo mkdir /mnt/external
  
@@ -355,23 +389,6 @@ check validity
 gpg --quiet --batch --decrypt ~/.lein/credentials.clj.gpg
 
 now leiningen can download the peer library for a project on request
-
-# emacs color problem
-
-.zshrc
-
-export TERM=xterm-256color
-
-moe-light-theme https://github.com/bbatsov/solarized-emacs
-
-# alacritty colors
-
-colors:
-	primary:
-  	background: '0xffffcf'
-  	foreground: '0x8a8a8a'
-	dim_foreground: '0x9a9a9a'
-	bright_foreground: '0x6a6a6a'
 	
 # media browser
 
