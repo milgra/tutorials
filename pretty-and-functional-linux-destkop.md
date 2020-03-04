@@ -23,20 +23,25 @@ reboot
 # startup
 
 **start network/wifi service**
+
 sudo systemct enable network manager 
 
 ( start ? )
 
 **connect to your wifi**
+
 nmcli -d WiFi connect networkname -password password
 
 **install sway with waybar and xwayland bridge so x apps can work**
+
 sudo pacman -S sway waybar xorg-server-xwayland wayland-protocols
 
 **install default sway terminal and launcher**
+
 sudo pacman -S dmenu alacrity 
 
 **start sway**
+
 sway
 
 press WIN(MAC) + ENTER to open terminal
@@ -48,9 +53,11 @@ press WIN(MAC) + r to resize window
 # google chrome
 
 **install AUR package manager**
+
 sudo pacman -S yay
 
 **install google chrome**
+
 yay S google-chrome
 
 # copy default sway and waybar configs
