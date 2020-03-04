@@ -497,4 +497,6 @@ sudo pacman -S nvidia-xrun openbox
 
 # productivity/media tools
 
-sudo pacman -S libreoffice gimp kdenlive ocenaudio
+sudo pacman -S libreoffice gimp kdenlive
+
+yay -S ocenaudio
