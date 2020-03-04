@@ -507,3 +507,5 @@ sudo pacman -S nvidia-xrun openbox
 sudo pacman -S libreoffice gimp kdenlive
 
 yay -S ocenaudio 4Kvideodownloader
+
+# pimp gnome/kde applications
