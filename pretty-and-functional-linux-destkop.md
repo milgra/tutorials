@@ -353,3 +353,20 @@ check validity
 gpg --quiet --batch --decrypt ~/.lein/credentials.clj.gpg
 
 now leiningen can download the peer library for a project on request
+
+# emacs color problem
+
+.zshrc
+
+export TERM=xterm-256color
+
+moe-light-theme https://github.com/bbatsov/solarized-emacs
+
+# alacritty colors
+
+colors:
+	primary:
+  	background: '0xffffcf'
+  	foreground: '0x8a8a8a'
+	dim_foreground: '0x9a9a9a'
+	bright_foreground: '0x6a6a6a'
