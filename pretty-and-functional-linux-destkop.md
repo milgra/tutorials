@@ -383,3 +383,11 @@ git config --global user.name "dzou"
 git config --global user.email "dzou@company.com"
 
 git config --global credential.helper store
+
+# chrome extensions
+
+Open-as-Popup
+
+Chromium Wheel Smooth Scroller
+
+AdBlock — best ad blocker
