@@ -283,3 +283,19 @@ colors:
 waybar config :
 
  "layer": "bottom", // Waybar at top layer
+
+# screenshot and screen grab
+
+sudo pacman -S grim slurp 
+
+yay -S wf-recorder
+
+sway config :
+
+set $screenshot grim ~/Downloads/scrn-$(date +"%Y-%m-%d-%H-%M-%S").png
+set $screenclip slurp | grim -g - ~/Downloads/scrn-$(date +"%Y-%m-%d-%H-%M-%S").png
+set $screengrab wf-recorder -o~/Downloads/grab-$(date +"%Y-%m-%d-%H-%M-%S").mp4
+
+bindsym $mod+Print exec $screenshot
+bindsym $mod+Shift+Print exec $screenclip
+bindsym $mod+Alt+Print exec $screengrab
