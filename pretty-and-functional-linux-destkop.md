@@ -308,4 +308,14 @@ bindsym $mod+Alt+Print exec $screengrab
  
  download emacs config from github.com/milgra/linuxconfig
  
+ # midnight commander for files
  
+ the two big file managers, nautilus and kde are both terrible compared to a mac experince so better forget them
+ 
+ sudo pacman -S mc
+ 
+ # mounting usb drives
+ 
+ sudo mkdir /mnt/external
+ 
+ sudo mount /dev/sda /mnt/external
