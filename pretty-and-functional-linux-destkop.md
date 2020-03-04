@@ -1,6 +1,6 @@
 # Pretty and functional linux desktop for former Mac users and design freaks
 
-[Image](screenshot.png)
+![Image](screenshot.png)
 
 # install
 Start with
@@ -372,3 +372,14 @@ colors:
   	foreground: '0x8a8a8a'
 	dim_foreground: '0x9a9a9a'
 	bright_foreground: '0x6a6a6a'
+	
+# media browser
+
+chomre file://
+
+# git credential setup
+
+git config --global user.name "dzou"
+git config --global user.email "dzou@company.com"
+
+git config --global credential.helper store
