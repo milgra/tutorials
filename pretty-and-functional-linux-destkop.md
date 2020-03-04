@@ -499,4 +499,4 @@ sudo pacman -S nvidia-xrun openbox
 
 sudo pacman -S libreoffice gimp kdenlive
 
-yay -S ocenaudio
+yay -S ocenaudio 4Kvideodownloader
