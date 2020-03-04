@@ -488,3 +488,13 @@ If everything works correctly, you now have a separate output device in PulseAud
 
 [bluetooth]# scan off
 [bluetooth]# exit
+
+# steam
+
+yay -S steam
+
+sudo pacman -S nvidia-xrun openbox
+
+# productivity/media tools
+
+sudo pacman -S libreoffice gimp kdenlive ocenaudio
