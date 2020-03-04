@@ -255,3 +255,7 @@ add disk icon :
 
 
 and bring icons to the left of the labels
+
+# auto-open stuff in proper app
+
+sudo pacman -S xdg-utils
