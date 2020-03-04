@@ -299,3 +299,13 @@ set $screengrab wf-recorder -o~/Downloads/grab-$(date +"%Y-%m-%d-%H-%M-%S").mp4
 bindsym $mod+Print exec $screenshot
 bindsym $mod+Shift+Print exec $screenclip
 bindsym $mod+Alt+Print exec $screengrab
+
+# java 8 for clojure/datomic, emacs without x, clojure
+
+ sudo pacman -S jdk8-openjdk clojure emacs-nox leiningen
+ 
+ sudo pacman -S unzip
+ 
+ download emacs config from github.com/milgra/linuxconfig
+ 
+ 
