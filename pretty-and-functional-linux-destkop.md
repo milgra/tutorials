@@ -319,3 +319,10 @@ bindsym $mod+Alt+Print exec $screengrab
  sudo mkdir /mnt/external
  
  sudo mount /dev/sda /mnt/external
+
+
+# npm
+
+sudo pacman -S npm
+
+sudo npm install -g shadow-cljs
