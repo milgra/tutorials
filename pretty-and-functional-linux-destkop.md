@@ -326,3 +326,12 @@ bindsym $mod+Alt+Print exec $screengrab
 sudo pacman -S npm
 
 sudo npm install -g shadow-cljs
+
+
+# datomic
+
+sudo pacman -S gnupg
+
+./lein/credentials.clj.gpg from my.datomic.com/account
+
+project.clj 
