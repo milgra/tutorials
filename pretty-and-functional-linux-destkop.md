@@ -45,9 +45,13 @@ sudo pacman -S dmenu alacrity
 sway
 
 press WIN(MAC) + ENTER to open terminal
+
 press WIN(MAC) + D to open dmenu and start typing to launch something
+
 press WIN(MAC) + numbers to switch desktops
+
 press WIN(MAC) + SHIFT + numbers to move window to another desktop
+
 press WIN(MAC) + r to resize window
 
 # google chrome
@@ -81,11 +85,17 @@ set execution permissions to user for backlight
 sudo chmod a+w /sys/class/backlight/intel_backlight/brightness  
 
 we will edit config files with nano. nano shortcuts :
+
 CTRL + O write file
+
 CTRL + X exit
+
 CTRL + W find
+
 ALT + U undo
+
 CTRL + K cut
+
 CTRL + U uncut
 
 add shortcuts to sway and waybar config
@@ -99,8 +109,11 @@ bindsym XF86MonBrightnessDown exec light -U 5  # decrease screen brightness
 nano ~/.config/waybar/config
 
 "backlight": {
-   "on-scroll-up" : "light -A 5",
-   "on-scroll-down" : "light -U 5"
+
+"on-scroll-up" : "light -A 5",
+
+"on-scroll-down" : "light -U 5"
+
 }
 
 press WIN(MAC) + SHIFT + C to reload sway config
@@ -419,3 +432,5 @@ Open-as-Popup
 Chromium Wheel Smooth Scroller
 
 AdBlock — best ad blocker
+
+# steam?
