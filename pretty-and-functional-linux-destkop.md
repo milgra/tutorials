@@ -24,13 +24,13 @@ reboot
 
 **start network/wifi service**
 
-sudo systemct enable network manager 
+'''sudo systemct enable network manager'''
 
 ( start ? )
 
 **connect to your wifi**
 
-nmcli -d WiFi connect networkname -password password
+'''nmcli -d WiFi connect networkname -password password'''
 
 **install sway with waybar and xwayland bridge so x apps can work**
 
