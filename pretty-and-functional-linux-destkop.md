@@ -330,8 +330,26 @@ sudo npm install -g shadow-cljs
 
 # datomic
 
+download from my.datomic.com/account with wget
+
+peer library :
+
 sudo pacman -S gnupg
 
-./lein/credentials.clj.gpg from my.datomic.com/account
+generate key
 
-project.clj 
+gpg --gen-key
+
+create 
+
+./lein/credentials.clj 
+
+with contents from my.datomic.com/account
+
+gpg --default-recipient-self -e ~/.lein/credentials.clj > ~/.lein/credentials.clj.gpg
+
+check validity
+
+gpg --quiet --batch --decrypt ~/.lein/credentials.clj.gpg
+
+now leiningen can download the peer library for a project on request
