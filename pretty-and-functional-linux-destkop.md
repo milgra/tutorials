@@ -60,3 +60,10 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
 fi
 
 idle & lock & sleep?
+
+
+waybar nework wifi list
+"on-click": "swaymsg exec '$term -e nmtui-connect'"
+
+waybar audio control
+ "on-click": "swaymsg exec '$term -e alsamixer'"
