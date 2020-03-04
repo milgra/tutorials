@@ -205,13 +205,13 @@ input "1165:49408:ITE_Tech._Inc._ITE_Device(8910)_Keyboard" {
 
 # waybar pimp
 
-remove background
+dark transparent background
 
 nano ~/.config/waybar/style.css
 
 modify window#waybar :
 
-background-color: transparent;
+background-color: rgba(0,0,0,0.2);
 
 /* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
 
@@ -244,4 +244,14 @@ set colors to black
 nano ~/.config/waybar/config
 
 remove unnecessary symbols from blocks
+
 rearrange blocks
+
+add disk icon :
+
+"disk":{
+     "format":"{percentage_free}%  "
+},
+
+
+and bring icons to the left of the labels
