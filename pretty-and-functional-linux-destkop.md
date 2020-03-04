@@ -4,11 +4,15 @@
 
 # install
 
+( https://forum.manjaro.org/t/installation-with-manjaro-architect-iso/20429 )
+
 download Manjaro architect and burn it to some external media
 
 boot up the machine from it
 
 select default settings for everything
+
+install cli system
 
 at install custom pacakages part : select network manager, we will need it for connecting to a wifi after startup
 
