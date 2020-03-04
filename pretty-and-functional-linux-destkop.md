@@ -274,3 +274,12 @@ colors:
   primary:
     background: '0xffffff'
     foreground: '0x222200'
+   
+# chromium scroll glitching fix
+
+
+# dmenu over waybar
+
+waybar config :
+
+ "layer": "bottom", // Waybar at top layer
