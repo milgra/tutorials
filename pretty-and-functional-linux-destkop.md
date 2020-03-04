@@ -259,3 +259,18 @@ and bring icons to the left of the labels
 # auto-open stuff in proper app
 
 sudo pacman -S xdg-utils
+
+# alacritty
+
+mkdir -p ~/.config/alacritty
+cp /usr/share/doc/alacritty/example/alacritty.yml ~/.config/alacritty
+
+nano ~/.config/alacritty/alacritty.yml
+
+invert colors :
+
+colors:
+  # Default colors
+  primary:
+    background: '0xffffff'
+    foreground: '0x222200'
