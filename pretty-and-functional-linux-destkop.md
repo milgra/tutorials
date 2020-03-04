@@ -2,6 +2,8 @@
 
 ![Image](screenshot.png)
 
+Can we push minimalism to the limit? Of course we can! We will install a minimal linux distro with a tiling window manager for the smallest disk/memory footprint as possible ( because that memory is needed for the dev tools! :) ) but we will also make it comfortable for everyday use ( wifi selector, bluetooth selector, audio control, lock/idle/sleep, etc )
+
 # install
 
 ( https://forum.manjaro.org/t/installation-with-manjaro-architect-iso/20429 )
@@ -454,3 +456,35 @@ Chromium Wheel Smooth Scroller
 AdBlock — best ad blocker
 
 # steam?
+
+# bluetooths
+
+sudo pacman -S bluez bluez-utils
+
+/etc/pulse/default.pa
+
+# automatically switch to newly-connected devices
+
+load-module module-switch-on-connect
+
+bluetoothctl
+
+[bluetooth]# power on
+[bluetooth]# agent on
+[bluetooth]# default-agent
+[bluetooth]# scan on
+
+Now make sure that your headset is in pairing mode. It should be discovered shortly. For example,
+
+[NEW] Device 00:1D:43:6D:03:26 Lasmex LBT10
+
+[bluetooth]# pair 00:1D:43:6D:03:26
+[bluetooth]# connect 00:1D:43:6D:03:26
+
+If you are getting a connection error org.bluez.Error.Failed retry by killing existing PulseAudio daemon first:
+$ pulseaudio -k
+[bluetooth]# connect 00:1D:43:6D:03:26
+If everything works correctly, you now have a separate output device in PulseAudio.
+
+[bluetooth]# scan off
+[bluetooth]# exit
