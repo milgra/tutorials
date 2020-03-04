@@ -508,4 +508,6 @@ sudo pacman -S libreoffice gimp kdenlive
 
 yay -S ocenaudio 4Kvideodownloader
 
+yay -S skype
+
 # pimp gnome/kde applications
