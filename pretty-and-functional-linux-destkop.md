@@ -202,3 +202,46 @@ input "1165:49408:ITE_Tech._Inc._ITE_Device(8910)_Keyboard" {
 	repeat_rate 60
     	repeat_delay 250
 }
+
+# waybar pimp
+
+remove background
+
+nano ~/.config/waybar/style.css
+
+modify window#waybar :
+
+background-color: transparent;
+
+/* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
+
+modify common block css :
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#custom-media,
+#tray,
+#mode,
+#disk,
+#idle_inhibitor,
+#mpd {
+    padding: 0 10px 0 10px;
+    margin: 0 4px;
+    color: #ffffff;
+    border-bottom:3px solid #ffffff;
+}
+
+delete background colors from all individual block css's ( CTRL-K in nano )
+
+set colors to black
+
+nano ~/.config/waybar/config
+
+remove unnecessary symbols from blocks
+rearrange blocks
