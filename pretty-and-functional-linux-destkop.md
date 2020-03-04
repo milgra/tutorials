@@ -1,5 +1,7 @@
 # Pretty and functional linux desktop for former Mac users and design freaks
 
+[Image](screenshot.png)
+
 # install
 Start with
 Manjaro architect
