@@ -67,3 +67,17 @@ waybar nework wifi list
 
 waybar audio control
  "on-click": "swaymsg exec '$term -e alsamixer'"
+ 
+ pacman -S gnome-keyring for mailspring - no password, you won't store anything in it
+ 
+ nano - ctrl w, alt u to undo, ctrl o to save, ctrl x exit
+ 
+ sway win key plus numbers, alt enter, alt d
+ 
+ # gaps
+gaps inner 5
+gaps top -10
+
+# borders
+default_border pixel 1
+default_floating_border pixel 1
