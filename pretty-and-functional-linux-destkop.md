@@ -1,9 +1,10 @@
-# Pretty and functional linux/unix desktop for former Mac users and design freaks
+# Pretty and functional linux/unix desktop for former Mac users/Design freaks
+Because I switched to this after 15 years of MacOS! :)
 
 ![Image](screenshot1.png)
 ![Image](screenshot2.png)
 
-Can we push minimalism to the limit? Of course we can! We will install a minimal linux distro with a tiling window manager for the smallest disk/memory footprint as possible ( because that memory is needed for the dev tools! :) ) but we will also make it comfortable for everyday use ( wifi selector, audio controls, productivity apps, gaming ready, lock/idle/sleep, etc).
+Can we push minimalism to the limit? Of course we can! We will install a minimal linux distro with a tiling window manager for the smallest disk/memory footprint as possible ( because that memory is needed for the dev tools! :) ) but we will also make it comfortable for everyday use ( wifi/audio/lockscreen controls, productivity, gaming, etc).
 
 It is targeted at Manjaro Linux but these programs can be installed on every major linux/unix distribution with strong community support, the only thing you have to know the distro specific package manager which is pacman on Manjaro Linux.
 
@@ -90,6 +91,24 @@ cp /etc/xdg/waybar/* ~/.config/waybar/
 cp /etc/sway/config ~/.config/sway/
 cp /usr/share/doc/alacritty/example/alacritty.yml ~/.config/alacritty
 ```
+
+**tell sway to use waybar as status bar**
+
+edit sway config
+
+```nano ~/.config/sway/config```
+
+add swaybar command with waybar at the top of the "bar" section so it should look like :
+
+```
+bar {
+     swaybar_command waybar
+     
+     ...
+```
+
+exit nano then press WIN(MAC) + SHIFT + C to reload sway config
+and now you have waybar at the top of the screen
 
 **setup display brightness control**
 
