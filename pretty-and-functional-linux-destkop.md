@@ -128,7 +128,7 @@ in my case ( which is an integrated intel GPU ) :
 
 ```sudo chmod a+w /sys/class/backlight/intel_backlight/brightness```
 
-add brightness shortcuts to sway and waybar config
+add brightness shortcuts to sway config
 
 ```
 nano ~/.config/sway/config
@@ -137,10 +137,14 @@ insert these lines at the bottom
 ```
 bindsym XF86MonBrightnessUp exec light -A 5    # increase screen brightness
 bindsym XF86MonBrightnessDown exec light -U 5  # decrease screen brightness
+```
 
+to waybar config:
+
+```
 nano ~/.config/waybar/config
 ```
-insert these lines at the bottom
+insert these lines in backlight module
 ```
 "backlight": {
 "on-scroll-up" : "light -A 5",
