@@ -6,7 +6,7 @@ Because I switched to this setup after 15 years of MacOS
 
 Can we push minimalism to the limit? Of course we can! We will install a minimal linux distro with a tiling window manager for the smallest disk/memory footprint as possible ( because that memory is needed for the dev tools! :) ) but we will also make it comfortable for everyday use ( wifi/audio/lockscreen controls, productivity, gaming, etc).
 
-It is targeted at Manjaro Linux but these programs can be installed on every major linux/unix distribution with strong community support, the only thing you have to know the distro specific package manager which is pacman on Manjaro Linux.
+It is targeted at Manjaro Linux but these programs can be installed on every major linux/unix distribution with strong community support, the only thing you have to know is the distro specific package manager which is pacman on Manjaro Linux.
 
 ## Part I : Reaching basic functionality
 
