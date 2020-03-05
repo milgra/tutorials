@@ -8,6 +8,8 @@ Can we push minimalism to the limit? Of course we can! We will install a minimal
 
 It is targeted at Manjaro Linux but these programs can be installed on every major linux/unix distribution with strong community support, the only thing you have to know is the distro specific package manager which is pacman on Manjaro Linux.
 
+All my dotfiles are in this repository so if you already went through this tutorial and want a quick setup just download my dotfiles and install the wanted programs and you are done.
+
 ## Part I : Reaching basic functionality
 
 **install**
