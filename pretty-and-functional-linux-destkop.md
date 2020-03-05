@@ -5,7 +5,7 @@
 
 Can we push minimalism to the limit? Of course we can! We will install a minimal linux distro with a tiling window manager for the smallest disk/memory footprint as possible ( because that memory is needed for the dev tools! :) ) but we will also make it comfortable for everyday use ( wifi selector, audio controls, productivity apps, gaming ready, lock/idle/sleep, etc).
 
-It is targeted on Manjaro Linux but these programs can be installed on every major linux/unix distribution with strong community support, the only thing you have to know the distro specific package manager which is pacman on Manjaro Linux.
+It is targeted at Manjaro Linux but these programs can be installed on every major linux/unix distribution with strong community support, the only thing you have to know the distro specific package manager which is pacman on Manjaro Linux.
 
 ## Part I : Reaching basic functionality
 
@@ -177,7 +177,7 @@ get your touchpad's hardware id
 ```
 libinput -list-devices
 ```
-edit sway config and add these lines
+edit sway config and add these lines with your hardware id
 ```
 nano ~/.config/sway/config
 
@@ -255,7 +255,7 @@ edit waybar
 
 ```nano ~/.config/waybar/config```
 
-add this to network :
+add this to network module :
 
 ```"on-click": "swaymsg exec '$term -e nmtui-connect'"```
 
@@ -308,6 +308,7 @@ gaps inner 3
 default_border pixel 1
 default_floating_border pixel 1
 ```
+
 **waybar**
 
 add these to waybar style :
@@ -414,7 +415,7 @@ Simulates MacOS like inertia-scrolling in chrome
 
 ```sudo pacman -S xdg-utils```
 
-**For Photos,Music,Drive use Google services in Chrome, no linux desktop app come close to them in quality**
+**For Photos,Music,Drive use Google services in Chrome, no linux desktop app come close to them in quality and syncing capablities**
 
 **LibreOffice for documents/spreadsheet editing or use Google Docs/Sheets**
 
@@ -493,6 +494,16 @@ If you have a dedicated Nvidia GPU in your machine you can install nvidia-xrun t
 ```
 sudo pacman -S nvidia-xrun openbox
 ```
+
+**using the dedicated GPU (for DOOM 2016 for example)**
+
+go to a different virtual terminal CTRL+ALT+F2
+
+login
+
+```nvidia-xrun openbox```
+
+right click anywhere, go to terninal->open terminal
 
 
 
