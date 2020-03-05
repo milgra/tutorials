@@ -256,6 +256,12 @@ exec swayidle -w \
           before-sleep 'swaylock -f -c 000000'
 ```
 
+add this :
+
+```bindsym $mod+p exec swaylock -i "/usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png" fill```
+
+Now sway will lock screen after 5 mins, switches off display after 10 mins, and with WIN(MAC)+p you can lock your screen manually
+
 **setup language switching**
 
 ```nano ~/.config/sway/config```
