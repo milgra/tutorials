@@ -1,5 +1,5 @@
 # Pretty and functional linux/unix desktop for former Mac users/Design freaks
-Because I switched to this after 15 years of MacOS! :)
+Because I switched to this setup after 15 years of MacOS
 
 ![Image](screenshot1.png)
 ![Image](screenshot2.png)
