@@ -393,9 +393,13 @@ colors:
 
 It you don't like terminal based file managing you can install nautilus or dolphin, the two most advanced GUI file managers for Linux but if you are coming from a Mac you will be crying after a few days using these. Better learn mc.
 
-**install usbmount for automounting**
+**install udisk2 and udiskie for automounting**
 
-```yay -S usbmount```
+```pacman -S udisk2 udiskie```
+
+to unmount all mounted disk type
+
+```udiskie-umount -a```
 
 **install google chrome**
 
@@ -414,6 +418,10 @@ Simulates MacOS like inertia-scrolling in chrome
 **For auto-opening stuff in the proper app use xdg-utils**
 
 ```sudo pacman -S xdg-utils```
+
+**Media browsing**
+
+Use chrome with file:// in the URL field
 
 **For Photos,Music,Drive use Google services in Chrome, no linux desktop app come close to them in quality and syncing capablities**
 
@@ -505,14 +513,19 @@ login
 
 right click anywhere, go to terninal->open terminal
 
+## Part VI : Development
 
+# git credential setup
 
+```
+git config --global user.name "xy"
+git config --global user.email "xy@company.com"
+git config --global credential.helper store
+```
 
+**terminal based emacs**
 
-
-
-
-
+```pacman -S emacs-nox```
 
 **emacs color problem fix in zsh**
 
@@ -520,37 +533,30 @@ edit bash_profile or zshrc and add this line at the end
 
 ```export TERM=xterm-256color```
 
-add theme ( download and copy it to ~/.emacs.d , in emacs customize-themes )
+add theme ( download and copy it to ~/.emacs.d , in emacs ALT+X and type customize-themes )
 
-moe-light-theme https://github.com/bbatsov/solarized-emacs
+I use moe-light-theme https://github.com/bbatsov/solarized-emacs
 
+**if you are a Visual Studio Code, IntelliJ, Atom or Sublime fan get them from AUR with yay**
 
-# chromium scroll glitching fix
-
-
-
-# java 8 for clojure/datomic, emacs without x, clojure
+**java 8 for clojure/datomic, clojure and leiningen**
 
 ```
- sudo pacman -S jdk8-openjdk clojure emacs-nox leiningen
- sudo pacman -S unzip
- download emacs config from github.com/milgra/linuxconfig
+ sudo pacman -S jdk8-openjdk clojure leiningen
 ```
- 
- 
 
-# npm
+**npm**
 
 ```
 sudo pacman -S npm
 sudo npm install -g shadow-cljs
 ```
 
-# datomic
+**datomic**
 
 download from my.datomic.com/account with wget
 
-peer library :
+to make leining auto-download the peer library gnupg is needed
 
 ```sudo pacman -S gnupg```
 
@@ -571,19 +577,6 @@ check validity
 ```gpg --quiet --batch --decrypt ~/.lein/credentials.clj.gpg```
 
 now leiningen can download the peer library for a project on request
-	
-# media browser
 
-```chrome file://```
-
-# git credential setup
-
-```
-git config --global user.name "dzou"
-git config --global user.email "dzou@company.com"
-git config --global credential.helper store
-```
-
-
-# steam?
-
+TODO
+# chromium scroll glitching fix?
