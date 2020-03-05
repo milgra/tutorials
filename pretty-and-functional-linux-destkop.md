@@ -236,7 +236,7 @@ fi
 
 and now after restart and login you hop in sway
 
-**setup idle, lock, sleep***
+**setup idle, lock, sleep**
 
 install swaylock and swayidle
 
@@ -277,9 +277,9 @@ input "1165:49408:ITE_Tech._Inc._ITE_Device(8910)_Keyboard" {
     	repeat_delay 250
 }
 ```
+Now you can switch languages with ALT+SPACE
 
 this also increases key repeat rate so I can scroll faster in source code's
-switch languages with ALT+SPACE
 
 **wifi channel selector**
 
