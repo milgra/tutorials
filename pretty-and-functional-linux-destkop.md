@@ -23,7 +23,7 @@ at install hardware drivers part install display drivers
 
 reboot
 
-# startup
+# reaching basic functionality
 
 **start network/wifi service**
 
@@ -57,6 +57,8 @@ press WIN(MAC) + numbers to switch desktops
 press WIN(MAC) + SHIFT + numbers to move window to another desktop
 
 press WIN(MAC) + r to resize window
+
+press WIN(MAC) + v or h to decide to place next window in a horizontal or vertical split
 
 # quick setup
 
