@@ -429,6 +429,12 @@ It you don't like terminal based file managing you can install nautilus or dolph
 
 ```pacman -S udisk2 udiskie```
 
+to mount all disks, type
+
+```udiskie &```
+
+mounted volumes will be available under /run/media
+
 to unmount all mounted disk type
 
 ```udiskie-umount -a```
