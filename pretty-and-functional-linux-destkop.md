@@ -107,7 +107,7 @@ bar {
      ...
 ```
 
-exit nano then press WIN(MAC) + SHIFT + C to reload sway config
+save and exit nano then press WIN(MAC) + SHIFT + C to reload sway config
 and now you have waybar at the top of the screen
 
 **setup display brightness control**
