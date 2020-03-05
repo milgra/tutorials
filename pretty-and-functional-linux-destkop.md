@@ -559,7 +559,13 @@ login
 
 right click anywhere, go to terninal->open terminal
 
-for OpenGL games, launch steam, for Vulkan games, type
+for OpenGL games, launch steam, 
+
+for Vulkan games, install
+
+```sudo pacman -S vulkan-icd-loader lib32-vulkan-icd-loader```
+
+and run steam with
 
 ```VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/intel_icd.x86_64.json:/usr/share/vulkan/icd.d/nvidia_icd.json steam```
 
