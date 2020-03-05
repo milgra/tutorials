@@ -1,36 +1,38 @@
-# Pretty and functional linux desktop for former Mac users and design freaks
+# Pretty and functional linux/unix desktop for former Mac users and design freaks
 
 ![Image](screenshot1.png)
 ![Image](screenshot2.png)
 
-Can we push minimalism to the limit? Of course we can! We will install a minimal linux distro with a tiling window manager for the smallest disk/memory footprint as possible ( because that memory is needed for the dev tools! :) ) but we will also make it comfortable for everyday use ( wifi selector, bluetooth selector, audio control, lock/idle/sleep, etc )
+Can we push minimalism to the limit? Of course we can! We will install a minimal linux distro with a tiling window manager for the smallest disk/memory footprint as possible ( because that memory is needed for the dev tools! :) ) but we will also make it comfortable for everyday use ( wifi selector, audio controls, productivity apps, gaming ready, lock/idle/sleep, etc).
 
-# install
+It is targeted on Manjaro Linux but these programs can be installed on every major linux/unix distribution with strong community support, the only thing you have to know the distro specific package manager which is pacman on Manjaro Linux.
 
-( https://forum.manjaro.org/t/installation-with-manjaro-architect-iso/20429 )
+## Part I : Reaching basic functionality
 
-download Manjaro architect and burn it to some external media
+**install**
+
+download [Manjaro Architect](https://manjaro.org/download/official/architect/) and burn it to some external media
 
 boot up the machine from it
 
-select default settings for everything
+we are going for the command line interface ( CLI ) system
 
-install cli system
+select default settings for everything
 
 at install custom pacakages part : select network manager, we will need it for connecting to a wifi after startup
 
 at install hardware drivers part install display drivers
 
+check out the detailed howto if you are lost :
+
+( https://forum.manjaro.org/t/installation-with-manjaro-architect-iso/20429 )
+
 reboot
 
-# reaching basic functionality
+**enable and start network/wifi service**
 
-**start network/wifi service**
-
-
-```sudo systemct enable network manager```
-
-( start ? )
+```sudo systemct enable NetworkManager```
+```sudo systemct start NetworkManager```
 
 **connect to your wifi**
 
@@ -48,9 +50,11 @@ reboot
 
 ```sway```
 
-press WIN(MAC) + ENTER to open terminal
+And we have a basic desktop. Feel fry to experiment with it, the most used shortucts are :
 
-press WIN(MAC) + D to open dmenu and start typing to launch something
+press WIN(MAC) + ENTER to open the terminal
+
+press WIN(MAC) + D to open dmenu and start typing program names to launch something
 
 press WIN(MAC) + numbers to switch desktops
 
@@ -60,43 +64,9 @@ press WIN(MAC) + r to resize window
 
 press WIN(MAC) + v or h to decide to place next window in a horizontal or vertical split
 
-# quick setup
+## Part II : Extending functionality
 
-If you don't want to do the following step by step ( because you already did! :) ), just download this repo and copy the contents into your home folder. Then execute the following commands :
-
-sudo pacman -S yay
-yay -S google-chrome simplenote mailspring ocenaudio ...  coming soon
-
-# google chrome
-
-**install AUR package manager**
-
-```sudo pacman -S yay```
-
-**install google chrome**
-
-```yay -S google-chrome```
-
-# copy default sway and waybar configs
-
-```
-mkdir .config/sway 
-mkdir .config/waybar
-cp /etc/xdg/waybar/* ~/.config/waybar
-cp /etc/sway/config ~/.config/sway
-```
-
-# display brightness control
-
-install light
-
-```sudo pacman -S light```
-
-set execution permissions to user for backlight
-
-```sudo chmod a+w /sys/class/backlight/intel_backlight/brightness```
-
-we will edit config files with nano. nano shortcuts :
+In this chapter we will edit config files with nano. The used nano shortucts are :
 
 CTRL + O write file
 
@@ -110,33 +80,61 @@ CTRL + K cut
 
 CTRL + U uncut
 
-add shortcuts to sway and waybar config
+**first copy default sway and waybar configs under your home folder's config folder**
+
+```
+mkdir ~/.config/sway 
+mkdir ~/.config/waybar
+cp /etc/xdg/waybar/* ~/.config/waybar/
+cp /etc/sway/config ~/.config/sway/
+```
+
+**setup display brightness control**
+
+install light for brightness handling
+
+```sudo pacman -S light```
+
+try it 
+
+```light -A 10```
+
+if it's not working then your GPU's manufacturer made GPU utils root only so you have to modify permissions.
+in my case ( which is an integrated intel GPU ) : 
+
+```sudo chmod a+w /sys/class/backlight/intel_backlight/brightness```
+
+add brightness shortcuts to sway and waybar config
 
 ```
 nano ~/.config/sway/config
-
+```
+insert these lines at the bottom
+```
 bindsym XF86MonBrightnessUp exec light -A 5    # increase screen brightness
 bindsym XF86MonBrightnessDown exec light -U 5  # decrease screen brightness
 
 nano ~/.config/waybar/config
-
+```
+insert these lines at the bottom
+```
 "backlight": {
 "on-scroll-up" : "light -A 5",
 "on-scroll-down" : "light -U 5"
 }
 ```
 
-press WIN(MAC) + SHIFT + C to reload sway config
+exit nano then press WIN(MAC) + SHIFT + C to reload sway config
 
 now you can control display brightness with the brightness keys on the keyboard and by moving over the display brightness block on swaybar and scroll up/down
 
-# volume control
+**setup volume control**
 
 install pulseaudio and alsa
 
 ```sudo pacman -S pulseaudio alsa-utils```
 
-this enables and starts alsa service and installs handy utils
+this enables and starts alsa service and installs handy utils. launch alsamixer
 
 ```alsamixer```
 
@@ -146,7 +144,9 @@ add shortcuts to sway and waybar config
 
 ```
 nano ~/.config/sway/config
-
+```
+add these lines
+```
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
@@ -158,23 +158,25 @@ now you can control volume with the volume keys on the keyboard and by moving ov
 
 ```nano ~/.config/waybar/config```
 
-add this to pulseaudio :
+add this to pulseaudio module :
 
 ```"on-click": "swaymsg exec '$term -e alsamixer'"```
 
-so on click it will bring up alsamixer for deeper control
+so on click it will bring up alsamixer TUI for deeper control
 
 to fix bluetooth audio problems ( shown by systemctl --user status pulseaudio )
 
 ```systemctl enable bluetooth.service to get rid of error in systemctl```
 
-# touchpad tweaks
+**setup touchpad**
 
 get your touchpad's hardware id
 
 ```
 libinput -list-devices
-
+```
+edit sway config and add these lines
+```
 nano ~/.config/sway/config
 
 ** enable tap and natural scroll **
@@ -186,7 +188,9 @@ input 1739:52575:MSFT0001:01_06CB:CD5F_Touchpad accel_profile flat
 input 1739:52575:MSFT0001:01_06CB:CD5F_Touchpad pointer_accel 0
 ```
 
-# autostart sway
+**setup sway autostart**
+
+edit your shell's profile
 
 ```nano ~/.bash_profile```
 
@@ -202,11 +206,13 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
 fi
 ```
 
-# idle, lock, sleep
+**setup idle, lock, sleep***
 
 install swaylock and swayidle
 
 ```sudo pacman -S swaylock swayidle```
+
+edit sway config
 
 ```nano ~/.config/sway/config```
 
@@ -220,7 +226,7 @@ exec swayidle -w \
           before-sleep 'swaylock -f -c 000000'
 ```
 
-# language switching
+**setup language switching**
 
 ```nano ~/.config/sway/config```
 
@@ -236,13 +242,20 @@ input "1165:49408:ITE_Tech._Inc._ITE_Device(8910)_Keyboard" {
 }
 ```
 
-# wifi selector
+this also increases key repeat rate so I can scroll faster in source code's
+switch languages with ALT+SPACE
+
+**wifi channel selector**
+
+edit waybar
 
 ```nano ~/.config/waybar/config```
 
 add this to network :
 
 ```"on-click": "swaymsg exec '$term -e nmtui-connect'"```
+
+so if you click on the network block it will pops up the network selector in a terminal
 
 # sway pimping
 
@@ -352,6 +365,16 @@ colors:
 add theme ( download and copy it to ~/.emacs.d , in emacs customize-themes )
 
 moe-light-theme https://github.com/bbatsov/solarized-emacs
+
+
+**install AUR package manager for user produced packages like chrome, spotify, skype, mailspring, simplenote, etc**
+
+```sudo pacman -S yay```
+
+**install google chrome**
+
+```yay -S google-chrome```
+
 
 # mailspring
 
