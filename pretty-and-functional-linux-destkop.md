@@ -50,7 +50,7 @@ reboot
 
 ```sway```
 
-And we have a basic desktop. Feel fry to experiment with it, the most used shortucts are :
+And we have a basic desktop. Feel free to experiment with it, the commonly used shortucts are :
 
 press WIN(MAC) + ENTER to open the terminal
 
@@ -269,6 +269,25 @@ edit waybar config and modify the top line
 
 ```"layer": "bottom"```
 
+**screenshot and screen grabbing**
+
+install grim, slurp
+```
+sudo pacman -S grim slurp 
+```
+
+edit sway config :
+
+```
+set $screenshot grim ~/Downloads/scrn-$(date +"%Y-%m-%d-%H-%M-%S").png
+set $screenclip slurp | grim -g - ~/Downloads/scrn-$(date +"%Y-%m-%d-%H-%M-%S").png
+
+bindsym $mod+Print exec $screenshot
+bindsym $mod+Shift+Print exec $screenclip
+```
+
+Now you can create a screenshot or region shot with WIN(MAC)+PrintScreen and WIN(MAC)+Shift+PrintScreen
+
 ## Part III : Customizing the desktop
 
 install ubuntu font
@@ -345,6 +364,7 @@ add disk icon to disk module:
 
 **alacritty**
 
+edit config
 ```
 nano ~/.config/alacritty/alacritty.yml
 ```
@@ -360,9 +380,132 @@ colors:
 	bright_foreground: '0x6a6a6a'
 ```
 
-# emacs color problem fix in zsh
+## Part IV : Productivity apps
 
-.zshrc
+**install AUR package manager for user produced packages**
+
+```sudo pacman -S yay```
+
+**install midnight commander for managing files**
+
+```sudo pacman -S mc```
+
+It you don't like terminal based file managing you can install nautilus or dolphin, the two most advanced GUI file managers for Linux but if you are coming from a Mac you will be crying after a few days using these. Better learn mc.
+
+**install usbmount for automounting**
+
+```yay -S usbmount```
+
+**install google chrome**
+
+```yay -S google-chrome```
+
+Open chrome and install the following extensions :
+
+**Open-as-Popup**
+
+You can open a page in a tab-barless window and they will look like desktop apps. I use it for Google Music, Google Drive, messenger.com, Google Photos, etc
+
+**Chromium Wheel Smooth Scroller**
+
+Simulates MacOS like inertia-scrolling in chrome
+
+**For auto-opening stuff in the proper app use xdg-utils**
+
+```sudo pacman -S xdg-utils```
+
+**For Photos,Music,Drive use Google services in Chrome, no linux desktop app come close to them in quality**
+
+**LibreOffice for documents/spreadsheet editing or use Google Docs/Sheets**
+
+```sudo pamcan -S libreoffice```
+
+**Gimp for photo editing/Gfx**
+
+```sudo pacman -S gimp```
+
+**Kdenlive for video editing**
+
+```sudo pacman -S kdenlive```
+
+**Ocenaudio for audio editing**
+
+```yay -S ocenaudio```
+
+**Skype for conferencing or use duo/hangouts**
+
+```yay -S skype```
+
+**Mailspring for emails or use gmail in chrome**
+
+```yay -S mailspring gnome-keyring```
+
+at first startup gnome-keyring asks for a password, leave it blank, no other apps will use it
+
+**Simplenote for notes or use some online stuff**
+
+```yay -S simplenote```
+
+**bluetooth audio**
+
+there are plenty of bluetooth controllers, if you want a GUI one try blueman :
+
+```sudo pacman -S blueman```
+
+If you want a CLI one, try bluez. Someone should write a TUI for it like nmtui.
+
+```sudo pacman -S bluez bluez-utils```
+
+**connect to bluetooth headset**
+
+start bluetoothctl
+
+```bluetoothctl```
+
+[bluetooth]# power on
+[bluetooth]# agent on
+[bluetooth]# default-agent
+[bluetooth]# scan on
+
+Now make sure that your headset is in pairing mode. It should be discovered shortly. For example,
+
+[NEW] Device 00:1D:43:6D:03:26 Lasmex LBT10
+
+[bluetooth]# pair 00:1D:43:6D:03:26
+[bluetooth]# connect 00:1D:43:6D:03:26
+
+If you are getting a connection error org.bluez.Error.Failed retry by killing existing PulseAudio daemon first:
+$ pulseaudio -k
+[bluetooth]# connect 00:1D:43:6D:03:26
+If everything works correctly, you now have a separate output device in PulseAudio.
+
+[bluetooth]# scan off
+[bluetooth]# exit
+
+## Part V : Gaming
+
+**Steam**
+
+```
+yay -S steam
+```
+If you have a dedicated Nvidia GPU in your machine you can install nvidia-xrun to switch to that GPIU when gaming. OpenBox is also needed because nvidia-xrun has to be opened on a different virtual console.
+```
+sudo pacman -S nvidia-xrun openbox
+```
+
+
+
+
+
+
+
+
+
+
+**emacs color problem fix in zsh**
+
+edit bash_profile or zshrc and add this line at the end
 
 ```export TERM=xterm-256color```
 
@@ -371,52 +514,9 @@ add theme ( download and copy it to ~/.emacs.d , in emacs customize-themes )
 moe-light-theme https://github.com/bbatsov/solarized-emacs
 
 
-**install AUR package manager for user produced packages like chrome, spotify, skype, mailspring, simplenote, etc**
-
-```sudo pacman -S yay```
-
-**install google chrome**
-
-```yay -S google-chrome```
-
-
-# mailspring
-
-```yay -S mailspring gnome-keyring```
-
-at first startup gnome-keyring asks for a password, leave it blank, no other apps will use it
-
-# simplenote
-
-```yay -S simplenote```
-
-# auto-open stuff in proper app
-
-```sudo pacman -S xdg-utils```
-
-
 # chromium scroll glitching fix
 
 
-# screenshot and screen grab
-
-```
-sudo pacman -S grim slurp 
-
-yay -S wf-recorder
-```
-
-sway config :
-
-```
-set $screenshot grim ~/Downloads/scrn-$(date +"%Y-%m-%d-%H-%M-%S").png
-set $screenclip slurp | grim -g - ~/Downloads/scrn-$(date +"%Y-%m-%d-%H-%M-%S").png
-set $screengrab wf-recorder -o~/Downloads/grab-$(date +"%Y-%m-%d-%H-%M-%S").mp4
-
-bindsym $mod+Print exec $screenshot
-bindsym $mod+Shift+Print exec $screenclip
-bindsym $mod+Alt+Print exec $screengrab
-```
 
 # java 8 for clojure/datomic, emacs without x, clojure
 
@@ -426,18 +526,7 @@ bindsym $mod+Alt+Print exec $screengrab
  download emacs config from github.com/milgra/linuxconfig
 ```
  
-# midnight commander for files
  
- the two big file managers, nautilus and kde are both terrible compared to a mac experince so better forget them
- 
-```sudo pacman -S mc```
- 
-# mounting usb drives
-
-```
-sudo mkdir /mnt/external
-sudo mount /dev/sda /mnt/external
-```
 
 # npm
 
@@ -484,60 +573,6 @@ git config --global user.email "dzou@company.com"
 git config --global credential.helper store
 ```
 
-# chrome extensions
-
-Open-as-Popup
-
-Chromium Wheel Smooth Scroller
-
-AdBlock — best ad blocker
 
 # steam?
 
-# bluetooths
-
-sudo pacman -S bluez bluez-utils
-
-/etc/pulse/default.pa
-
-# automatically switch to newly-connected devices
-
-load-module module-switch-on-connect
-
-bluetoothctl
-
-[bluetooth]# power on
-[bluetooth]# agent on
-[bluetooth]# default-agent
-[bluetooth]# scan on
-
-Now make sure that your headset is in pairing mode. It should be discovered shortly. For example,
-
-[NEW] Device 00:1D:43:6D:03:26 Lasmex LBT10
-
-[bluetooth]# pair 00:1D:43:6D:03:26
-[bluetooth]# connect 00:1D:43:6D:03:26
-
-If you are getting a connection error org.bluez.Error.Failed retry by killing existing PulseAudio daemon first:
-$ pulseaudio -k
-[bluetooth]# connect 00:1D:43:6D:03:26
-If everything works correctly, you now have a separate output device in PulseAudio.
-
-[bluetooth]# scan off
-[bluetooth]# exit
-
-# steam
-
-yay -S steam
-
-sudo pacman -S nvidia-xrun openbox
-
-# productivity/media tools
-
-sudo pacman -S libreoffice gimp kdenlive
-
-yay -S ocenaudio 4Kvideodownloader
-
-yay -S skype
-
-# pimp gnome/kde applications
