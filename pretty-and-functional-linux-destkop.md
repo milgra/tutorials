@@ -80,13 +80,15 @@ CTRL + K cut
 
 CTRL + U uncut
 
-**first copy default sway and waybar configs under your home folder's config folder**
+**first copy default sway, waybar and alacritty configs under your home folder's config folder**
 
 ```
-mkdir ~/.config/sway 
-mkdir ~/.config/waybar
+mkdir -p ~/.config/sway 
+mkdir -p ~/.config/waybar
+mkdir -p ~/.config/alacritty
 cp /etc/xdg/waybar/* ~/.config/waybar/
 cp /etc/sway/config ~/.config/sway/
+cp /usr/share/doc/alacritty/example/alacritty.yml ~/.config/alacritty
 ```
 
 **setup display brightness control**
@@ -206,6 +208,8 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
 fi
 ```
 
+and now after restart and login you hop in sway
+
 **setup idle, lock, sleep***
 
 install swaylock and swayidle
@@ -257,34 +261,50 @@ add this to network :
 
 so if you click on the network block it will pops up the network selector in a terminal
 
-# sway pimping
+**setup dmenu to show up over waybar**
+
+edit waybar config and modify the top line
+
+```nano ~/.config/waybar/config```
+
+```"layer": "bottom"```
+
+## Part III : Customizing the desktop
+
+install ubuntu font
+
+```sudo pacman -S ttf-ubuntu-font-family```
+
+**sway**
 
 add these to sway config :
 
+```nano ~/.config/sway/config```
+
 ```
 **gaps**
-gaps inner 5
-gaps top -10
+gaps inner 3
 
 **borders**
 default_border pixel 1
 default_floating_border pixel 1
 ```
+**waybar**
 
-# waybar pimp
-
-dark transparent background
+add these to waybar style :
 
 ```nano ~/.config/waybar/style.css```
 
-modify window#waybar :
+modify window#waybar class:
 
 ```
 background-color: rgba(0,0,0,0.2);
 /* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
+font-family: Ubuntu;
+font-size: 15px;
 ```
 
-modify common block css, modify color, border and add disk :
+modify common block css, add disk, modify color, border :
 
 ```
 #clock,
@@ -301,47 +321,31 @@ modify common block css, modify color, border and add disk :
 #disk,
 #idle_inhibitor,
 #mpd {
-    padding: 0 10px 0 10px;
+    padding: 0 5px;
+    padding-top: 3px;
     margin: 0 4px;
     color: #ffffff;
-    border-bottom:3px solid #ffffff;
+    border-bottom: 3px solid #ffffff;    
 }
 ```
 
-delete background colors from all individual block css's ( CTRL-K in nano )
+delete background colors from all individual block classes ( CTRL-K in nano )
 
 ```nano ~/.config/waybar/config```
 
-remove unnecessary symbols from blocks
+remove unnecessary symbols from block formats, bring icons to the left of the labels and optionally rearrange them
 
-rearrange blocks
-
-add disk icon :
+add disk icon to disk module:
 
 ```
 "disk":{
-     "format":"{percentage_free}%  "
+    "format":"  {percentage_free}% "
 },
 ```
 
-and bring icons to the left of the labels
-
-check everything out in my final config
-
-# dmenu over waybar
-
-waybar config :
-
-```"layer": "bottom", // Waybar at top layer```
-
-
-# alacritty
+**alacritty**
 
 ```
-mkdir -p ~/.config/alacritty
-
-cp /usr/share/doc/alacritty/example/alacritty.yml ~/.config/alacritty
-
 nano ~/.config/alacritty/alacritty.yml
 ```
 
