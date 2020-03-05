@@ -632,4 +632,4 @@ check validity
 
 now leiningen can download the peer library for a project on request
 
-## And now enjoy your new desktop! :)
+## And now enjoy your new desktop! Feel free to send me bugfixes, clarifications, extensions and other stuff in pull requests.
