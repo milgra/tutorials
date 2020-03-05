@@ -632,5 +632,4 @@ check validity
 
 now leiningen can download the peer library for a project on request
 
-TODO
-# chromium scroll glitching fix?
+## And now enjoy your new desktop! :)
