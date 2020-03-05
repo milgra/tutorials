@@ -58,6 +58,13 @@ press WIN(MAC) + SHIFT + numbers to move window to another desktop
 
 press WIN(MAC) + r to resize window
 
+# quick setup
+
+If you don't want to do the following step by step ( because you already did! :) ), just download this repo and copy the contents into your home folder. Then execute the following commands :
+
+sudo pacman -S yay
+yay -S google-chrome simplenote mailspring ocenaudio ...  coming soon
+
 # google chrome
 
 **install AUR package manager**
@@ -66,7 +73,7 @@ press WIN(MAC) + r to resize window
 
 **install google chrome**
 
-```yay S google-chrome```
+```yay -S google-chrome```
 
 # copy default sway and waybar configs
 
@@ -501,3 +508,7 @@ sudo pacman -S nvidia-xrun openbox
 sudo pacman -S libreoffice gimp kdenlive
 
 yay -S ocenaudio 4Kvideodownloader
+
+yay -S skype
+
+# pimp gnome/kde applications
