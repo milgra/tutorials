@@ -567,6 +567,14 @@ if it is still not working check out my post on manjaro forums :
 
 https://forum.manjaro.org/t/running-doom-and-other-vulkan-based-games-on-nvidia-intel-hybrid-gpu-mode/111629
 
+playing windows games ( like DOOM 2016 )
+
+Steam App -> Settings -> Steam Play 
+
+Enable Steam Play for all titles
+
+Restart
+
 ## Part VI : Development
 
 **git credential setup**
