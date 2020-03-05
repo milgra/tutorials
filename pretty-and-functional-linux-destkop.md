@@ -1,7 +1,7 @@
 # Pretty and functional linux desktop for former Mac users and design freaks
 
-![Image](screenshot2.png)
 ![Image](screenshot1.png)
+![Image](screenshot2.png)
 
 Can we push minimalism to the limit? Of course we can! We will install a minimal linux distro with a tiling window manager for the smallest disk/memory footprint as possible ( because that memory is needed for the dev tools! :) ) but we will also make it comfortable for everyday use ( wifi selector, bluetooth selector, audio control, lock/idle/sleep, etc )
 
