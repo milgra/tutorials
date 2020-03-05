@@ -35,6 +35,7 @@ reboot
 **enable and start network/wifi service**
 
 ```sudo systemct enable NetworkManager```
+
 ```sudo systemct start NetworkManager```
 
 **connect to your wifi**
