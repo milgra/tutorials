@@ -2,8 +2,9 @@
     border: none;
     border-radius: 0;
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: Roboto, Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    /*font-family: Roboto, Helvetica, Arial, sans-serif;*/
+    font-family: Ubuntu;
+    font-size: 15px;
     min-height: 0;
 }
 
@@ -38,7 +39,7 @@ window#waybar.chromium {
 }
 
 #workspaces button {
-    padding: 0 5px;
+    padding: 0 5px; 
     background-color: transparent;
     color: #ffffff;
     border-bottom: 3px solid transparent;
@@ -79,6 +80,7 @@ window#waybar.chromium {
 #idle_inhibitor,
 #mpd {
     padding: 0 5px;
+    padding-top: 3px;
     margin: 0 4px;
     color: #ffffff;
     border-bottom: 3px solid #ffffff;

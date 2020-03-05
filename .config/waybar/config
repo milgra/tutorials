@@ -80,7 +80,7 @@
         // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
         "critical-threshold": 80,
         // "format-critical": "{icon} {temperatureC}°C",
-        "format": "{temperatureC}°C",
+        "format": " {temperatureC}°C",
         "format-icons": ["", "", ""]
     },
     "disk":{
@@ -116,7 +116,7 @@
         "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        //"format-alt": "{ifname}: {ipaddr}/{cidr}",
 	"on-click": "swaymsg exec '$term -e nmtui-connect'"
     },
     "pulseaudio": {

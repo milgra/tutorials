@@ -36,10 +36,12 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 # Example configuration:
 #
 exec swayidle -w \
-          timeout 300 'swaylock -f -c 000000' \
-          timeout 600 'swaymsg "output * dpms off"' \
+          timeout 600 'swaylock -f -c 000000' \
+          timeout 1200 'swaymsg "output * dpms off"' \
                resume 'swaymsg "output * dpms on"' \
           before-sleep 'swaylock -f -c 000000'
+
+bindsym $mod+p exec swaylock -i "/usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png" fill
 
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -235,7 +237,6 @@ input 1739:52575:MSFT0001:01_06CB:CD5F_Touchpad pointer_accel 0
 
 # gaps
 gaps inner 3
-gaps top 0
 
 # borders
 default_border pixel 1
