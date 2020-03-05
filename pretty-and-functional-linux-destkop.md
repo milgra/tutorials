@@ -1,4 +1,4 @@
-# Pretty and functional linux/unix desktop for former Mac users/Design freaks
+# Pretty and functional linux/unix desktop for former Mac users/Design freaks - a step by step tutorial
 Because I switched to this setup after 15 years of MacOS
 
 ![Image](screenshot1.png)
