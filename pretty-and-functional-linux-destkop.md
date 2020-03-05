@@ -569,7 +569,7 @@ https://forum.manjaro.org/t/running-doom-and-other-vulkan-based-games-on-nvidia-
 
 ## Part VI : Development
 
-# git credential setup
+**git credential setup**
 
 ```
 git config --global user.name "xy"
