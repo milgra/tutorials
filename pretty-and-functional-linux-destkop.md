@@ -48,7 +48,7 @@ reboot
 
 **install default sway terminal and launcher**
 
-```sudo pacman -S dmenu alacrity```
+```sudo pacman -S dmenu alacritty```
 
 **start sway**
 
