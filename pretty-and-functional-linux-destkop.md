@@ -344,6 +344,19 @@ bindsym $mod+Shift+Print exec $screenclip
 
 Now you can create a screenshot or region shot with WIN(MAC)+PrintScreen and WIN(MAC)+Shift+PrintScreen
 
+**bind google chrome and other programs to shortucts**
+
+terminal is binded to WIN(MAC)+ENTER by default
+
+let's bind chrome the second most used app to a key combo also for quick launch, and that will be WIN(MAC) + c
+```
+nano ~/.config/sway/config
+```
+
+add this :
+
+```bindsym $mod+c exec google-chrome-stable --new-window```
+
 ## Part III : Customizing the desktop
 
 install ubuntu font
