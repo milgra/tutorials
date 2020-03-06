@@ -48,7 +48,7 @@ reboot
 
 **install default sway terminal and launcher**
 
-```sudo pacman -S dmenu alacrity```
+```sudo pacman -S dmenu alacritty```
 
 **start sway**
 
@@ -236,7 +236,7 @@ fi
 
 and now after restart and login you hop in sway
 
-**setup idle, lock, sleep***
+**setup idle, lock, sleep**
 
 install swaylock and swayidle
 
@@ -277,9 +277,9 @@ input "1165:49408:ITE_Tech._Inc._ITE_Device(8910)_Keyboard" {
     	repeat_delay 250
 }
 ```
+now you can switch languages with ALT+SPACE
 
 this also increases key repeat rate so I can scroll faster in source code's
-switch languages with ALT+SPACE
 
 **wifi channel selector**
 
@@ -339,6 +339,15 @@ gaps inner 3
 **borders**
 default_border pixel 1
 default_floating_border pixel 1
+
+**colors**
+# class                 border    backgr.   text    indicator   child_border
+client.focused          #0000002F #FFFFFFFF #000000 #0000002F   #0000002F
+client.focused_inactive #0000002F #FFFFFFFF #000000 #0000002F   #0000002F
+client.unfocused        #0000002F #FFFFFFFF #888888 #0000002F   #0000002F
+client.urgent           #0000002F #FFFFFFFF #000000 #0000002F   #0000002F
+client.placeholder      #0000002F #FFFFFFFF #000000 #0000002F   #0000002F
+client.background       #ffffff
 ```
 
 **waybar**
@@ -350,10 +359,13 @@ add these to waybar style :
 modify window#waybar class:
 
 ```
-background-color: rgba(0,0,0,0.2);
-/* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
-font-family: Ubuntu;
-font-size: 15px;
+window#waybar {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    color: #ffffff;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
 ```
 
 modify common block css, add disk, modify color, border :
@@ -544,12 +556,32 @@ If everything works correctly, you now have a separate output device in PulseAud
 ```
 yay -S steam
 ```
+If you have a single GPU in your machine you don't need anything else.
+
+**If you want to play windows games**
+
+Steam Menu -> Settings -> Steam Play 
+
+Enable Steam Play for all titles
+
+Select the latest Proton
+
+Restart
+
+**for Vulkan games, you may have to install**
+
+```sudo pacman -S vulkan-icd-loader lib32-vulkan-icd-loader```
+
+and run steam with
+
+```VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/intel_icd.x86_64.json:/usr/share/vulkan/icd.d/nvidia_icd.json steam```
+
+**using the dedicated GPU (for DOOM 2016 for example)**
+
 If you have a dedicated Nvidia GPU in your machine you can install nvidia-xrun to switch to that GPIU when gaming. OpenBox is also needed because nvidia-xrun has to be opened on a different virtual console.
 ```
 sudo pacman -S nvidia-xrun openbox
 ```
-
-**using the dedicated GPU (for DOOM 2016 for example)**
 
 go to a different virtual terminal CTRL+ALT+F2
 
@@ -559,9 +591,6 @@ login
 
 right click anywhere, go to terninal->open terminal
 
-for OpenGL games, launch steam, for Vulkan games, type
-
-```VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/intel_icd.x86_64.json:/usr/share/vulkan/icd.d/nvidia_icd.json steam```
 
 if it is still not working check out my post on manjaro forums : 
 
@@ -632,4 +661,4 @@ check validity
 
 now leiningen can download the peer library for a project on request
 
-## And now enjoy your new desktop! :)
+## And now enjoy your new desktop! Feel free to send me bugfixes, clarifications, extensions and other stuff in pull requests.
