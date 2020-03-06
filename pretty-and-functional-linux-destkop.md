@@ -46,6 +46,8 @@ reboot
 
 ```sudo pacman -S sway waybar xorg-server-xwayland wayland-protocols```
 
+it pacman asks which font package should be used, select Google Roboto
+
 **install default sway terminal and launcher**
 
 ```sudo pacman -S dmenu alacritty```
