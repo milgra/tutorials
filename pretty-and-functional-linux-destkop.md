@@ -68,6 +68,8 @@ press WIN(MAC) + r to resize window
 
 press WIN(MAC) + v or h to decide to place next window in a horizontal or vertical split
 
+press WIN(MAC) + SHIFT + SPACE to make window floating & draggable
+
 ## Part II : Extending functionality
 
 In this chapter we will edit config files with nano. The used nano shortucts are :
