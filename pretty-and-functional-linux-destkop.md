@@ -283,6 +283,28 @@ now you can switch languages with ALT+SPACE
 
 this also increases key repeat rate so I can scroll faster in source code's
 
+let's show keyboard state in waybar
+
+```nano ~/config/waybar/config```
+
+add a custom module at the bottom
+
+```
+    "custom/lang": {
+        "format": " {}",
+        "exec" : "swaymsg -t get_inputs | grep -A 9 'ITE Tech. Inc. ITE Device(8910) Keyboard' | tail -1 | cut -c33,34",
+        "interval": 10
+    }
+ ```
+ 
+ you may have to modift the grep lookup string to your keyboard's device id, check it with ```swaymsg -t get_inputs```
+ 
+ and add it to modules 
+ 
+ ```
+ "modules-right": ["idle_inhibitor", "disk", "temperature", "cpu", "memory","battery", "backlight", "pulseaudio", "network", "custom/lang", "clock"],
+ ```
+
 **wifi channel selector**
 
 edit waybar
@@ -370,7 +392,7 @@ window#waybar {
 }
 ```
 
-modify common block css, add disk, modify color, border :
+modify common block css, add disk, custom-lang, modify color, border :
 
 ```
 #clock,
@@ -426,6 +448,29 @@ colors:
 	dim_foreground: '0x9a9a9a'
 	bright_foreground: '0x6a6a6a'
 ```
+
+**setup auto starting applications**
+
+```nano ~/.config/sway/config```
+
+add these line
+
+```
+assign [class="Google-chrome" instance="messenger.com"] workspace 1
+assign [class="Google-chrome" instance="music.google.com"] workspace 2
+assign [class="Google-chrome" title="^.*Google Play Music$"] workspace 2
+assign [class="Mailspring"] workspace 1
+assign [class="Simplenote"] workspace 2
+exec google-chrome-stable --new-window --app=https://www.messenger.com
+exec google-chrome-stable --new-window --app=https://music.google.com
+exec mailspring
+exec simplenote
+```
+
+after startup a google chrome window with messenger.com without tab bar will open up in workspace 1 and mailspring will also open up next to that window
+
+on workspace 2 google music and simplenote will open up. note that you can use perl regular expressions to grab a part of the title or any property
+
 
 ## Part IV : Productivity apps
 
