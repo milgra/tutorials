@@ -34,9 +34,9 @@ reboot
 
 **enable and start network/wifi service**
 
-```sudo systemct enable NetworkManager```
+```sudo systemctl enable NetworkManager```
 
-```sudo systemct start NetworkManager```
+```sudo systemctl start NetworkManager```
 
 **connect to your wifi**
 
@@ -199,6 +199,10 @@ so on click it will bring up alsamixer TUI for deeper control
 to fix bluetooth audio problems ( shown by systemctl --user status pulseaudio )
 
 ```systemctl enable bluetooth.service to get rid of error in systemctl```
+
+**media controls**
+
+if you are using google music in chrome then media keys will work out of the box if you are over a chrome window. if you are using some other software you have to bind the media keys like with volume keys
 
 **setup touchpad**
 
