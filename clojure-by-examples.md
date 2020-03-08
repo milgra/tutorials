@@ -62,8 +62,8 @@ or
 
 let's create a new map based on this map replacing key1
 
-(assoc {:key0 "something" :key1 "anything"} :key1 "nothing")
+```(assoc {:key0 "something" :key1 "anything"} :key1 "nothing")```
 
 let's create a new map based on this map with "nnn" added to every value
 
-(map (fn mod [ elem ] {(key elem) (str (val elem) "nnn")}) {:key0 "something" :key1 "anything"})
+```(map (fn mod [ elem ] {(key elem) (str (val elem) "nnn")}) {:key0 "something" :key1 "anything"})```
