@@ -475,6 +475,11 @@ add disk icon to disk module:
 
 **alacritty**
 
+install adobe's source code pro font
+
+```yay -S adobe-source-code-pro-fonts```
+
+
 edit config
 ```
 nano ~/.config/alacritty/alacritty.yml
@@ -489,6 +494,15 @@ colors:
   	foreground: '0x8a8a8a'
 	dim_foreground: '0x9a9a9a'
 	bright_foreground: '0x6a6a6a'
+```
+
+add font :
+
+```
+font:
+  normal:
+    family: SourcCode Pro
+    style: Bold
 ```
 
 ## Part IV : Productivity apps
