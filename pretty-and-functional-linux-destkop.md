@@ -26,6 +26,8 @@ at install custom pacakages part : select network manager, we will need it for c
 
 at install hardware drivers part install display drivers
 
+for shell select zsh
+
 check out the detailed howto if you are lost :
 
 ( https://forum.manjaro.org/t/installation-with-manjaro-architect-iso/20429 )
