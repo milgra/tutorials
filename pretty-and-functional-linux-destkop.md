@@ -305,7 +305,7 @@ add a custom module at the bottom
     }
  ```
  
- you may have to modift the grep lookup string to your keyboard's device id, check it with ```swaymsg -t get_inputs```
+ you may have to modify the grep lookup string for your keyboard's device id, check it with ```swaymsg -t get_inputs```
  
  and add it to modules 
  
