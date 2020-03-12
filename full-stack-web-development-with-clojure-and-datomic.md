@@ -25,11 +25,10 @@ datomic db 4334
 datomic console 8080
 ring server headless - 3000
 
-step by step beautiful and functional linux desktop with wifi-, bluetooth- and volume control and shutdown menu
 
 deploy to serever
 
-arubacloud.com - ssh
+hetzner.com - ssh
 install java 8
 memory limit
 port set
