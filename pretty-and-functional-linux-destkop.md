@@ -537,10 +537,6 @@ to unmount all mounted disk type
 
 ```yay -S google-chrome```
 
-or if you have time and RAM, install the wayland-ready branch of chromium for super-smoothness and lag free browsing
-
-```yay -S chromium-ozone```
-
 Open chrome and install the following extensions :
 
 **Open-as-Popup**
