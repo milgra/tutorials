@@ -660,7 +660,7 @@ and run steam with
 
 **using the dedicated GPU (for DOOM 2016 for example)**
 
-If you have a dedicated Nvidia GPU in your machine you can install nvidia-xrun to switch to that GPIU when gaming. OpenBox is also needed because nvidia-xrun has to be opened on a different virtual console.
+If you have a dedicated Nvidia GPU in your machine you can install nvidia-xrun-pm to switch to that GPIU when gaming. OpenBox is also needed because nvidia-xrun has to be opened on a different virtual console. Read nvidia-xrun git docs to set it up properly, I have to enable it in systemd to make it able to unload after a session.
 ```
 sudo pacman -S nvidia-xrun openbox
 ```
@@ -742,5 +742,11 @@ check validity
 ```gpg --quiet --batch --decrypt ~/.lein/credentials.clj.gpg```
 
 now leiningen can download the peer library for a project on request
+
+**swapping**
+
+```sudo pacman -S systemd-swap```
+
+follow the instructions on it's github page to set it up properly, a swap file should show up when calling swapon command.
 
 ## And now enjoy your new desktop! Feel free to send me bugfixes, clarifications, extensions and other stuff in pull requests.
