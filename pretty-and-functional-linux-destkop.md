@@ -654,7 +654,7 @@ Restart
 
 ```sudo pacman -S vulkan-icd-loader lib32-vulkan-icd-loader```
 
-and run steam with
+and you may have to add this to your bash/zshrc if vulkan is not working out of the box
 
 ```VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/intel_icd.x86_64.json:/usr/share/vulkan/icd.d/nvidia_icd.json steam```
 
