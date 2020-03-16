@@ -660,7 +660,7 @@ and you may have to add this to your bash/zshrc if vulkan is not working out of 
 
 **using the dedicated GPU (for DOOM 2016 for example)**
 
-If you have a dedicated Nvidia GPU in your machine you can install nvidia-xrun-pm to switch to that GPIU when gaming. OpenBox is also needed because nvidia-xrun has to be opened on a different virtual console. Read nvidia-xrun git docs to set it up properly, I have to enable it in systemd to make it able to unload after a session.
+If you have a dedicated Nvidia GPU in your machine you can install nvidia-xrun-pm to switch to that GPU when gaming. OpenBox is also needed because nvidia-xrun has to be opened on a different virtual console. Read nvidia-xrun git docs to set it up properly, I had to enable it in systemd to make it able to unload after a session.
 ```
 sudo pacman -S nvidia-xrun openbox
 ```
