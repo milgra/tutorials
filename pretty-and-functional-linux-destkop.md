@@ -26,6 +26,8 @@ at install custom pacakages part : select network manager, we will need it for c
 
 at install hardware drivers part install display drivers
 
+for shell select zsh
+
 check out the detailed howto if you are lost :
 
 ( https://forum.manjaro.org/t/installation-with-manjaro-architect-iso/20429 )
@@ -34,9 +36,9 @@ reboot
 
 **enable and start network/wifi service**
 
-```sudo systemct enable NetworkManager```
+```sudo systemctl enable NetworkManager```
 
-```sudo systemct start NetworkManager```
+```sudo systemctl start NetworkManager```
 
 **connect to your wifi**
 
@@ -45,6 +47,8 @@ reboot
 **install sway with waybar and xwayland bridge so x apps can work**
 
 ```sudo pacman -S sway waybar xorg-server-xwayland wayland-protocols```
+
+if pacman asks which font package should be used, select Google Roboto
 
 **install default sway terminal and launcher**
 
@@ -67,6 +71,8 @@ press WIN(MAC) + SHIFT + numbers to move window to another desktop
 press WIN(MAC) + r to resize window
 
 press WIN(MAC) + v or h to decide to place next window in a horizontal or vertical split
+
+press WIN(MAC) + SHIFT + SPACE to make window floating & draggable
 
 ## Part II : Extending functionality
 
@@ -196,6 +202,10 @@ to fix bluetooth audio problems ( shown by systemctl --user status pulseaudio )
 
 ```systemctl enable bluetooth.service to get rid of error in systemctl```
 
+**media controls**
+
+if you are using google music in chrome then media keys will work out of the box if you are over a chrome window. if you are using some other software you have to bind the media keys like with volume keys
+
 **setup touchpad**
 
 get your touchpad's hardware id
@@ -281,6 +291,28 @@ now you can switch languages with ALT+SPACE
 
 this also increases key repeat rate so I can scroll faster in source code's
 
+let's show keyboard state in waybar
+
+```nano ~/config/waybar/config```
+
+add a custom module at the bottom
+
+```
+    "custom/lang": {
+        "format": " {}",
+        "exec" : "swaymsg -t get_inputs | grep -A 9 'ITE Tech. Inc. ITE Device(8910) Keyboard' | tail -1 | cut -c33,34",
+        "interval": 10
+    }
+ ```
+ 
+ you may have to modify the grep lookup string for your keyboard's device id, check it with ```swaymsg -t get_inputs```
+ 
+ and add it to modules 
+ 
+ ```
+ "modules-right": ["idle_inhibitor", "disk", "temperature", "cpu", "memory","battery", "backlight", "pulseaudio", "network", "custom/lang", "clock"],
+ ```
+
 **wifi channel selector**
 
 edit waybar
@@ -319,6 +351,42 @@ bindsym $mod+Shift+Print exec $screenclip
 ```
 
 Now you can create a screenshot or region shot with WIN(MAC)+PrintScreen and WIN(MAC)+Shift+PrintScreen
+
+**bind google chrome and other programs to shortucts**
+
+terminal is binded to WIN(MAC)+ENTER by default
+
+let's bind chrome the second most used app to a key combo also for quick launch, and that will be WIN(MAC) + c
+```
+nano ~/.config/sway/config
+```
+
+add this :
+
+```bindsym $mod+c exec google-chrome-stable --new-window```
+
+**setup auto starting applications**
+
+```nano ~/.config/sway/config```
+
+add these line
+
+```
+assign [class="Google-chrome" instance="messenger.com"] workspace 1
+assign [class="Google-chrome" instance="music.google.com"] workspace 2
+assign [class="Google-chrome" title="^.*Google Play Music$"] workspace 2
+assign [class="Mailspring"] workspace 1
+assign [class="Simplenote"] workspace 2
+exec google-chrome-stable --new-window --app=https://www.messenger.com
+exec google-chrome-stable --new-window --app=https://music.google.com
+exec mailspring
+exec simplenote
+```
+
+after startup a google chrome window with messenger.com without tab bar will open up in workspace 1 and mailspring will also open up next to that window
+
+on workspace 2 google music and simplenote will open up. note that you can use perl regular expressions to grab a part of the title or any property
+
 
 ## Part III : Customizing the desktop
 
@@ -368,7 +436,7 @@ window#waybar {
 }
 ```
 
-modify common block css, add disk, modify color, border :
+modify common block css, add disk, custom-lang, modify color, border :
 
 ```
 #clock,
@@ -409,6 +477,11 @@ add disk icon to disk module:
 
 **alacritty**
 
+install adobe's source code pro font
+
+```yay -S adobe-source-code-pro-fonts```
+
+
 edit config
 ```
 nano ~/.config/alacritty/alacritty.yml
@@ -423,6 +496,15 @@ colors:
   	foreground: '0x8a8a8a'
 	dim_foreground: '0x9a9a9a'
 	bright_foreground: '0x6a6a6a'
+```
+
+add font :
+
+```
+font:
+  normal:
+    family: SourcCode Pro
+    style: Bold
 ```
 
 ## Part IV : Productivity apps
@@ -578,7 +660,7 @@ and run steam with
 
 **using the dedicated GPU (for DOOM 2016 for example)**
 
-If you have a dedicated Nvidia GPU in your machine you can install nvidia-xrun to switch to that GPIU when gaming. OpenBox is also needed because nvidia-xrun has to be opened on a different virtual console.
+If you have a dedicated Nvidia GPU in your machine you can install nvidia-xrun-pm to switch to that GPIU when gaming. OpenBox is also needed because nvidia-xrun has to be opened on a different virtual console. Read nvidia-xrun git docs to set it up properly, I have to enable it in systemd to make it able to unload after a session.
 ```
 sudo pacman -S nvidia-xrun openbox
 ```
@@ -660,5 +742,11 @@ check validity
 ```gpg --quiet --batch --decrypt ~/.lein/credentials.clj.gpg```
 
 now leiningen can download the peer library for a project on request
+
+**swapping**
+
+```sudo pacman -S systemd-swap```
+
+follow the instructions on it's github page to set it up properly, a swap file should show up when calling swapon command.
 
 ## And now enjoy your new desktop! Feel free to send me bugfixes, clarifications, extensions and other stuff in pull requests.
