@@ -555,6 +555,14 @@ Simulates MacOS like inertia-scrolling in chrome
 
 Use chrome with file:// in the URL field
 
+**Movies and Videos : VLC**
+
+```sudo pacman -S vlc```
+
+**Torrent**
+
+```sudo pacman -S transmission-gtk```
+
 **For Photos,Music,Drive use Google services in Chrome, no linux desktop app come close to them in quality and syncing capablities**
 
 **LibreOffice for documents/spreadsheet editing or use Google Docs/Sheets**
