@@ -1,4 +1,4 @@
-## Full stack web develoment with clojure github
+## Full stack web develoment with clojure and datomic
 
 Simply put, full stack web development is generating web pages for the user's browser based on the user's requests. This can happen in the browser on the client side and on the web server machine on the server side, usually both side is involved.
 
