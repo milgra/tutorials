@@ -1,4 +1,4 @@
-Download clojure on your platform and start it in a terminal by typing ```clojure```. It starts up the clojure REPL, the read-eval-print loop, an interactive environment where we can practice clojure.
+Download clojure to your platform and start it in a terminal by typing ```clojure```. It starts up the clojure REPL, the read-eval-print loop, an interactive environment where we can practice clojure.
 
 # Part I : core functions
 
