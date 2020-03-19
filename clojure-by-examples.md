@@ -72,7 +72,9 @@ let's create a new map based on this map replacing key1
 
 let's create a new map based on this map with "nnn" added to every value
 
-```(map (fn [ elem ] 
-          { (key elem) (str (val elem) "nnn") } 
-        ) 
-        {:key0 "something" :key1 "anything"})```
+```
+(map (fn [ elem ]
+         { (key elem) (str (val elem) "nnn") } 
+     ) 
+     {:key0 "something" :key1 "anything"})
+```
