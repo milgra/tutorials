@@ -12,6 +12,6 @@ Clojure by examples ( in progress )
 
 [clojure-by-examples](clojure-by-examples.md)
 
-Full-stack web development with clojure and datomic
+Full-stack web development with clojure and datomic ( in progress )
 
 [full-stack-web-development-with-clojure-and-datomic.md](full-stack-web-development-with-clojure-and-datomic.md)
