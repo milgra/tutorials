@@ -78,3 +78,5 @@ let's create a new map based on this map with "nnn" added to every value
      ) 
      {:key0 "something" :key1 "anything"})
 ```
+
+in our anonymous function ```elem``` is a key-value pair passed to the function by ```map```, (key elem) gets the key of a key-value pair, (val elem) gets the value, str concatenates two strings and the function puts these in a bracket so it creates a map from the two value.
