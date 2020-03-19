@@ -30,6 +30,12 @@ let's create a vector
 
 it will return the same vector
 
+let's get the second element from this vector
+
+```(nth [4 5 6] 2)```
+
+or you can get the ```first``` , ```last``` , ```rest``` , ```next``` element(s)
+
 let's create a new vector based on this vector with all elements increased by one
 
 ```(map inc [4 5 6])```
@@ -52,7 +58,7 @@ let's create a map
 
 words with double colons are keywords
 
-let's print key 0 from this map
+let's get key 0 from this map
 
 ```({:key0 "something" :key1 "anything"} :key0)```
 
