@@ -6,10 +6,12 @@ A web server is a program that listens for connections from browsers and based o
 
 Example :
 
-https://example.com/users/1134?showage=false&showhair=false
+https://example.com/user/1134?showage=false&showhair=false
 
 the server address is : [https://example.com] 
-the route is : [/users/1134]
+
+the route is : [/user/1134]
+
 the parameters are : [showage=false&showhair=false]
 
 serve static resource with compojure
