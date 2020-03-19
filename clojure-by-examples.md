@@ -38,11 +38,11 @@ so we mapped an existing vector to a new vector by applying inc(rease) function 
 
 what if we want to increase elements by two?
 
-```(map (fn inctwo [elem] (+ elem 2)) [4 5 6])```
+```(map (fn [elem] (+ elem 2)) [4 5 6])```
 
-so we created a custom function here for handling the elements
+so we created an anonymous custom function here for handling the elements
 
-there's a syntactic sugar in clojure for shortening function definitions, let's try it
+there's a syntactic sugar in clojure for shortening anonymous function definitions, let's try it
 
 ```(map #(+ % 2) [4 5 6])```
 
