@@ -68,7 +68,7 @@ Connect your editor's nrepl plugin to this port. In emacs you should open the mi
 
 serve static resource with compojure
 
-## Generating a html page on the server side
+# Generating a html page on the server side
 
 create and server dynamic page on server side
 
