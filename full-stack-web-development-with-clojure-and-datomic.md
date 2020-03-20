@@ -4,8 +4,8 @@
 * Prerequisites
 * Preface
 * Serving a static html page
-* Generating a html page on the server side
-* Generating html on the client side
+* Generating html on the server
+* Generating html on the client
 * Setting up datomic
 
 ## Prerequisites
@@ -145,7 +145,7 @@ and modify app-routes also :
 
 so if you open the browser and go to ```localhost:3000``` the index.html will show up because we redirected the root route to it!
 
-# Generating a html page on the server side
+# Generating html on the server
 
 let's see now how to generate html pages dynamically on the server.
 
@@ -178,7 +178,7 @@ now we will generate super complex html structures in the code with the help of 
 
 create and server dynamic page on server side
 
-# Generating html on the client side
+# Generating html on the client
 
 create dynamic page on client side and serve it as resource
 
