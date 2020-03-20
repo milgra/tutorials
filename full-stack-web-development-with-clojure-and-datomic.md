@@ -139,6 +139,35 @@ so if you open the browser and go to ```localhost:3000``` the index.html will sh
 
 # Generating a html page on the server side
 
+let's see now how to generate html pages dynamically on the server.
+
+create a function in ```core.clj``` called ```custom-page``` over ```app-routes```
+
+```
+(defn custom-page []
+  "Custom page"
+  )
+```
+
+it's quite simple for now. now call it from anywhere in the code and evaluate it to check if it works properly
+
+```(custom-page) => "Custom page"```
+
+it returns the string so it looks good. now let's connect it to a route. modify ```app-routes```
+
+```
+(defroutes app-routes
+  (GET "/" [] (resp/redirect "/index.html"))
+  (GET "/custompage" [] (custom-page))
+  (route/resources "/")
+  (route/not-found "Not Found"))
+```
+
+if you check ```localhost:3000/custompage``` in the browser the same string will show up in the browser!!! yaaay!!!
+
+now we will generate super complex html structures in the code with the help of hiccup library 
+
+
 create and server dynamic page on server side
 
 # Generating html on the client side
