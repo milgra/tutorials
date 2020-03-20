@@ -251,15 +251,23 @@ we will use shadow-cljs for clojurescript development. it is a tool that provide
 
 we will base our client side code on reagent, which is a wrapper for the javascript library react. it contains additional useful things for clojurescript development.
 
-create a reagent project template with shadow-cljs added :
+create a shadow-cljs project template with reagent :
 
-```lein new reagent hello-reagent +shadow-cljs```
+```lein new shadow-cljs hello-reagent +reagent```
 
-go into the created folder and start watching the app with shadow :
+go into the created folder and install npm dependencies :
 
-```shadow-clj watch app```
+```npm install```
 
+start watching the app with shadow :
 
+```shadow-cljs watch app```
+
+after a succesful start shadow tells you the port of the web server where you can reach the resulting html and the port of the nrepl server :
+
+```
+
+```
 
 ## Deploying to a server
 
