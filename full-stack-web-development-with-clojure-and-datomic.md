@@ -20,7 +20,7 @@ the route is : [/user/1134]
 
 the parameters are : [showage=false&showhair=false]
 
-## Serving a static html page
+## Setting up the server
 
 Create a compojure project template with leiningen :
 
@@ -62,9 +62,58 @@ Now stop the server with CTRL-C and start it again.
 Along with the server port it now tells us the nrepl port :
 
 ```Started nREPL server on port 46725```
-
+houl
 Connect your editor's nrepl plugin to this port. In emacs you should open the minibuffer with ALT+X, enter ```cider-connect-clj``` for host type ```localhost``` , for port type the resulting port from the previous command.
 
+To check if inline eval is working open ```src/hello_compojure/coresh .clj``` in your editor and insert this somewhere :
+
+```(+ 3 2)```
+
+place the cursor after the closing bracket and evaluate the expression ( in emacs press CTRL+X+E )
+
+the result should show up immediately
+
+```(+ 3 2) => 5```
+
+now let's check if the server updates if we modify something. modify the app-routes function like this :
+
+```
+(defroutes app-routes
+  (GET "/" [] "Hello World---")
+  (route/not-found "Not Found"))
+```
+
+save the file and reload the page in the browser. the text in the browser should change to ```Hello World---```
+
+so we are set up for development
+
+## Serving a static html page
+
+the simplest task a web server can do is server a static html page. let's try this
+
+create a new file under ```resources/public``` called ```index.html``` with the following content
+
+```
+<!DOCTYPE html>
+<html>
+<body>
+<h1>My First Heading</h1>
+<p>My first paragraph.</p>
+</body>
+</html>
+```
+then we have to tell the server to serve resources from root folder. modify ```app-routes``` function in ```core.clj``` :
+
+```
+(defroutes app-routes
+  (GET "/" [] "Hello World---")
+  (route/resources "/")
+  (route/not-found "Not Found"))
+```
+
+now go into the browser and type ```localhost:3000/index.html``` and the previously created ```index.html``` shows up. so we just served a static resource to the client's browser!
+
+a static resource can be any kind of a file but mainly images that a web site uses
 
 serve static resource with compojure
 
