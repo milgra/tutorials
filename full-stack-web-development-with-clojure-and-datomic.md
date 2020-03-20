@@ -1,5 +1,12 @@
 # Full stack web develoment with clojure and datomic
 
+## Table of contents
+### Prerequisites
+### Preface
+### Serving a static html page
+### Generating a html page on the server side
+### Generating html on the client side
+
 ## Prerequisites
 
 You should be familiar with [clojure](clojure-by-examples.md) and you should have a code editor with a clojure plugin for inline evaluation. You should be familiar with command line execution and terminals, you will need at least three terminal windows or four if you use a terminal-based editor.
