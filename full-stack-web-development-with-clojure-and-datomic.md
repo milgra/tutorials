@@ -65,7 +65,7 @@ Along with the server port it now tells us the nrepl port :
 
 Connect your editor's nrepl plugin to this port. In emacs you should open the minibuffer with ALT+X, enter ```cider-connect-clj``` for host type ```localhost``` , for port type the resulting port from the previous command.
 
-To check if inline eval is working open ```src/hello_compojure/coresh .clj``` in your editor and insert this somewhere :
+To check if inline eval is working open ```src/hello_compojure/core.clj``` in your editor and insert this somewhere :
 
 ```(+ 3 2)```
 
@@ -89,7 +89,7 @@ so we are set up for development
 
 ## Serving a static html page
 
-the simplest task a web server can do is server a static html page. let's try this
+the simplest task a web server can do is to serve a static html page. let's try this
 
 create a new file under ```resources/public``` called ```index.html``` with the following content
 
