@@ -115,7 +115,27 @@ now go into the browser and type ```localhost:3000/index.html``` and the previou
 
 a static resource can be any kind of a file but mainly images that a web site uses
 
-serve static resource with compojure
+and how do we tell the server to show index.html without adding ```/index.html``` to the address to act as the main page of our site?
+
+we have to use the ```ring.util.respponse``` namespace for that. update the require list at the top of the file like this :
+
+```
+(:require [compojure.core :refer :all]
+          [compojure.route :as route]
+          [ring.util.response :as resp]
+          [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
+```
+
+and modify app-routes also :
+
+```
+(defroutes app-routes
+  (GET "/" [] (resp/redirect "/index.html"))
+  (route/resources "/")
+  (route/not-found "Not Found"))
+```
+
+so if you open the browser and go to ```localhost:3000``` the index.html will show up because we redirected the root route to it!
 
 # Generating a html page on the server side
 
