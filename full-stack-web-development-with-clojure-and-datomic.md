@@ -10,7 +10,7 @@
 
 ## Prerequisites
 
-You should be familiar with [clojure](clojure-by-examples.md) and you should have a code editor with a clojure plugin for inline evaluation. You should be familiar with command line execution and terminals, you will need at least three terminal windows or four if you use a terminal-based editor.
+You should be familiar with [clojure](clojure-by-examples.md) and you should have a code editor with a clojure plugin for inline evaluation. You should be familiar with command line execution and terminals, you will need at least three terminal windows or four if you use a terminal-based editor. I recommend [linux](https://github.com/milgra/tutorials/blob/master/pretty-and-functional-linux-destkop.md) for clojure development.
 
 ## Preface
 
@@ -200,20 +200,46 @@ in core.clj let's use the entire hiccup namespace
 and we can start using hiccup notation to generate html. let's re-create index.html in the code with hiccup in the ```custom-page``` function
 
 ```
-(defn custom-page []
-  (html [:html
-         [:body
-          [:h1 "My First Heading"]
-          [:p "My first paragraph."]]]))
+(defn custom-page [name]
+  (html [:h1 "My First Heading"]
+        [:p (str "Hello " name "!!!")]))
 ```
 
 check it in the browser, you should see the same result as before
 
 the only problem that this looks still too static! so let's add some twist here, the page will accept a name as parameter and we will insert the name in the generated page.
 
-create and server dynamic page on server side
+modfy the ```custom page``` function to accept a name parameter and generate a greeting text for the name :
+
+```
+(defn custom-page [name]
+  (html [:html
+         [:body
+          [:h1 "My First Heading"]
+          [:p (str "Hello " name	]]))
+```
+
+now modify ```app-routes``` to accept a name parameter
+
+```
+(defroutes app-routes
+  (GET "/" [] (resp/redirect "/index.html"))
+  (GET "/custompage" [name] (custom-page name))
+  (route/resources "/")
+  (route/not-found "Not Found"))
+```
+
+now go into the browser and open the following url :
+
+```http://localhost:3000/custompage?name=Milan```
+
+and a greeting text will show up under the header.
+
+and that's how you create dynamic content on the server.
 
 # Generating html on the client
+
+generating content on the server and loading it to the browser all the time with every small change is not that dynamic. for a super dynamic and bandwidth-effective experience you have to generate the page on the client-side based on the data that you request from the server when it is needed.
 
 create dynamic page on client side and serve it as resource
 
