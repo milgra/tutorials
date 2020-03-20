@@ -3,10 +3,14 @@
 ## Table of contents
 * Prerequisites
 * Preface
+* Setting up the server
 * Serving a static html page
 * Generating html on the server
 * Generating html on the client
+* Setting up the client
+* Deploying to a server
 * Setting up datomic
+
 
 ## Prerequisites
 
@@ -30,7 +34,7 @@ the parameters are : [showage=false&showhair=false]
 
 ## Setting up the server
 
-Create a compojure project template with leiningen :
+Create a compojure project template with leiningen ( install it first if you don't have it ) :
 
 ```lein new compojure hello-compojure```
 
@@ -237,11 +241,44 @@ and a greeting text will show up under the header.
 
 and that's how you create dynamic content on the server.
 
-# Generating html on the client
+## Generating html on the client
 
 generating content on the server and loading it to the browser all the time with every small change is not that dynamic. for a super dynamic and bandwidth-effective experience you have to generate the page on the client-side based on the data that you request from the server when it is needed.
 
-create dynamic page on client side and serve it as resource
+## Setting up the client
+
+we will use shadow-cljs for clojurescript development. it is a tool that provides a repl and connects it to the live code running in the browser so you can update/evaluate functions in the running code and make inline evaluation and development easier. install it first if you don't have it
+
+we will base our client side code on reagent, which is a wrapper for the javascript library react. it contains additional useful things for clojurescript development.
+
+create a reagent project template with shadow-cljs added :
+
+```lein new reagent hello-reagent +shadow-cljs```
+
+go into the created folder and start watching the app with shadow :
+
+```shadow-clj watch app```
+
+
+
+## Deploying to a server
+
+## Summary
+
+so that's what full stack web development is about. you add and request data to/from a database through a server with api calls and resource requests, and you maintain states in a single page web application and stylize it with css. hope you liked the tutorial and you will stick with clojure! 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 create pager, update css
 
@@ -263,7 +300,6 @@ shadow cljs - web server 8700, repl
 datomic db 4334
 datomic console 8080
 ring server headless - 3000
-
 
 deploy to serever
 
