@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-You should be familiar with [clojure](clojure-by-examples.md) and you should have a code editor with a clojure plugin for inline evaluation.
+You should be familiar with [clojure](clojure-by-examples.md) and you should have a code editor with a clojure plugin for inline evaluation. You should be familiar with command line execution and terminals, you will need at least three terminal windows or four if you use a terminal-based editor.
 
 ## Preface
 
@@ -25,6 +25,46 @@ the parameters are : [showage=false&showhair=false]
 Create a compojure project template with leiningen :
 
 ```lein new compojure hello-compojure```
+
+go to the project folder and start it up :
+
+```lein ring server-headless```
+
+it will start up and tells us the port where we can reach the server
+
+```Started server on port 3000```
+
+So let's go into a browser and type the URL
+
+```localhost:3000```
+
+And we should see a page telling us "Hello World"
+
+Good so far, let's start an nrepl server along with the web server so we can do inline evaluation from our code editor on the server code.
+
+Open the project in your editor, open project.clj, and add nrepl to the dependencies :
+
+```
+:dependencies [[org.clojure/clojure "1.10.0"]
+               [org.clojure/tools.nrepl "0.2.13"]
+               [compojure "1.6.1"]
+               [ring/ring-defaults "0.3.2"]]
+```
+
+and add a start flag to the ring part also
+
+```
+:ring {:handler hello-compojure.handler/app
+       :nrepl {:start? true}}
+```
+
+Now stop the server with CTRL-C and start it again.
+Along with the server port it now tells us the nrepl port :
+
+```Started nREPL server on port 46725```
+
+Connect your editor's nrepl plugin to this port.
+
 
 serve static resource with compojure
 
