@@ -1,10 +1,12 @@
 ## Full stack web develoment with clojure and datomic
 
+# Preface
+
 Simply put, full stack web development is generating web pages for the user's browser based on the user's requests. This can happen in the browser on the client side and on the web server machine on the server side, usually both side is involved.
 
 A web server is a program that listens for connections from browsers and based on the route and the parameters of the request it passes back data. This data can be a web page written in HTML or any kind of data that the client side code will insert into the existing client side HTML page.
 
-Example :
+Example URL ( Uniform Resource Locator ) :
 
 https://example.com/user/1134?showage=false&showhair=false
 
@@ -14,9 +16,15 @@ the route is : [/user/1134]
 
 the parameters are : [showage=false&showhair=false]
 
+# Serving a static html page
+
 serve static resource with compojure
 
+# Generating a html page on the server side
+
 create and server dynamic page on server side
+
+# Generating html on the client side
 
 create dynamic page on client side and serve it as resource
 
