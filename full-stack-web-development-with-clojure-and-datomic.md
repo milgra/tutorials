@@ -8,6 +8,7 @@
 * Generating html on the server
 * Generating html on the client
 * Setting up the client
+* Creating a single page application
 * Deploying to a server
 * Setting up datomic
 
@@ -272,11 +273,36 @@ shadow-cljs - nREPL server started on port 8777
 
 so if you go into your browser and enter ```localhost:8700``` you will see a Hello world message showing up from your reagent template
 
-you should also connect to the repl from your editor. ( in emacs ALT+X, cider-connect-cljs, enter localhost, the port, select shadow for repl type)
+you should also connect to the repl from your editor. 
 
-if your editor can handle two repl connections it's okay to leave the previous connection for the previous examples alive, else close that and open a new one, we will stay on the client side a bit.
+based on your editor you may have to add a dependency first to the project. in case of emacs/cider add this to ```:dependencies``` part in ```shadow-cljs.edn``` :
 
+```[cider/cider-nrepl "0.24.0"]```
 
+then restart watching with ```shadow-cljs watch app```
+
+then connect your editor to the repl. in emacs ALT+X, cider-connect-cljs, enter localhost, the port, select shadow for repl type, :app for build
+
+carefully read what cider outputs in the nrepl buffer, if it has a problem, for example mismatching cider-nrepl version number it will tell you and you have to modify versions accordingly
+
+now that everything is set up let's work on the code. let's modify something and hot-swap in the running page
+
+edit ```src/hello_reagent/core.cljs``` and modify the hello-world function :
+
+```
+(defn hello-world []
+  [:div
+   [:h1 (:text @app-state)]
+   [:h3 "It should change!"]])
+```
+
+and save the file. the page in the browser should update automagically to the new content.
+
+and we are ready for action!
+
+## Creating a single page application
+
+we will create a simple but complex enough application to showcase datomic, server-side apis, reagent and css.  we will build up the basics of ```milgra.com```, the four cards containing apps, protos, games and blogs.
 
 
 
