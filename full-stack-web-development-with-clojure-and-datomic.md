@@ -24,7 +24,7 @@ the parameters are : [showage=false&showhair=false]
 
 Create a compojure project template with leiningen :
 
-```lein new compojure```
+```lein new compojure hello-compojure```
 
 serve static resource with compojure
 
