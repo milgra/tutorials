@@ -175,6 +175,41 @@ if you check ```localhost:3000/custompage``` in the browser the same string will
 
 now we will generate super complex html structures in the code with the help of hiccup library 
 
+add the latest hiccup library to the project's dependencies in project.clj
+
+```
+:dependencies [[org.clojure/clojure "1.10.0"]
+               [org.clojure/tools.nrepl "0.2.13"]
+               [compojure "1.6.1"]
+               [hiccup "1.0.5"]
+               [ring/ring-defaults "0.3.2"]]
+```
+and restart the server
+
+in core.clj let's use the entire hiccup namespace 
+
+```
+(ns hello-compojure.handler
+  (:require [compojure.core :refer :all]
+            [compojure.route :as route]
+            [ring.util.response :as resp]
+            [ring.middleware.defaults :refer [wrap-defaults site-defaults]])
+  (:use [hiccup.core]))
+```
+
+and we can start using hiccup notation to generate html. let's re-create index.html in the code with hiccup in the ```custom-page``` function
+
+```
+(defn custom-page []
+  (html [:html
+         [:body
+          [:h1 "My First Heading"]
+          [:p "My first paragraph."]]]))
+```
+
+check it in the browser, you should see the same result as before
+
+the only problem that this looks still too static! so let's add some twist here, the page will accept a name as parameter and we will insert the name in the generated page.
 
 create and server dynamic page on server side
 
