@@ -22,6 +22,10 @@ the parameters are : [showage=false&showhair=false]
 
 ## Serving a static html page
 
+Create a compojure project template with leiningen :
+
+```lein new compojure```
+
 serve static resource with compojure
 
 ## Generating a html page on the server side
