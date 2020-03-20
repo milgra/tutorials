@@ -1,12 +1,12 @@
 # Full stack web develoment with clojure and datomic
 
 ## Table of contents
-**Prerequisites**
-**Preface**
-**Serving a static html page**
-**Generating a html page on the server side**
-**Generating html on the client side**
-**Setting up datomic**
+* Prerequisites
+* Preface
+* Serving a static html page
+* Generating a html page on the server side
+* Generating html on the client side
+* Setting up datomic
 
 ## Prerequisites
 
