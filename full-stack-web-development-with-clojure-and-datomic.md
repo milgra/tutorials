@@ -266,8 +266,24 @@ start watching the app with shadow :
 after a succesful start shadow tells you the port of the web server where you can reach the resulting html and the port of the nrepl server :
 
 ```
-
+shadow-cljs - HTTP server available at http://localhost:8700
+shadow-cljs - nREPL server started on port 8777
 ```
+
+so if you go into your browser and enter ```localhost:8700``` you will see a Hello world message showing up from your reagent template
+
+you should also connect to the repl from your editor. ( in emacs ALT+X, cider-connect-cljs, enter localhost, the port, select shadow for repl type)
+
+if your editor can handle two repl connections it's okay to leave the previous connection for the previous examples alive, else close that and open a new one, we will stay on the client side a bit.
+
+
+
+
+
+
+
+so we now have two webservers running on our machine, one for ring/compojure from the previous examples and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! let's merge at least the project to simplify things.
+
 
 ## Deploying to a server
 
