@@ -304,12 +304,31 @@ and we are ready for action!
 
 we will create a simple but complex enough application to showcase datomic, server-side apis, reagent and css.  we will build up the basics of ```milgra.com```, the four cards containing apps, protos, games and blogs.
 
+delete ```hello-world``` function and create a ```page``` function that will be the main component of our app :
+
+```
+(defn page []
+  [:div {:key "page"}
+   [:div "ONE"]
+   [:div "TWO"]
+   [:div "THREE"]
+   [:div "FOUR"]])
+```
+
+and tell reagent in function ```start``` to render this component instead of ```hello-world```
+
+``` 
+(defn start []
+  (reagent/render-component [page]
+                            (. js/document (getElementById "app"))))
+```
+
+
 
 
 
 
 so we now have two webservers running on our machine, one for ring/compojure from the previous examples and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! let's merge at least the project to simplify things.
-
 
 ## Deploying to a server
 
