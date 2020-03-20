@@ -62,7 +62,7 @@ Now stop the server with CTRL-C and start it again.
 Along with the server port it now tells us the nrepl port :
 
 ```Started nREPL server on port 46725```
-houl
+
 Connect your editor's nrepl plugin to this port. In emacs you should open the minibuffer with ALT+X, enter ```cider-connect-clj``` for host type ```localhost``` , for port type the resulting port from the previous command.
 
 To check if inline eval is working open ```src/hello_compojure/coresh .clj``` in your editor and insert this somewhere :
