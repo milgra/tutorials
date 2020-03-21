@@ -96,9 +96,7 @@ let's create a new map based on a map replacing key1
 
 let's create a new map based on this map with "nnn" added to every value
 
-```
-(into { } (map (fn [ elem ] { (key elem) (str (val elem) "nnn") } ) {:key0 "something" :key1 "anything" } ) )
-```
+```(into { } (map (fn [ elem ] { (key elem) (str (val elem) "nnn") } ) {:key0 "something" :key1 "anything" } ) )```
 
 wooo, wait a minute, a lot of things happening here
 
@@ -116,20 +114,14 @@ and that's what clojure is about. you chain data processing functions and anonym
 
 let's remember that we can simplify this expression with syntactic sugar :
 
-```
-(into {} (map #(hash-map (key %) (str (val %) "nnn")) {:key0 "something" :key1 "anything"}))  
-```
+```(into {} (map #(hash-map (key %) (str (val %) "nnn")) {:key0 "something" :key1 "anything"}))```
 
 and let's implement the same functionality with reduce :
 
-```
-(reduce (fn [res elem] (assoc res (key elem) (str (val elem) "nnn"))) {} {:key0 "something" :key1 "anything"}) 
-```
+```(reduce (fn [res elem] (assoc res (key elem) (str (val elem) "nnn"))) {} {:key0 "something" :key1 "anything"}) ```
 
 or in the simpler form
 
-```
-(reduce #(assoc %1 (key %2) (str (val %2) "nnn")) {} {:key0 "something" :key1 "anything"})  
-```
+```(reduce #(assoc %1 (key %2) (str (val %2) "nnn")) {} {:key0 "something" :key1 "anything"})```
 
 ## Enter the editor
