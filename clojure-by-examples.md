@@ -5,6 +5,7 @@
 * Prerequisites
 * Basics
 * Core functions
+* Enter the editor
 
 ## Prerequisites
 
