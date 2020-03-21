@@ -3,13 +3,14 @@
 ## Table Of Content
 
 * Prerequisites
+* Basics
 * Core functions
 
-## Prerequisites
+# Prerequisites
 
 Download clojure to your platform and start it in a terminal by typing ```clojure```. It starts up the clojure REPL, the read-eval-print loop, an interactive environment where we can practice clojure.
 
-# Basics
+## Basics
 
 print something to the standard output
 
@@ -33,7 +34,7 @@ let's ask for the short documentation of ```println```
 
 ```(doc println)```
 
-# Data types
+## Data types
 
 let's create a vector
 
@@ -65,7 +66,7 @@ or
 
 ```(:key0 {:key0 "something" :key1 "anything"})```
 
-# Core functions
+## Core functions
 
 let's create a new vector based on a vector with all elements increased by one
 
@@ -130,3 +131,5 @@ or in the simpler form
 ```
 (reduce #(assoc %1 (key %2) (str (val %2) "nnn")) {} {:key0 "something" :key1 "anything"})  
 ```
+
+## Enter the editor
