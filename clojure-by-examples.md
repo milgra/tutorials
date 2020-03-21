@@ -126,3 +126,6 @@ or in the simpler form
 ```(reduce #(assoc %1 (key %2) (str (val %2) "nnn")) {} {:key0 "something" :key1 "anything"})```
 
 ## Enter the editor
+
+let bindings
+destructuring
