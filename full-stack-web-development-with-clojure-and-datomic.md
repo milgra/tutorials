@@ -433,6 +433,35 @@ we also have to slighyl modify ```card``` function and add click event
 
 and now the selected card jumps to the middle and the others shift left. splendid!
 
+but we have an annoyinh warning in the developer console of the browser :
+
+```
+Warning: Every element in a seq should have a unique :key:
+```
+
+so let's add a key to each card to fix this 
+
+```
+(defn card [ [ index data ] ]
+  (let [txt (:txt data)]
+    [:div
+     {:key (str "card" index)
+      :style {:position "absolute"
+              :width (nth cardwth index)
+              :left (nth cardpos index)
+              :background (:col data)
+              :min-height "100vh"}
+      :on-click (fn [e]
+                  ; shift menuitems
+                  (reset! cardlist
+                          (concat
+                          (filter #(not= (% :txt) txt) @cardlist)
+                          (filter #(= (% :txt) txt) @cardlist))))}
+     (:txt data)]))
+```
+
+and that's because react needs a unique id for every component to speed up state changes. so let's add a key to our pages
+
 so we now have two webservers running on our machine, one for ring/compojure from the previous examples and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! let's merge at least the project to simplify things.
 
 ## Deploying to a server
