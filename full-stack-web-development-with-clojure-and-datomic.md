@@ -547,7 +547,7 @@ bind the uri
 (def uri "datomic:dev://localhost:4334/hello-datomic")
 ```
 
-create a setup function
+create a setup-db function
 
 ```
 (defn setup-db []
@@ -559,9 +559,9 @@ create a setup function
 
 re-send the file to the repl or restart the server
 
-then evaluate the inner ( ```let``` ) part of the function inline, the repl buffer should show a successful creation and a succesful connection
+then evaluate the inner ( ```let``` ) part of the function inline, the repl buffer should show a successful creation and a connection info map
 
-we should create the ```cleanup-db``` function also to speed up development, we will delete and re-schema and re-fill the database all the time
+we should create the ```delete-db``` function also to speed up development, we will delete and re-schema and re-fill the database all the time
 
 ```
 (defn delete-db []
