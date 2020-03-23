@@ -474,9 +474,9 @@ so we have four dynamically positioned cards crying for content! this is the tim
 
 ## Setting up datomic
 
-download the starter version of datomic on-prem from [datomic](https://www.datomic.com/get-datomic.html)
+request a license for the starter version of datomic on-prem from [datomic](https://www.datomic.com/get-datomic.html)
 
-after download go to [https://my.datomic.com/account](https://my.datomic.com/account)
+after that go to [https://my.datomic.com/account](https://my.datomic.com/account)
 
 there will be the wget link for the full distribution, download it
 
