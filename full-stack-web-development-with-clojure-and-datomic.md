@@ -604,6 +604,26 @@ we will store posts with four possible types for the four cards. they will have 
     :db/doc "The conent of the post in html"}])
 ```
 
+and let's add schema creation to ```setup``` function
+
+```
+(defn setup-db []
+  (let [succ (d/create-database uri)]
+    (if succ
+	    (let [conn (d/connect uri)
+	          db (d/db conn)]
+        (let [resp (d/transact conn post-schema)]
+          (println "schema creation resp" resp))))))
+```
+
+here we guard schema creation with the successful database creation because if creation fails then the db is already created and schema is already created
+
+delete the db and evaluate setup-db again. if something fails remember to send the whole file to the repl or send the newly created parts to the repl individually with inline evaluation so every definition is visible for newly created functions
+
+no we are ready to fill up the database
+
+
+
 
 so we now have two webservers running on our machine, one for ring/compojure from the previous examples and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! let's merge at least the project to simplify things.
 
