@@ -573,6 +573,38 @@ evaluate the inner part, deletion should print ```true``` to the repl, then try 
 
 now we are ready to create our schema
 
+we will store posts with four possible types for the four cards. they will have title, content, date, type and tags.
+
+
+```
+(def post-schema
+  [{:db/ident :post/title
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one
+    :db/doc "The title of the post"}
+
+   {:db/ident :post/type
+    :db/valueType :db.type/keyword
+    :db/cardinality :db.cardinality/one
+    :db/doc "The type of the post (:blog :game :app :proto)"}
+
+   {:db/ident :post/date
+    :db/valueType :db.type/instant
+    :db/cardinality :db.cardinality/one
+    :db/doc "The date of the post"}
+
+   {:db/ident :post/tags
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/many
+    :db/doc "The tags of the post"}
+
+   {:db/ident :post/content
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one
+    :db/doc "The conent of the post in html"}])
+```
+
+
 so we now have two webservers running on our machine, one for ring/compojure from the previous examples and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! let's merge at least the project to simplify things.
 
 ## Deploying to a server
