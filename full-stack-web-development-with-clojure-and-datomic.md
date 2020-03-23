@@ -474,13 +474,58 @@ so we have four dynamically positioned cards crying for content! this is the tim
 
 ## Setting up datomic
 
+download the starter version of datomic on-prem from [datomic](https://www.datomic.com/get-datomic.html)
 
+after download go to [https://my.datomic.com/account](https://my.datomic.com/account)
 
+there will be the wget link for the full distribution, download it
 
+at the bottom of the page there is an ```or via leiningen``` section. copy the first three lines and create a file
 
+```~/.lein/credentials.clj```
 
+and paste the lines into it
 
+download and install gnupg for your system and create a default key with ```gpg --gen-key```
 
+now you can encrypt the previously created credentials.clj with gpg :
+
+```gpg --default-recipient-self -e ~/.lein/credentials.clj > ~/.lein/credentials.clj.gpg```
+
+and now leiningen can download the peer library automagically for datomic
+
+go back to our server project, hello-compojure and edit project.clj. you have to add a ```:repositories``` part and a datomic dependency
+
+```
+:repositories {"my.datomic.com" {:url "https://my.datomic.com/repo"
+                                 :creds :gpg}}
+:dependencies [[org.clojure/clojure "1.10.0"]
+               [org.clojure/tools.nrepl "0.2.13"]
+               [com.datomic/datomic-pro "0.9.6024"]
+               [compojure "1.6.1"]
+               [hiccup "1.0.5"]
+               [ring/ring-defaults "0.3.2"]]
+```
+
+your datomic-pro version might differ, use the correct dependency version!
+
+before starting up datomic you have to select a transactor properties file and add your license key to it
+
+go to datomic folder and copy the dev-transactor-template.properties file to the root folder
+
+```cp /config/samples/dev-transactor-template.properties dev.properties```
+
+then edit dev.properties add add the license key after ```license-key``` part that your received via email from datomic
+
+and now we are ready to start up datomic. at the root folder of datomic type
+
+```bin/transactor dev.properties```
+
+then, in another terminal, go to the root folder of hello-compojure and start up the project
+
+```lein ring server-headless```
+
+if everything goes well, lein downloads the datomic peer library and starts up
 
 
 
