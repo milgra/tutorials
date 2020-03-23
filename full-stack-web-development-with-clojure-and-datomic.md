@@ -569,7 +569,7 @@ we should create the ```delete-db``` function also to speed up development, we w
     (println "deletion" succ)))
 ```
 
-evaluate the inner part, deletion should print ```true``` to the repl, then try evaluating the inner part of ```seetup-db``` again and creation should return with ```true```
+evaluate the inner part, deletion should print ```true``` to the repl, then try evaluating the inner part of ```setup-db``` again and creation should print ```true```
 
 now we are ready to create our schema
 
