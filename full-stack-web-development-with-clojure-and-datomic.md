@@ -10,6 +10,7 @@
 * Setting up the client
 * Creating a single page application
 * Setting up datomic
+* Creating the database
 * Deploying to a server
 
 
@@ -527,7 +528,50 @@ then, in another terminal, go to the root folder of hello-compojure and start up
 
 if everything goes well, lein downloads the datomic peer library and starts up
 
+## Creating the database
 
+we are going to edit ```handler.clj``` under src/hello_compojure. require datomic peer lib first
+
+```
+(ns hello-compojure.handler
+  (:require [compojure.core :refer :all]
+            [compojure.route :as route]
+            [datomic.api :as d]
+            [ring.util.response :as resp]
+            [ring.middleware.defaults :refer [wrap-defaults site-defaults]])
+```
+
+bind the uri
+
+```
+(def uri "datomic:dev://localhost:4334/hello-datomic")
+```
+
+create a setup function
+
+```
+(defn setup-db []
+  (let [succ (d/create-database uri)
+        conn (d/connect uri)]
+  (println "creation" succ "connection" conn)))
+
+```
+
+re-send the file to the repl or restart the server
+
+then evaluate the inner ( ```let``` ) part of the function inline, the repl buffer should show a successful creation and a succesful connection
+
+we should create the ```cleanup-db``` function also to speed up development, we will delete and re-schema and re-fill the database all the time
+
+```
+(defn delete-db []
+  (let [succ (d/delete-database uri)]
+    (println "deletion" succ)))
+```
+
+evaluate the inner part, deletion should print ```true``` to the repl, then try evaluating the inner part of ```seetup-db``` again and creation should return with ```true```
+
+now we are ready to create our schema
 
 so we now have two webservers running on our machine, one for ring/compojure from the previous examples and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! let's merge at least the project to simplify things.
 
