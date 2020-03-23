@@ -323,7 +323,7 @@ and tell reagent in function ```start``` to render this component instead of ```
                             (. js/document (getElementById "app"))))
 ```
 
-if you check out the actual state of the page in the browser it's just four labels under each other. how do we make vertical cards out of them? the answer is css power!!!
+if you check out the actual state of the page in the browser it's just four labels under each other. how do we make vertical cards out of them? the answer is css power, and we can add it inline with hiccup!
 
 ```
 (defn page []
@@ -358,6 +358,36 @@ if you check out the actual state of the page in the browser it's just four labe
     "FOUR"]])
 ```
 
+the page now looks better but isn't it repetitive a little bit? is there a way the make it less repetitive? the answer is programming!!!
+
+let's create a data structure first to store the individual properties of each card
+
+```
+(def carddata [{:x "200px" :w "200px" :col "#AAFFAA" :txt "ONE"}
+               {:x "300px" :w "200px" :col "#FFFFAA" :txt "TWO"}
+               {:x "400px" :w "200px" :col "#AAFFFF" :txt "THREE"}
+               {:x "500px" :w "400px" :col "#FFAAFF" :txt "FOUR"}])
+```
+
+let's create the function that generates a card based on a data structure item
+
+```
+(defn card [ data ]
+  [:div
+   {:style {:position "absolute"
+            :width (:w data)
+            :left (:x data)
+            :background (:col data)
+            :min-height "100vh"}}
+   (:txt data)])
+```
+and finally add component generation to the page component
+
+```
+(defn page []
+  [:div
+   (map card carddata)])
+```
 
 
 so we now have two webservers running on our machine, one for ring/compojure from the previous examples and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! let's merge at least the project to simplify things.
