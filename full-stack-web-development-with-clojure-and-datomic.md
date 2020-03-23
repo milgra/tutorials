@@ -9,8 +9,8 @@
 * Generating html on the client
 * Setting up the client
 * Creating a single page application
-* Deploying to a server
 * Setting up datomic
+* Deploying to a server
 
 
 ## Prerequisites
@@ -439,6 +439,8 @@ but we have an annoyinh warning in the developer console of the browser :
 Warning: Every element in a seq should have a unique :key:
 ```
 
+and that's because react needs a unique id for every component to speed up state changes. so let's add a key to our pages
+
 so let's add a key to each card to fix this 
 
 ```
@@ -460,7 +462,27 @@ so let's add a key to each card to fix this
      (:txt data)]))
 ```
 
-and that's because react needs a unique id for every component to speed up state changes. so let's add a key to our pages
+the only thing I don't like is the little gap between the top and the cards, let's fix this with css, edit ```public/css/style.css``` :
+
+```
+body {
+    margin : 0px;
+}
+```
+
+so we have four dynamically positioned cards crying for content! this is the time for datomic and a server side api!
+
+## Setting up datomic
+
+
+
+
+
+
+
+
+
+
 
 so we now have two webservers running on our machine, one for ring/compojure from the previous examples and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! let's merge at least the project to simplify things.
 
