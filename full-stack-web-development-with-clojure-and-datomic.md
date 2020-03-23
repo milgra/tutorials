@@ -389,6 +389,33 @@ and finally add component generation to the page component
    (map card carddata)])
 ```
 
+and now we want the clicked one move to the center. we will use reagent's ability to auto-update components where a shared reagent atom is used.
+
+first we will have to be able to rearrange cards so we make an atom called cardlist containing the unique parts of ```carddata``` and two another vectors containing fixed card widths and poisitions
+
+```
+(defonce cardlist (atom [{:col "#AAFFAA" :txt "ONE"}
+                         {:col "#FFFFAA" :txt "TWO"}
+                         {:col "#AAFFFF" :txt "THREE"}
+                         {:col "#FFAAFF" :txt "FOUR"}]))
+
+(defonce cardpos ["200px" "300px" "400px" "500px"])
+(defonce cardwth ["200px" "200px" "200px" "400px"])
+```
+
+we will have to modify the iteration in ```page``` function sightly, we want to pass an indexed item to ```card``` function so it knows which position and width element to use for rendering the actual card. ```map-indexed vector``` pairs the indexes with elements in cardlist.
+
+```
+(defn page []
+  [:div
+   (map card (map-indexed vector @cardlist))])
+```
+
+we also have to slighyl modify ```card``` function and add click event
+
+```
+
+```
 
 so we now have two webservers running on our machine, one for ring/compojure from the previous examples and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! let's merge at least the project to simplify things.
 
@@ -423,6 +450,10 @@ use a href's for url browsability & search engine optimization
 
 deploy the whole stuff to hetzner
 
+markdown html contnet
+
+a href's
+
 todo : history
 
 database connection
@@ -438,3 +469,4 @@ hetzner.com - ssh
 install java 8
 memory limit
 port set
+
