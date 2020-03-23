@@ -308,7 +308,7 @@ delete ```hello-world``` function and create a ```page``` function that will be 
 
 ```
 (defn page []
-  [:div {:key "page"}
+  [:div
    [:div "ONE"]
    [:div "TWO"]
    [:div "THREE"]
@@ -323,8 +323,40 @@ and tell reagent in function ```start``` to render this component instead of ```
                             (. js/document (getElementById "app"))))
 ```
 
+if you check out the actual state of the page in the browser it's just four labels under each other. how do we make vertical cards out of them? the answer is css power!!!
 
-
+```
+(defn page []
+  [:div
+   [:div
+    {:style {:position "absolute"
+             :width "200px"
+             :left "200px"
+             :background "#AAFFAA"
+             :min-height "100vh"}}
+    "ONE"]
+   [:div
+    {:style {:position "absolute"
+             :width "200px"
+             :left "300px"
+             :background "#FFFFAA"
+             :min-height "100vh"}}
+    "TWO"]
+   [:div
+    {:style {:position "absolute"
+             :width "200px"
+             :left "400px"
+             :background "#AAFFFF"
+             :min-height "100vh"}}
+    "THREE"]
+   [:div
+    {:style {:position "absolute"
+             :width "400px"
+             :left "500px"
+             :background "#FFAAFF"
+             :min-height "100vh"}}
+    "FOUR"]])
+```
 
 
 
