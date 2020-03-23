@@ -414,8 +414,24 @@ we will have to modify the iteration in ```page``` function sightly, we want to 
 we also have to slighyl modify ```card``` function and add click event
 
 ```
-
+(defn card [ [ index data ] ]
+  (let [txt (:txt data)]
+    [:div
+     {:style {:position "absolute"
+              :width (nth cardwth index)
+              :left (nth cardpos index)
+              :background (:col data)
+              :min-height "100vh"}
+      :on-click (fn [e]
+                  ; shift menuitems
+                  (reset! cardlist
+                          (concat
+                          (filter #(not= (% :txt) txt) @cardlist)
+                          (filter #(= (% :txt) txt) @cardlist))))}
+     (:txt data)]))
 ```
+
+and now the selected card jumps to the middle and the others shift left. splendid!
 
 so we now have two webservers running on our machine, one for ring/compojure from the previous examples and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! let's merge at least the project to simplify things.
 
