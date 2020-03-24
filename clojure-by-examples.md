@@ -5,11 +5,11 @@
 * Prerequisites
 * Basics
 * Core functions
-* Enter the editor
+* Lexical bindings
 
 ## Prerequisites
 
-Download clojure to your platform and start it in a terminal by typing ```clojure```. It starts up the clojure REPL, the read-eval-print loop, an interactive environment where we can practice clojure.
+Download clojure to your platform and start it in a terminal by typing ```clojure```. It starts up the clojure REPL, the read-eval-print loop, an interactive environment where we can practice clojure. Press CTRL+D to cancel the actual expression, press ENTER to evaluate it.
 
 ## Basics
 
@@ -149,7 +149,7 @@ Clojure has no variables, it has immutable values, still, we need a lot of named
   
   )
 )
-
+```
 
 ## Enter the editor
 
