@@ -1143,3 +1143,7 @@ install java 8
 memory limit
 port set
 
+
+---
+
+If you want to know how to send posts from the client side and store them, how to store posts in markdown syntax and render them as html on the client side, how to create a number-addition captcha, how to protect admin requests with password, how to animate components with reanimated then check out my milgra.com repository
