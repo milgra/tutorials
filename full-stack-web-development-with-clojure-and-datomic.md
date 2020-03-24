@@ -968,7 +968,7 @@ vertical labels for the cards :
 .cardbutton {
     cursor : pointer;
     position : absolute;
-    right : 10px;
+    right : 20px;
     display : inline-block;
 }
 ```
@@ -997,6 +997,91 @@ let's add the label in a separate div to card component so we can use these clas
        [posts])]))
 ```
 
+let's add better looking fonts and a little shadow to style.css
+
+```
+body {
+    margin : 0px;
+
+    text-shadow: 1px 1px 3px #AAAAAA;
+    text-align: justify;
+
+    font-size : 18px;
+    font-family : -apple-system,BlinkMacSystemFont,Avenir,Avenir Next,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+}
+
+```
+and modify header element styles a little :
+
+```
+h1 {
+    font-size : 27px;
+    font-weight : normal;
+}
+
+h2 {
+    font-size : 14px;
+    font-weight : normal;
+}
+```
+
+now it's getting better!!! a little margin around the content would be awesome and also we should wire out non-changing card styles from the code. add this to style.css
+
+```
+.card {
+    position : absolute;
+    min-height : 100vh;
+    padding : 10px;
+}
+```
+
+and modify card again :
+
+```
+(defn card [ [ index data ] ]
+  (if (= index 3)
+    (get-posts-by-type (:type data)))
+  (let [txt (:txt data)]
+    [:div
+     {:key (str "card" index)
+      :class "card"
+      :style {:width (nth cardwth index)
+              :left (nth cardpos index)
+              :background (:col data)}
+      :on-click (fn [e]
+                  ; shift menuitems
+                  (reset! cardlist
+                          (concat
+                          (filter #(not= (% :txt) txt) @cardlist)
+                          (filter #(= (% :txt) txt) @cardlist))))}
+     [:div {:class ["verticaltext cardbutton"]} (:txt data)]
+     (if (= index 3)
+       [posts])]))
+```
+
+cool, now our page is working well and looking good. we should deploy it to a server but first we should merge these two project into one project to make development simpler.
+
+## Merging the two projects into one project
+
+since shadow-cljs uses shadow-cljs.edn and lein uses project.clj we can easily merge the two projects without problems.
+create a new folder called ```hello-fullstack```
+
+copy ```hello-compojure/project.clj``` to ```hello-fullstack/project.clk```
+copy ```hello-compojure/src/hello_compojure/``` to ```hello-fullstack/src/clj/hello_compojure/```
+
+copy ```hello-reagent/package.json``` to ```hello-fullstack/package.json```
+copy ```hello-reagent/shadow-cljs.edn``` to ```hello-fullstack/shadow-cljs.edn```
+copy ```hello-reagent/src/hello_reagent/``` to ```hello-fullstack/src/cljs/hello_reagent/```
+
+so we create a separate clj folder for server-side code, and a cljs folder for client-side code under source
+ 
+copy ```hello-reagent/public``` to ```hello-fullstack/resources/public```
+
+and now we have to modify shadow-cljs.edn for the updated sources and resources location :
+
+```
+
+```
 
 if you want to get 
 
