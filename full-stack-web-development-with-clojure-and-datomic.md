@@ -151,7 +151,7 @@ and modify app-routes also :
 
 so if you open the browser and go to ```localhost:3000``` the index.html will show up because we redirected the root route to it!
 
-# Generating html on the server
+## Generating html on the server
 
 let's see now how to generate html pages dynamically on the server.
 
@@ -667,8 +667,125 @@ evaluate the inner part and the test data should be in the database
 
 and now... query time!!!
 
+let's get all posts first with a title ( probably all posts because every post should have a title )
+
+```
+(def all-posts-q
+  '[:find ?e
+   :where [?e :post/title]])
+   
+(defn get-all-posts []
+  (let [conn (d/connect uri)
+        db (d/db conn)
+        posts (d/q all-posts-q db)]
+    posts))
+```
+if you evaluate the insode of ```get-all-posts``` you should get a list of numbers. these numbers are entity id's of the inserted entities. if you want to get all fields of an entity you can do ```(d/entity db entityid)``` and to put the result back to a map similar to the insertion map you can do ```(into {} (seq (d/entity db entityid)))```
+
+but we can also modify the query to pass back all values of all entities in a vector, we will use the pull pattern
+
+```
+(def all-posts-all-data-q
+  '[:find (pull ?e [:db/id :post/title :post/date :post/content :post/tags :post/type])
+    :where [?e :post/title]])
+    
+(defn get-all-posts-all-data []
+  (let [conn (d/connect uri)
+        db (d/db conn)
+        posts (d/q all-posts-all-data-q db)]
+    posts))
+```
+
+if you evaluate the inner part of ```get-all-posts-all-data``` all fields for all entities should show up as result
+
+we created the previous functions to aid our development, we can check what's inside the db or are they still inside, now let's create a query that we will actually use. let's request entities based on their type to request them for our cards in the browser
+
+```
+(def all-posts-all-data-by-type-q
+  '[:find (pull ?e [:db/id :post/title :post/date :post/content :post/tags :post/type])
+    :in $ ?type
+    :where
+    [?e :post/type ?ptype]
+    [(= ?type ?ptype)]])
+```
+
+the query accepts an input variable, the type which is a keyword in this case and check's if the current post/type is similar to this input varibale
+
+the function which uses this query :
+
+```
+(defn get-posts-for-type [type]
+  (let [dbtype (keyword type)
+        conn (d/connect uri)
+        db (d/db conn)
+        posts (d/q all-posts-all-data-by-type-q db dbtype)]
+    (sort-by :post/date (map #(assoc % :post/date (subs (pr-str (% :post/date)) 7 26)) (map first posts)))))
+```
+
+after getting the result we convert the #inst timestamp to a form more suitable for client-server data exchange and finally we sort the result by date
+
+let's test it, evaluate this function :
+
+```
+(get-posts-for-type "game")
+```
+
+now we are ready to push this data through an api call to the client side. we will use json for communication between the client and the server. add the dependency to project.clj first
+
+```
+:dependencies [[org.clojure/clojure "1.10.0"]
+               [org.clojure/tools.nrepl "0.2.13"]
+               [com.datomic/datomic-pro "0.9.6024"]
+               [org.clojure/data.json "0.2.6"]
+               [compojure "1.6.1"]
+               [hiccup "1.0.5"]
+               [ring/ring-defaults "0.3.2"]]
+```
+
+then require json in handler.clj
+
+```
+(:require [compojure.core :refer :all]
+          [compojure.route :as route]
+          [datomic.api :as d]
+          [clojure.data.json :as json]
+          [ring.util.response :as resp]
+          [ring.middleware.defaults :refer [wrap-defaults site-defaults]])
+```
+
+add a new route to ```app-routes```
+
+```
+(defroutes app-routes
+  (GET "/" [] (resp/redirect "/index.html"))
+  (GET "/custompage" [name] (custom-page name))
+  (GET "/api-getpostsbytype" [type] (json/write-str {:posts (get-posts-by-type type)}))
+  (route/resources "/")
+  (route/not-found "Not Found"))
+```
+
+save the file, restart the server and test the new route in the browser. open ```localhost:3000/api-getpostbytype?type=game```
+
+if everything is fine let's go to the client side and the client project and request posts from the server
+
+let's go to client side.
+
+## Loading content with the server side API
+
+we are going back to ```hello-reagent/src/hello_reagent/core.clj```
+
+let's modify the card labels to apps, games, protos and blog
+
+```
+(defonce cardlist (atom [{:col "#AAFFAA" :txt "APPS"}
+                         {:col "#FFFFAA" :txt "GAMES"}
+                         {:col "#AAFFFF" :txt "PROTOS"}
+                         {:col "#FFAAFF" :txt "BLOG"}]))
+```
 
 
+
+if you want to get 
 
 so we now have two webservers running on our machine, one for ring/compojure from the previous examples and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! let's merge at least the project to simplify things.
 
@@ -683,7 +800,8 @@ so that's what full stack web development is about. you add and request data to/
 to see how to create a more complex app using markdown to store post, reanimated for css animations, check out milgra.com github project
 
 
-
+check DEBUG mode, auto url switching
+port 80 when release mode for auto port switching
 
 
 
