@@ -15,13 +15,11 @@
 * Deploying to a server
 * Summary
 
-
 ## Prerequisites
 
 You should be familiar with [clojure](clojure-by-examples.md) and you should have a code editor with a clojure plugin for inline evaluation. You should be familiar with command line execution and terminals, you will need at least three terminal windows or four if you use a terminal-based editor. I recommend [linux](https://github.com/milgra/tutorials/blob/master/pretty-and-functional-linux-destkop.md) for clojure development.
 
-You can download/browse the three projects created in this tutorial here : [https://github.com/milgra/tutorials/tree/master/linux-dotfiles](https://github.com/milgra/tutorials/tree/master/linux-dotfiles)
-
+You can download/browse the three projects created in this tutorial here : [https://github.com/milgra/tutorials/tree/master/clojure-fullstack](https://github.com/milgra/tutorials/tree/master/clojure-fullstack)
 
 ## Preface
 
