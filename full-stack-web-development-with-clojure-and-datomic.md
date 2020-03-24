@@ -31,35 +31,35 @@ Example URL ( Uniform Resource Locator ) :
 
 https://example.com/user/1134?showage=false&showhair=false
 
-the server address is : [https://example.com] 
+The server address is : [https://example.com] 
 
-the route is : [/user/1134]
+The route is : [/user/1134]
 
-the parameters are : [showage=false&showhair=false]
+The parameters are : [showage=false&showhair=false]
 
 ## Setting up the server
 
-Create a compojure project template with leiningen ( install it first if you don't have it ) :
+Create a compojure project template with leiningen ( install it first if you don't have it ).
 
 ```lein new compojure hello-compojure```
 
-go to the project folder and start it up :
+Go to the project folder and start it up.
 
 ```lein ring server-headless```
 
-it will start up and tells us the port where we can reach the server
+It will start up and tells us the port where we can reach the server.
 
 ```Started server on port 3000```
 
-So let's go into a browser and type the URL
+So let's go into a browser and type the URL.
 
 ```localhost:3000```
 
-And we should see a page telling us "Hello World"
+And we should see a page telling us "Hello World".
 
 Good so far, let's start an nrepl server along with the web server so we can do inline evaluation from our code editor on the server code.
 
-Open the project in your editor, open project.clj, and add nrepl to the dependencies :
+Open the project in your editor, open project.clj, and add nrepl to the dependencies.
 
 ```
 :dependencies [[org.clojure/clojure "1.10.0"]
@@ -68,31 +68,30 @@ Open the project in your editor, open project.clj, and add nrepl to the dependen
                [ring/ring-defaults "0.3.2"]]
 ```
 
-and add a start flag to the ring part also
+And add a start flag to the ring part also.
 
 ```
 :ring {:handler hello-compojure.handler/app
        :nrepl {:start? true}}
 ```
 
-Now stop the server with CTRL-C and start it again.
-Along with the server port it now tells us the nrepl port :
+Now stop the server with CTRL-C and start it again. Along with the server port it now tells us the nrepl port.
 
 ```Started nREPL server on port 46725```
 
 Connect your editor's nrepl plugin to this port. In emacs you should open the minibuffer with ALT+X, enter ```cider-connect-clj``` for host type ```localhost``` , for port type the resulting port from the previous command.
 
-To check if inline eval is working open ```src/hello_compojure/core.clj``` in your editor and insert this somewhere :
+To check if inline eval is working open ```src/hello_compojure/core.clj``` in your editor and insert this somewhere.
 
 ```(+ 3 2)```
 
-place the cursor after the closing bracket and evaluate the expression ( in emacs press CTRL+X+E )
+Place the cursor after the closing bracket and evaluate the expression ( in emacs press CTRL+X+E ).
 
-the result should show up immediately
+The result should show up immediately.
 
 ```(+ 3 2) => 5```
 
-now let's check if the server updates if we modify something. modify the app-routes function like this :
+Now let's check if the server updates if we modify something. modify the app-routes function like this.
 
 ```
 (defroutes app-routes
@@ -100,15 +99,15 @@ now let's check if the server updates if we modify something. modify the app-rou
   (route/not-found "Not Found"))
 ```
 
-save the file and reload the page in the browser. the text in the browser should change to ```Hello World---```
+Save the file and reload the page in the browser. the text in the browser should change to ```Hello World---```.
 
-so we are set up for development
+So we are set up for development.
 
 ## Serving a static html page
 
-the simplest task a web server can do is to serve a static html page. let's try this
+The simplest task a web server can do is to serve a static html page. let's try this.
 
-create a new file under ```resources/public``` called ```index.html``` with the following content
+Create a new file under ```resources/public``` called ```index.html``` with the following content.
 
 ```
 <!DOCTYPE html>
@@ -119,7 +118,7 @@ create a new file under ```resources/public``` called ```index.html``` with the 
 </body>
 </html>
 ```
-then we have to tell the server to serve resources from root folder. modify ```app-routes``` function in ```core.clj``` :
+Then we have to tell the server to serve resources from root of the public folder. Modify ```app-routes``` function in ```core.clj```.
 
 ```
 (defroutes app-routes
@@ -128,13 +127,13 @@ then we have to tell the server to serve resources from root folder. modify ```a
   (route/not-found "Not Found"))
 ```
 
-now go into the browser and type ```localhost:3000/index.html``` and the previously created ```index.html``` shows up. so we just served a static resource to the client's browser!
+Now go into the browser and type ```localhost:3000/index.html``` and the previously created ```index.html``` shows up. So we just served a static resource to the client's browser!
 
-a static resource can be any kind of a file but mainly images that a web site uses
+A static resource can be any kind of a file but they are mainly images and other media files that a web site uses.
 
-and how do we tell the server to show index.html without adding ```/index.html``` to the address to act as the main page of our site?
+And how do we tell the server to show index.html without adding ```/index.html``` to the address to act as the main page of our site?
 
-we have to use the ```ring.util.respponse``` namespace for that. update the require list at the top of the file like this :
+We have to use the ```ring.util.respponse``` namespace for that. Update the requirements at the top of the file like this.
 
 ```
 (:require [compojure.core :refer :all]
@@ -143,7 +142,7 @@ we have to use the ```ring.util.respponse``` namespace for that. update the requ
           [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
 ```
 
-and modify app-routes also :
+And modify app-routes also.
 
 ```
 (defroutes app-routes
@@ -152,13 +151,13 @@ and modify app-routes also :
   (route/not-found "Not Found"))
 ```
 
-so if you open the browser and go to ```localhost:3000``` the index.html will show up because we redirected the root route to it!
+So if you open the browser and go to ```localhost:3000``` the index.html will show up because we redirected the root route to it!
 
 ## Generating html on the server
 
-let's see now how to generate html pages dynamically on the server.
+Let's see now how to generate html pages dynamically on the server.
 
-create a function in ```core.clj``` called ```custom-page``` over ```app-routes```
+Create a function in ```core.clj``` called ```custom-page``` over ```app-routes```.
 
 ```
 (defn custom-page []
@@ -166,11 +165,11 @@ create a function in ```core.clj``` called ```custom-page``` over ```app-routes`
   )
 ```
 
-it's quite simple for now. now call it from anywhere in the code and evaluate it to check if it works properly
+It's quite simple for now. Now call it from anywhere in the code and evaluate it to check if it works properly.
 
 ```(custom-page) => "Custom page"```
 
-it returns the string so it looks good. now let's connect it to a route. modify ```app-routes```
+It returns the string so it looks good. Now let's connect it to a route. Modify ```app-routes```.
 
 ```
 (defroutes app-routes
@@ -180,11 +179,11 @@ it returns the string so it looks good. now let's connect it to a route. modify 
   (route/not-found "Not Found"))
 ```
 
-if you check ```localhost:3000/custompage``` in the browser the same string will show up in the browser!!! yaaay!!!
+If you check ```localhost:3000/custompage``` in the browser the same string will show up in the browser!!! Yaaay!!!
 
-now we will generate super complex html structures in the code with the help of hiccup library 
+Now we will generate super complex html structures in the code with the help of hiccup library.
 
-add the latest hiccup library to the project's dependencies in project.clj
+Add the latest hiccup library to the project's dependencies in project.clj.
 
 ```
 :dependencies [[org.clojure/clojure "1.10.0"]
@@ -193,9 +192,9 @@ add the latest hiccup library to the project's dependencies in project.clj
                [hiccup "1.0.5"]
                [ring/ring-defaults "0.3.2"]]
 ```
-and restart the server
+And restart the server.
 
-in core.clj let's use the entire hiccup namespace 
+In core.clj let's use the entire hiccup namespace. 
 
 ```
 (ns hello-compojure.handler
@@ -206,7 +205,7 @@ in core.clj let's use the entire hiccup namespace
   (:use [hiccup.core]))
 ```
 
-and we can start using hiccup notation to generate html. let's re-create index.html in the code with hiccup in the ```custom-page``` function
+And we can start using hiccup notation to generate html. Let's re-create index.html in the code with hiccup in the ```custom-page``` function.
 
 ```
 (defn custom-page [name]
@@ -214,11 +213,11 @@ and we can start using hiccup notation to generate html. let's re-create index.h
         [:p (str "Hello " name "!!!")]))
 ```
 
-check it in the browser, you should see the same result as before
+Check it in the browser, you should see the same result as before.
 
-the only problem that this looks still too static! so let's add some twist here, the page will accept a name as parameter and we will insert the name in the generated page.
+The only problem that this looks still too static! So let's add some twist here, the page will accept a name as parameter and we will insert the name in the generated page.
 
-modfy the ```custom page``` function to accept a name parameter and generate a greeting text for the name :
+Modfy the ```custom page``` function to accept a name parameter and generate a greeting text for the name.
 
 ```
 (defn custom-page [name]
@@ -228,7 +227,7 @@ modfy the ```custom page``` function to accept a name parameter and generate a g
           [:p (str "Hello " name	]]))
 ```
 
-now modify ```app-routes``` to accept a name parameter
+Now modify ```app-routes``` to accept a name parameter.
 
 ```
 (defroutes app-routes
@@ -238,21 +237,21 @@ now modify ```app-routes``` to accept a name parameter
   (route/not-found "Not Found"))
 ```
 
-now go into the browser and open the following url :
+Now go into the browser and open the following url.
 
 ```http://localhost:3000/custompage?name=Milan```
 
-and a greeting text will show up under the header.
+And a greeting text will show up under the header.
 
-and that's how you create dynamic content on the server.
+And that's how you create dynamic content on the server.
 
 ## Generating html on the client
 
-generating content on the server and loading it to the browser all the time with every small change is not that dynamic. for a super dynamic and bandwidth-effective experience you have to generate the page on the client-side based on the data that you request from the server when it is needed.
+Generating content on the server and loading it to the browser all the time with every small change is not really dynamic. For a super dynamic and bandwidth-effective experience you have to generate the page on the client-side based on the data that you request from the server when it is needed.
 
 ## Setting up the client
 
-we will use shadow-cljs for clojurescript development. it is a tool that provides a repl and connects it to the live code running in the browser so you can update/evaluate functions in the running code and make inline evaluation and development easier. install it first if you don't have it
+We will use shadow-cljs for clojurescript development. it is a tool that provides a repl and connects it to the live code running in the browser so you can update/evaluate functions in the running code and make inline evaluation and development easier. install it first if you don't have it
 
 we will base our client side code on reagent, which is a wrapper for the javascript library react. it contains additional useful things for clojurescript development.
 
