@@ -1072,10 +1072,13 @@ since shadow-cljs uses shadow-cljs.edn and lein uses project.clj we can easily m
 create a new folder called ```hello-fullstack```
 
 copy ```hello-compojure/project.clj``` to ```hello-fullstack/project.clk```
+
 copy ```hello-compojure/src/hello_compojure/``` to ```hello-fullstack/src/clj/hello_compojure/```
 
 copy ```hello-reagent/package.json``` to ```hello-fullstack/package.json```
+
 copy ```hello-reagent/shadow-cljs.edn``` to ```hello-fullstack/shadow-cljs.edn```
+
 copy ```hello-reagent/src/hello_reagent/``` to ```hello-fullstack/src/cljs/hello_reagent/```
 
 so we create a separate clj folder for server-side code, and a cljs folder for client-side code under source
