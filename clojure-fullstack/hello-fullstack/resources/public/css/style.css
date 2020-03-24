@@ -1,0 +1,40 @@
+/* some style */
+body {
+    margin : 0px;
+    
+    text-shadow: 1px 1px 3px #AAAAAA;   
+    text-align: justify;
+
+    font-size : 18px;
+    font-family : -apple-system,BlinkMacSystemFont,Avenir,Avenir Next,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+}
+
+h1 {
+    font-size : 27px;
+    font-weight : normal;
+}
+
+h2 {
+    font-size : 14px;
+    font-weight : normal;
+}
+
+.verticaltext {
+    top : -5px;
+    font-size : 27px;
+    transform : rotate(-90deg);
+    transform-origin : bottom right;
+}
+
+.cardbutton {
+    cursor : pointer;
+    position : absolute;
+    right : 20px;
+    display : inline-block;
+}
+
+.card {
+    position : absolute;
+    min-height : 100vh;
+    padding : 10px;
+}

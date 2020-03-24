@@ -1,0 +1,30 @@
+;; shadow-cljs configuration
+{:source-paths
+ ["src/cljs"]
+
+ :dependencies [[binaryage/devtools "0.9.7"]
+                [cider/cider-nrepl "0.25.0-SNAPSHOT"]
+                [cljs-http "0.1.45"]
+                [reagent "0.8.0-alpha2"]]
+
+ ;; set an nrepl port for connection to a REPL.
+ :nrepl        {:port 8777}
+
+ :builds
+ {:app {:target :browser
+        :output-dir "resources/public/js/compiled"
+        :asset-path "/js/compiled"
+
+        :modules
+        {:main
+         {:entries [hello-reagent.core]}}
+
+        :devtools
+        ;; before live-reloading any code call this function
+        {:before-load hello-reagent.core/stop
+         ;; after live-reloading finishes call this function
+         :after-load hello-reagent.core/start
+         ;; serve the public directory over http at port 8700
+         :http-root    "resources/public"
+         :http-port    8700
+         :preloads     [devtools.preload]}}}}
