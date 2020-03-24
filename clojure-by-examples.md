@@ -127,5 +127,10 @@ or in the simpler form
 
 ## Enter the editor
 
+Things are getting complicated now, we have to outgrow the repl and use a code editor with inline evaluation.
+Downlad your favorite editor with it's clojure plugin ( emacs - cider , visual studio code - calva , cursive ( IntelliJ ), etc ) 
+
 let bindings
+
+
 destructuring
