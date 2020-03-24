@@ -1275,6 +1275,8 @@ so that's what full stack web development is about. you add and request data to/
 
 if you want to know how to send posts from the client side to the server and the database, how to store posts in markdown syntax and render them as html on the client side, how to create a riddle-based captchas, how to protect admin requests with password, how to animate components with reanimated, how to add menus, how to use ```a href```'s insted of ```on-click``` events for search engine optimization then check out [milgra.com github project](https://github.com/milgra/milgra.com)
 
+you can download the project used in the projects from here :
+
 todo :
 tests with temporary db
 secretary for history
