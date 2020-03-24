@@ -620,9 +620,40 @@ here we guard schema creation with the successful database creation because if c
 
 delete the db and evaluate setup-db again. if something fails remember to send the whole file to the repl or send the newly created parts to the repl individually with inline evaluation so every definition is visible for newly created functions
 
-no we are ready to fill up the database
+no we are ready to fill up the database. create a test-data structure
 
+```
+(def test-data
+  [{:post/title "Test Post One"
+    :post/tags ["c"]
+    :post/type :blog
+    :post/date  #inst "2018-04-13T00:00:00"
+    :post/content "This is test post one. Yaaay!"}
 
+   {:post/title "Another Post Test"
+    :post/tags ["d" "prog"]
+    :post/type :blog
+    :post/date  #inst "2017-07-30T00:00:00"
+    :post/content "Okay, this is another test post."}
+
+   {:post/title "Termite 3D"
+    :post/type :game
+    :post/tags ["action" "strategy" "real-time"]
+    :post/date  #inst "2017-07-30T00:00:00"
+    :post/content "Super duper good game!"}
+
+   {:post/title "Kinetic 3D"
+    :post/type  :prototype
+    :post/date  #inst "2017-07-30T00:00:00"
+    :post/tags ["3D" "OpenGL"]
+    :post/content "Very good prototype"}
+
+   {:post/title "Mac Media Key Forwarder"
+    :post/tags ["Utility"]
+    :post/type  :app
+    :post/date  #inst "2017-07-30T00:00:00"
+    :post/content "Bestest app eva!!!"}])
+```
 
 
 so we now have two webservers running on our machine, one for ring/compojure from the previous examples and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! let's merge at least the project to simplify things.
@@ -635,7 +666,7 @@ so that's what full stack web development is about. you add and request data to/
 
 
 
-
+to see how to create a more complex app using markdown to store post, reanimated for css animations, check out milgra.com github project
 
 
 
