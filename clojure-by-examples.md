@@ -129,7 +129,7 @@ or
 
 ```(into {} (map #(do { (key %) (str (val %) "nnn") }) m1))```
 
-why do we need the ```do``` keyword here? because #% syntactic sugar encapsulates a single function call inside by default and ```do``` tells clojure that multiple expressions will follow where we can now use the map constructor. you will use it 
+why do we need the ```do``` keyword here? because #% syntactic sugar encapsulates a single function call inside by default and ```do``` tells clojure that multiple expressions will follow where we can now use the map constructor. you will use it in a lot of places, mainly in ```if``` and ```cond``` statements where syntax expects a single expression by default.
 
 and let's implement the same functionality with reduce :
 
@@ -138,6 +138,18 @@ and let's implement the same functionality with reduce :
 or in the simpler form
 
 ```(reduce #(assoc %1 (key %2) (str (val %2) "nnn")) {} m1)```
+
+## Lexical bindings
+
+Clojure has no variables, it has immutable values, still, we need a lot of named values for our functions/algorithms,
+
+```
+(fn []
+  (let []
+  
+  )
+)
+
 
 ## Enter the editor
 
