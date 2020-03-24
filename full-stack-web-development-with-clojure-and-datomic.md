@@ -401,7 +401,7 @@ first we will have to be able to rearrange cards so we make an atom called cardl
                          {:col "#FFAAFF" :txt "FOUR"}]))
 
 (defonce cardpos ["200px" "300px" "400px" "500px"])
-(defonce cardwth ["200px" "200px" "200px" "400px"])
+(defonce cardwth ["100px" "100px" "100px" "400px"])
 ```
 
 we will have to modify the iteration in ```page``` function sightly, we want to pass an indexed item to ```card``` function so it knows which position and width element to use for rendering the actual card. ```map-indexed vector``` pairs the indexes with elements in cardlist.
@@ -905,10 +905,98 @@ and finally replace app definition in handler.clj with this :
 
 and restart the server ( ```lein ring server-headless``` )
 
-and now if you load the site in the browser the posts should show up in the third card. yaay!!!
+and now if you load the site in the browser the posts should show up in the third card. yaay!!! 
+
+super cool, let's pimp it up a little bit, let's create a component that contains the posts
 
 ```
+(defn posts []
+  (if @content
+    [:div
+     (map (fn [post]
+            [:div {:key (rand 1000000)}
+             [:h1 (post :title)]
+             [:h2 (str (clojure.string/replace (post :date) #"T" " ") " / " (clojure.string/join "," (post :tags)))]
+             [:br]
+             (post :content)
+             [:br]
+             [:hr]])
+          @content)]))
 ```
+
+so with map we iterate through all posts and render it's attributes with different html elements. let's add posts component to card
+
+```
+(defn card [ [ index data ] ]
+  (if (= index 3)
+    (get-posts-by-type (:type data)))
+  (let [txt (:txt data)]
+    [:div
+     {:key (str "card" index)
+      :style {:position "absolute"
+              :width (nth cardwth index)
+              :left (nth cardpos index)
+              :background (:col data)
+              :min-height "100vh"}
+      :on-click (fn [e]
+                  ; shift menuitems
+                  (reset! cardlist
+                          (concat
+                          (filter #(not= (% :txt) txt) @cardlist)
+                          (filter #(= (% :txt) txt) @cardlist))))}
+     (:txt data)
+     (if (= index 3)
+       [posts])]))
+```
+
+check it in the browser!
+
+cool, it's getting ready now but it's super ugly! let's do some css styling
+
+edit stlye.css in the client
+
+vertical labels for the cards :
+
+```
+.verticaltext {
+    top : -5px;
+    font-size : 27px;
+    transform : rotate(-90deg);
+    transform-origin : bottom right;
+}
+
+.cardbutton {
+    cursor : pointer;
+    position : absolute;
+    right : 10px;
+    display : inline-block;
+}
+```
+let's add the label in a separate div to card component so we can use these class selectors on it
+
+```
+(defn card [ [ index data ] ]
+  (if (= index 3)
+    (get-posts-by-type (:type data)))
+  (let [txt (:txt data)]
+    [:div
+     {:key (str "card" index)
+      :style {:position "absolute"
+              :width (nth cardwth index)
+              :left (nth cardpos index)
+              :background (:col data)
+              :min-height "100vh"}
+      :on-click (fn [e]
+                  ; shift menuitems
+                  (reset! cardlist
+                          (concat
+                          (filter #(not= (% :txt) txt) @cardlist)
+                          (filter #(= (% :txt) txt) @cardlist))))}
+     [:div {:class ["verticaltext cardbutton"]} (:txt data)]
+     (if (= index 3)
+       [posts])]))
+```
+
 
 if you want to get 
 
@@ -947,6 +1035,10 @@ use a href's for url browsability & search engine optimization
 deploy the whole stuff to hetzner
 
 markdown html contnet
+
+html a href link out
+
+secretary for history
 
 a href's
 
