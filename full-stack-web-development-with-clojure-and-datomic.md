@@ -20,6 +20,9 @@
 
 You should be familiar with [clojure](clojure-by-examples.md) and you should have a code editor with a clojure plugin for inline evaluation. You should be familiar with command line execution and terminals, you will need at least three terminal windows or four if you use a terminal-based editor. I recommend [linux](https://github.com/milgra/tutorials/blob/master/pretty-and-functional-linux-destkop.md) for clojure development.
 
+You can download/browse the three projects created in this tutorial here : [https://github.com/milgra/tutorials/tree/master/linux-dotfiles](https://github.com/milgra/tutorials/tree/master/linux-dotfiles)
+
+
 ## Preface
 
 Simply put, full stack web development is generating web pages for the user's browser based on the user's requests. This can happen in the browser on the client side and on the web server machine on the server side, usually both side is involved.
@@ -439,9 +442,7 @@ But we have an annoyinh warning in the developer console of the browser!
 Warning: Every element in a seq should have a unique :key:
 ```
 
-And that's because react needs a unique id for every component to speed up state changes. So let's add a key to our pages
-
-so let's add a key to each card to fix this. 
+And that's because react needs a unique id for every component to speed up state changes. So let's add a key to each card to fix this. 
 
 ```
 (defn card [ [ index data ] ]
@@ -486,11 +487,8 @@ Request a license for the starter version of datomic on-prem from [datomic](http
 
 After that go to [https://my.datomic.com/account](https://my.datomic.com/account), there will be the wget link for the full distribution, download and unzip it.
 
-At the bottom of the page there is an ```or via leiningen``` section. Copy the first three lines and create a file
-
-```~/.lein/credentials.clj```
-
-and paste the lines into it.
+At the bottom of the page there is an ```or via leiningen``` section. Copy the first three lines and create a file at
+```~/.lein/credentials.clj``` and paste the lines into it.
 
 Download and install gnupg for your system and create a default key with ```gpg --gen-key```.
 
@@ -562,11 +560,9 @@ Create a setup-db function.
 
 ```
 
-re-send the file to the repl or restart the server
+Re-send the file to the repl or restart the server, then evaluate the inner ( ```let``` ) part of the function inline, the repl buffer should show a successful creation and a connection info map.
 
-then evaluate the inner ( ```let``` ) part of the function inline, the repl buffer should show a successful creation and a connection info map
-
-we should create the ```delete-db``` function also to speed up development, we will delete and re-schema and re-fill the database all the time
+We should create the ```delete-db``` function also to speed up development, we will delete and re-schema and re-fill the database all the time.
 
 ```
 (defn delete-db []
@@ -574,12 +570,11 @@ we should create the ```delete-db``` function also to speed up development, we w
     (println "deletion" succ)))
 ```
 
-evaluate the inner part, deletion should print ```true``` to the repl, then try evaluating the inner part of ```setup-db``` again and creation should print ```true```
+Evaluate the inner part, deletion should print ```true``` to the repl, then try evaluating the inner part of ```setup-db``` again and creation should print ```true```.
 
-now we are ready to create our schema
+Now we are ready to create our schema.
 
-we will store posts with four possible types for the four cards. they will have title, content, date, type and tags.
-
+We will store posts with four possible types for the four cards. They will have title, content, date, type and tags.
 
 ```
 (def post-schema
@@ -609,7 +604,7 @@ we will store posts with four possible types for the four cards. they will have 
     :db/doc "The conent of the post in html"}])
 ```
 
-and let's add schema creation to ```setup``` function
+And let's add schema creation to the ```setup``` function.
 
 ```
 (defn setup-db []
@@ -621,11 +616,11 @@ and let's add schema creation to ```setup``` function
           (println "schema creation resp" resp))))))
 ```
 
-here we guard schema creation with the successful database creation because if creation fails then the db is already created and schema is already created
+Here we guard schema creation with the successful database creation because if creation fails then the db is already created and schema is already created.
 
-delete the db and evaluate setup-db again. if something fails remember to send the whole file to the repl or send the newly created parts to the repl individually with inline evaluation so every definition is visible for newly created functions
+Delete the db and evaluate setup-db again. If something fails remember to send the whole file to the repl or send the newly created parts to the repl individually with inline evaluation so every definition is visible for newly created functions.
 
-no we are ready to fill up the database. create a test-data structure
+Now we are ready to fill up the database. Create a test-data structure.
 
 ```
 (def test-data
@@ -659,7 +654,7 @@ no we are ready to fill up the database. create a test-data structure
     :post/date  #inst "2017-07-30T00:00:00"
     :post/content "Bestest app eva!!!"}])
 ```
-let's create a fillup-db function to pass this data to datomic
+Let's create a fillup-db function to pass this data to datomic.
 
 ```
 (defn fillup-db []
@@ -668,11 +663,11 @@ let's create a fillup-db function to pass this data to datomic
         resp (d/transact conn test-data)]
     (println "post insertion resp" resp)))
 ```
-evaluate the inner part and the test data should be in the database
+Evaluate the inner part and the test data should be in the database.
 
-and now... query time!!!
+And now... Query time!!!
 
-let's get all posts first with a title ( probably all posts because every post should have a title )
+Let's get all posts first with a title ( probably all posts because every post should have a title ).
 
 ```
 (def all-posts-q
@@ -685,9 +680,9 @@ let's get all posts first with a title ( probably all posts because every post s
         posts (d/q all-posts-q db)]
     posts))
 ```
-if you evaluate the insode of ```get-all-posts``` you should get a list of numbers. these numbers are entity id's of the inserted entities. if you want to get all fields of an entity you can do ```(d/entity db entityid)``` and to put the result back to a map similar to the insertion map you can do ```(into {} (seq (d/entity db entityid)))```
+If you evaluate the inside of ```get-all-posts``` you should get a list of numbers. These numbers are entity id's of the inserted entities. If you want to get all fields of an entity you can do ```(d/entity db entityid)``` and to put the result back to a map similar to the insertion map you can do ```(into {} (seq (d/entity db entityid)))```.
 
-but we can also modify the query to pass back all values of all entities in a vector, we will use the pull pattern
+But we can also modify the query to pass back all values of all entities in a vector, we will use the pull pattern.
 
 ```
 (def all-posts-all-data-q
@@ -701,9 +696,9 @@ but we can also modify the query to pass back all values of all entities in a ve
     posts))
 ```
 
-if you evaluate the inner part of ```get-all-posts-all-data``` all fields for all entities should show up as result
+If you evaluate the inner part of ```get-all-posts-all-data``` all fields for all entities should show up as result.
 
-we created the previous functions to aid our development, we can check what's inside the db or are they still inside, now let's create a query that we will actually use. let's request entities based on their type to request them for our cards in the browser
+We created the previous functions to aid our development, to check what's inside the db or are they still inside, now let's create a query that we will actually use. Let's request entities based on their type to request them for our cards in the browser.
 
 ```
 (def all-posts-all-data-by-type-q
@@ -714,9 +709,9 @@ we created the previous functions to aid our development, we can check what's in
     [(= ?type ?ptype)]])
 ```
 
-the query accepts an input variable, the type which is a keyword in this case and check's if the current post/type is similar to this input varibale
+The query accepts an input variable, the type which is a keyword in this case and check's if the current post/type is similar to this input varibale.
 
-the function which uses this query :
+The function which uses this query :
 
 ```
 (defn get-posts-for-type [type]
@@ -727,15 +722,15 @@ the function which uses this query :
     (sort-by :post/date (map #(assoc % :post/date (subs (pr-str (% :post/date)) 7 26)) (map first posts)))))
 ```
 
-after getting the result we convert the #inst timestamp to a form more suitable for client-server data exchange and finally we sort the result by date
+After getting the result we convert the #inst timestamp to a form more suitable for json data exchange and finally we sort the result by date.
 
-let's test it, evaluate this function :
+Let's test it, evaluate this function :
 
 ```
 (get-posts-for-type "game")
 ```
 
-now we are ready to push this data through an api call to the client side. we will use json for communication between the client and the server. add the dependency to project.clj first
+Now we are ready to push this data through an api call to the client side. We will use json for communication between the client and the server. Add the dependency to project.clj first.
 
 ```
 :dependencies [[org.clojure/clojure "1.10.0"]
@@ -747,7 +742,7 @@ now we are ready to push this data through an api call to the client side. we wi
                [ring/ring-defaults "0.3.2"]]
 ```
 
-then require json in handler.clj
+Then require json in handler.clj.
 
 ```
 (:require [compojure.core :refer :all]
@@ -758,7 +753,7 @@ then require json in handler.clj
           [ring.middleware.defaults :refer [wrap-defaults site-defaults]])
 ```
 
-add a new route to ```app-routes```
+Add a new route to ```app-routes```.
 
 ```
 (defroutes app-routes
@@ -769,17 +764,15 @@ add a new route to ```app-routes```
   (route/not-found "Not Found"))
 ```
 
-save the file, restart the server and test the new route in the browser. open ```localhost:3000/api-getpostbytype?type=game```
+Save the file, restart the server and test the new route in the browser. open ```localhost:3000/api-getpostbytype?type=game```.
 
-if everything is fine let's go to the client side and the client project and request posts from the server
-
-let's go to client side.
+If everything is fine let's go to the client side and the client project and request posts from the server.
 
 ## Loading content with the server side API
 
-we are going back to ```hello-reagent/src/hello_reagent/core.clj```
+We are going back to ```hello-reagent/src/hello_reagent/core.clj```.
 
-let's modify the card labels to apps, games, protos and blog and add a type property to them
+Let's modify the card labels to apps, games, protos and blog and add a type property to them.
 
 ```
 (defonce cardlist (atom [{:col "#AAFFAA" :txt "APPS" :type "app"}
@@ -787,12 +780,12 @@ let's modify the card labels to apps, games, protos and blog and add a type prop
                          {:col "#AAFFFF" :txt "PROTOS" :type "prototype"}
                          {:col "#FFAAFF" :txt "BLOG" :type "blog"}]))
 ```
-we will also need a new reagent atom for strogin the received posts
+We will also need a new reagent atom for strogin the received posts.
 
 ```
 (defonce content (atom nil))
 ```
-we will need ```cljs-http``` library. add to the dependencies in ```shadow-cljs.edn```
+We will need ```cljs-http``` library. Add to the dependencies in ```shadow-cljs.edn```.
 
 ```
  :dependencies [[binaryage/devtools "0.9.7"]
@@ -803,7 +796,7 @@ we will need ```cljs-http``` library. add to the dependencies in ```shadow-cljs.
                 [reanimated "0.6.1"]]
 ```
 
-and require it in ```core.cljs``` . we also have to require clojure.core.async for async operations
+And require it in ```core.cljs``` . We also have to require clojure.core.async for async operations.
 
 ```
 (ns hello-reagent.core
@@ -812,9 +805,9 @@ and require it in ```core.cljs``` . we also have to require clojure.core.async f
             [cljs-http.client :as http]))
 ```
 
-and now restart shadow-cljs
+And now restart shadow-cljs.
 
-let's create the function that requests posts from the server-side API
+Let's create the function that requests posts from the server-side API.
 
 ```
 (defn get-posts-by-type [type]
@@ -827,7 +820,7 @@ let's create the function that requests posts from the server-side API
       (reset! content posts))))
 ```
 
-let's call this function from the top of the ```card``` function when the index is 3, so only the active card will load it's content. we will also show the content as string if index is 3
+Let's call this function from the top of the ```card``` function when the index is 3, so only the active card will load it's content. We will also show the content as string if index is 3.
 
 ```
 (defn card [ [ index data ] ]
@@ -853,17 +846,17 @@ let's call this function from the top of the ```card``` function when the index 
      ]))
 ```
 
-and we are ready to roll!!! let's try it in the browser
+And we are ready to roll!!! Let's try it in the browser.
 
-hmm, something is wrong, check the developer console of the browser :
+Hmm, something is wrong, check the developer console of the browser.
 
 ```
 Access to XMLHttpRequest at 'http://localhost:3000/api-getpostsbytype?type=blog' from origin 'http://localhost:8700' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 ```
 
-we are blocked by a server-side policy! whoa!
+We are blocked by a server-side policy! Whoa!
 
-add ring-cors dependency to hello-compojure in project.clj
+Add ring-cors dependency to hello-compojure in project.clj.
 
 ```
   :dependencies [[org.clojure/clojure "1.10.0"]
@@ -876,7 +869,7 @@ add ring-cors dependency to hello-compojure in project.clj
                  [ring/ring-defaults "0.3.2"]]
 ```
 
-require it in handler.clj in the server
+Require it in handler.clj in the server.
 
 ```
 (ns hello-compojure.handler
@@ -888,7 +881,7 @@ require it in handler.clj in the server
             [ring.middleware.cors :refer [wrap-cors]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]])
 ```
-and finally replace app definition in handler.clj with this :
+And finally replace app definition in handler.clj with this :
 
 ```
 (def app
@@ -900,11 +893,11 @@ and finally replace app definition in handler.clj with this :
       (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false))))
 ```
 
-and restart the server ( ```lein ring server-headless``` )
+And restart the server ( ```lein ring server-headless``` ).
 
-and now if you load the site in the browser the posts should show up in the third card. yaay!!! 
+And now if you load the site in the browser the posts should show up in the third card. Yaay!!! 
 
-super cool, let's pimp it up a little bit, let's create a component that contains the posts
+Super cool, let's pimp it up a little bit, let's create a component that contains the posts.
 
 ```
 (defn posts []
@@ -921,7 +914,7 @@ super cool, let's pimp it up a little bit, let's create a component that contain
           @content)]))
 ```
 
-so with map we iterate through all posts and render it's attributes with different html elements. let's add posts component to card
+So with map we iterate through all posts and render it's attributes with different html elements. Let's add posts component to card.
 
 ```
 (defn card [ [ index data ] ]
@@ -946,13 +939,13 @@ so with map we iterate through all posts and render it's attributes with differe
        [posts])]))
 ```
 
-check it in the browser!
+Check it in the browser!
 
-cool, it's getting ready now but it's super ugly! let's do some css styling
+Cool, it's getting ready now but it's super ugly! Let's do some css styling!
 
-edit stlye.css in the client
+Edit stlye.css in the client.
 
-vertical labels for the cards :
+Vertical labels for the cards :
 
 ```
 .verticaltext {
@@ -969,7 +962,7 @@ vertical labels for the cards :
     display : inline-block;
 }
 ```
-let's add the label in a separate div to card component so we can use these class selectors on it
+Let's add the label in a separate div to card component so we can use these class selectors on it.
 
 ```
 (defn card [ [ index data ] ]
@@ -994,7 +987,7 @@ let's add the label in a separate div to card component so we can use these clas
        [posts])]))
 ```
 
-let's add better looking fonts and a little shadow to style.css
+Let's add better looking fonts and a little shadow to style.css.
 
 ```
 body {
@@ -1008,7 +1001,7 @@ body {
 }
 
 ```
-and modify header element styles a little :
+And modify header element styles a little.
 
 ```
 h1 {
@@ -1022,7 +1015,7 @@ h2 {
 }
 ```
 
-now it's getting better!!! a little margin around the content would be awesome and also we should wire out non-changing card styles from the code. add this to style.css
+Now it's getting better!!! A little margin around the content would be awesome and also we should wire out non-changing card styles from the code. Add this to style.css :
 
 ```
 .card {
@@ -1032,7 +1025,7 @@ now it's getting better!!! a little margin around the content would be awesome a
 }
 ```
 
-and modify card again :
+And modify card again.
 
 ```
 (defn card [ [ index data ] ]
@@ -1056,30 +1049,31 @@ and modify card again :
        [posts])]))
 ```
 
-cool, now our page is working well and looking good. we should deploy it to a server but first we should merge these two project into one project to make development simpler.
+Cool, now our page is working well and looking good. We should deploy it to a server but first we should merge these two project into one project to make development simpler.
 
 ## Merging the two projects into one project
 
-so far we have two webservers running on our machine, one for ring/compojure from the server-side and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! let's merge at least the project to simplify things.
+Ao far we have two webservers running on our machine, one for ring/compojure from the server-side and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! Let's merge at least the project to simplify things.
 
-since shadow-cljs uses shadow-cljs.edn and lein uses project.clj we can easily merge the two projects without problems.
-create a new folder called ```hello-fullstack```
+Since shadow-cljs uses shadow-cljs.edn and lein uses project.clj for project setup we can easily merge the two projects with only a few modifications.
 
-copy ```hello-compojure/project.clj``` to ```hello-fullstack/project.clk```
+Create a new folder called ```hello-fullstack```.
 
-copy ```hello-compojure/src/hello_compojure/``` to ```hello-fullstack/src/clj/hello_compojure/```
+Copy ```hello-compojure/project.clj``` to ```hello-fullstack/project.clk```
 
-copy ```hello-reagent/package.json``` to ```hello-fullstack/package.json```
+Copy ```hello-compojure/src/hello_compojure/``` to ```hello-fullstack/src/clj/hello_compojure/```
 
-copy ```hello-reagent/shadow-cljs.edn``` to ```hello-fullstack/shadow-cljs.edn```
+Copy ```hello-reagent/package.json``` to ```hello-fullstack/package.json```
 
-copy ```hello-reagent/src/hello_reagent/``` to ```hello-fullstack/src/cljs/hello_reagent/```
+Copy ```hello-reagent/shadow-cljs.edn``` to ```hello-fullstack/shadow-cljs.edn```
 
-so we create a separate clj folder for server-side code, and a cljs folder for client-side code under source
+Copy ```hello-reagent/src/hello_reagent/``` to ```hello-fullstack/src/cljs/hello_reagent/```
+
+So we create a separate clj folder for server-side code, and a cljs folder for client-side code under src.
  
-copy ```hello-reagent/public``` to ```hello-fullstack/resources/public```
+Copy ```hello-reagent/public``` to ```hello-fullstack/resources/public```
 
-and now we have to modify ```hello-fullstack/shadow-cljs.edn``` for the updated sources and resources location :
+And now we have to modify ```hello-fullstack/shadow-cljs.edn``` for the updated sources and resources location.
 
 ```
 ;; shadow-cljs configuration
@@ -1113,7 +1107,7 @@ and now we have to modify ```hello-fullstack/shadow-cljs.edn``` for the updated 
          :preloads     [devtools.preload]}}}}
 ```
 
-in ```hello-fullstack/project.clj``` we have to add the new source-path location
+In ```hello-fullstack/project.clj``` we have to add the new source-path location.
 
 ```
 (defproject hello-compojure "0.1.0-SNAPSHOT"
@@ -1139,39 +1133,39 @@ in ```hello-fullstack/project.clj``` we have to add the new source-path location
                         [ring/ring-mock "0.3.2"]]}})
 ```
 
-and now close all terminals and editors, we will do a fresh start with everything wit our newly created project
+And now close all terminals and editors, we will do a fresh start with everything for our newly created project
 
-start datomic first with ```bin/transactor dev.properties```
+Start datomic first with ```bin/transactor dev.properties```
 
-then start the server, go to ```hello-fullstack``` and type ```lein ring headless```
+Then start the server, go to ```hello-fullstack``` and type ```lein ring headless```
 
-then download npm dependencies with ```npm install```
+Then download npm dependencies with ```npm install```
 
-then start shadow with ```shadow-cljs watch app```
+Then start shadow with ```shadow-cljs watch app```
 
-if everything went fine check the page in the browser ```localhost:8700```
+If everything went fine check the page in the browser ```localhost:8700```
 
-and the cool thing is, since we merged the two project and pointed resources folder to the same folder, the freshly generated shadow-cljs output is also reachable by our compojure server, and since we added a redirect for index.html it can also serve our client-side code like it will do in production
+And the cool thing is, since we merged the two project and pointed resources folder to the same folder, the freshly generated shadow-cljs output is also reachable by our compojure server, and since we added a redirect for index.html it can also serve our client-side code like it will do in production.
 
-so check out that also at ```localhost:3000```
+So check out that also at ```localhost:3000```
 
-you should see the same on both addresses
+You should see the same on both addresses.
 
-cool, now development/project structure/version control improved big time! the only thing left is deployment!!!
+Cool, now development/project structure/version control improved big time! the only thing left is deployment!!!
 
 ## Deploying to a server
 
-to deploy to a server first you need a server! :) I recommend [https://www.hetzner.com/cloud](https://www.hetzner.com/cloud), for only 2.96 EUR/month you get a server in the cloud with 2 Gigs of RAM and 20GB of SSD and they seem really professional.
+To deploy to a server first you need a server! :) I recommend [https://www.hetzner.com/cloud](https://www.hetzner.com/cloud), for only 2.96 EUR/month you get a server in the cloud with 2 Gigs of RAM and 20GB of SSD and they seem really professional.
 
-so sign up for a CX11 clud server
+So sign up for a CX11 clud server.
 
-select the latest Debian image for it (10.3)
+Select the latest Debian image for it (10.3).
 
-you should access it with ssh key
+You should access it with ssh key.
 
-if it is started connect to it via ssh ```ssh root@your.servers.ip.address```
+If it is started connect to it via ssh ```ssh root@your.servers.ip.address```.
 
-the only thing it needs is Java 8. on Debian 10 it looks like this :
+The only thing it needs is Java 8. On Debian 10 it Java 8 install looks like this :
 
 ```
 sudo apt install apt-transport-https ca-certificates wget dirmngr gnupg software-properties-common
@@ -1181,13 +1175,11 @@ sudo apt update
 sudo apt install adoptopenjdk-8-hotspot
 ```
 
-check java with
+Check java with ```java -version```
 
-```java -version```
+Choool! Now let's create a release build!
 
-choool! now let's create a release build from our project, go to the project root and type
-
-first we have to tell leiningen to tell ring to use port 80 when in production so we add an uberjar part to profiles
+First we have to tell leiningen to tell ring to use port 80 when in production so we add an uberjar part to profiles in project.clj.
 
 ```
 (defproject hello-compojure "0.1.0-SNAPSHOT"
@@ -1216,67 +1208,63 @@ first we have to tell leiningen to tell ring to use port 80 when in production s
              :ring {:port 80}}})
 ```
 
-then we have to tell the client side code to use the production server's ip address in production, only use localhost when in dev. let's redefine ```server-url``` in src/cljs/hello_reagent/core.cljs
+Then we have to tell the client side code to use the production server's ip address in production and use localhost only when in dev mode. Let's redefine ```server-url``` in src/cljs/hello_reagent/core.cljs.
 
 ```(def server-url (if js/goog.DEBUG "http://localhost:3000" "http://your.servers.ip.address"))```
 
-we check if google closure lib's DEBUG flag is true or false to determine if we are a dev or a release build.
+We check if google closure lib's DEBUG flag is true or false to determine if we are a dev or a release build.
 
-and now go to the root of ```hello-fullstack```
+And now go to the root of ```hello-fullstack``` and type
 
 ```shadow-cljs release app```
 
-shadow compiles a highly optimized js at /resources/public/js/compiled/main.js
-delete ```cljs-runtime``` folder and ```manifest.edn``` from the same folder.
+Shadow creates a highly optimized js at ```/resources/public/js/compiled/main.js```
+Delete ```cljs-runtime``` folder and ```manifest.edn``` from the same folder.
 
-now type
+Now type
 
-```lein ring uberjar``` at the root folder of ```hello-fullstack```
+```lein ring uberjar``` at the root folder of ```hello-fullstack```.
 
-lein packages the code under ```/target``` into two jars, we will use the standalone one
+lein packages the code under ```/target``` into two jars, we will use the standalone one.
 
-now we are ready to deploy stuff to the server
+Now we are ready to deploy stuff to the server!!!
 
-first you have to copy datomic from your machine with everything, including dev.properties, to the server :
+First you have to copy datomic from your machine with everything, including dev.properties, to the server.
 
 ```rsync -v -r -e ssh datomic-pro-0.9.6024 root@116.203.87.141:/root/```
 
-it will be copied under /root
+It will be copied to ```/root```.
 
-then copy the generated standalone jar from ```target``` folder
+Then copy the generated standalone jar from ```hello-fullstack/target``` folder to the server.
 
 ```rsync -v -r -e ssh hello-compojure-0.1.0-SNAPSHOT-standalone.jar root@your.servers.ip.address:/root/```
 
-then ssh to the server and start datomic first with reduced memory in case you are not on hetzner :
+Then ssh to the server and start datomic first with reduced memory in case you are not on hetzner.
 
 ```bin/transactor -Xmx256m -Xms256m dev.properties```
 
-check if it starts up successfully. if yes, stop it with CTRL-C and start it in the background :
+Check if it starts up successfully. If yes, stop it with CTRL-C and start it in the background.
 
 ```nohup bin/transactor -Xmx256m -Xms256m dev.properties &```
 
-then start up the server with reduced memory usage
+Then start up the server with reduced memory usage.
 
 ```java -server -Xms256m -Xmx256m -Ddatomic.objectCacheMax=64m -Ddatomic.memoryIndexMax=64m -jar milgra.com.server-0.1.0-SNAPSHOT-standalone.jar```
 
-if it starts without problems, check your brand new site in the browser :
+If it starts without problems, check your brand new site in the browser.
 
 ```http://your.servers.ip.address/```
 
-it should show up. now stop the server with CTRL+C and start it in the background :
+It should show up. Now stop the server with CTRL+C and start it in the background.
 
 ```nohup java -server -Xms256m -Xmx256m -Ddatomic.objectCacheMax=64m -Ddatomic.memoryIndexMax=64m -jar milgra.com.server-0.1.0-SNAPSHOT-standalone.jar &```
 
-and that's all!!! CONGRATULATIONS!!!
+If you want to re-start them, kill them first with the ```killall java``` command.
+
+And that's all!!! CONGRATULATIONS!!!
 
 ## Summary
 
-so that's what full stack web development is about. you add and request data to/from a database through a server with api calls and resource requests, and you maintain states in a single page web application and stylize it with css. hope you liked the tutorial and you will stick with clojure! 
+So that's what full stack web development is about. You send and request data to/from a database through a server with api calls and resource requests and you maintain states in a single page web application and stylize it with css. Hope you liked the tutorial and you will stick with clojure! 
 
-if you want to know how to send posts from the client side to the server and the database, how to store posts in markdown syntax and render them as html on the client side, how to create a riddle-based captchas, how to protect admin requests with password, how to animate components with reanimated, how to add menus, how to use ```a href```'s insted of ```on-click``` events for search engine optimization then check out [milgra.com github project](https://github.com/milgra/milgra.com)
-
-you can download the project used in the projects from here :
-
-todo :
-tests with temporary db
-secretary for history
+If you want to know how to send posts from the client side to the server and the database, how to store posts in markdown syntax and render them as html on the client side, how to create a riddle-based captchas, how to protect admin requests with password, how to animate components with reanimated, how to add menus, how to use ```a href```'s insted of ```on-click``` events for search engine optimization then check out [milgra.com github project](https://github.com/milgra/milgra.com)
