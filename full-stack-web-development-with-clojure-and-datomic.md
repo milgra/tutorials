@@ -7,7 +7,6 @@
 * Serving a static html page
 * Generating html on the server
 * Generating html on the client
-* Setting up the client
 * Creating a single page application
 * Setting up datomic
 * Creating the database
@@ -249,48 +248,46 @@ And that's how you create dynamic content on the server.
 
 Generating content on the server and loading it to the browser all the time with every small change is not really dynamic. For a super dynamic and bandwidth-effective experience you have to generate the page on the client-side based on the data that you request from the server when it is needed.
 
-## Setting up the client
+We will use shadow-cljs for clojurescript development. It is a tool that provides a repl and connects it to the live code running in the browser so you can update/evaluate functions in the running code and make inline evaluation and development easier. Install it first if you don't have it.
 
-We will use shadow-cljs for clojurescript development. it is a tool that provides a repl and connects it to the live code running in the browser so you can update/evaluate functions in the running code and make inline evaluation and development easier. install it first if you don't have it
+We will base our client side code on reagent which is a wrapper for the javascript library react. It contains additional useful things for clojurescript development.
 
-we will base our client side code on reagent, which is a wrapper for the javascript library react. it contains additional useful things for clojurescript development.
-
-create a shadow-cljs project template with reagent :
+Create a shadow-cljs project template with reagent.
 
 ```lein new shadow-cljs hello-reagent +reagent```
 
-go into the created folder and install npm dependencies :
+Go into the created folder and install npm dependencies.
 
 ```npm install```
 
-start watching the app with shadow :
+Start watching the app with shadow.
 
 ```shadow-cljs watch app```
 
-after a succesful start shadow tells you the port of the web server where you can reach the resulting html and the port of the nrepl server :
+After a succesful start shadow tells you the port of the web server where you can reach the resulting html and the port of the nrepl server.
 
 ```
 shadow-cljs - HTTP server available at http://localhost:8700
 shadow-cljs - nREPL server started on port 8777
 ```
 
-so if you go into your browser and enter ```localhost:8700``` you will see a Hello world message showing up from your reagent template
+So if you go into your browser and enter ```localhost:8700``` you will see a Hello world message showing up from your reagent template.
 
-you should also connect to the repl from your editor. 
+You should also connect to the repl from your editor. 
 
-based on your editor you may have to add a dependency first to the project. in case of emacs/cider add this to ```:dependencies``` part in ```shadow-cljs.edn``` :
+Based on your editor you may have to add a dependency first to the project. In case of emacs/cider add this to ```:dependencies``` part in ```shadow-cljs.edn``` :
 
 ```[cider/cider-nrepl "0.24.0"]```
 
-then restart watching with ```shadow-cljs watch app```
+Then restart watching with ```shadow-cljs watch app```.
 
-then connect your editor to the repl. in emacs ALT+X, cider-connect-cljs, enter localhost, the port, select shadow for repl type, :app for build
+Then connect your editor to the repl. In emacs ALT+X, cider-connect-cljs, enter localhost, the port, select shadow for repl type, :app for build.
 
-carefully read what cider outputs in the nrepl buffer, if it has a problem, for example mismatching cider-nrepl version number it will tell you and you have to modify versions accordingly
+Carefully read what cider outputs in the nrepl buffer, if it has a problem, for example mismatching cider-nrepl version number it will tell you and you have to modify versions accordingly!
 
-now that everything is set up let's work on the code. let's modify something and hot-swap in the running page
+Now that everything is set up let's work on the code. Let's modify something and hot-swap in the running page.
 
-edit ```src/hello_reagent/core.cljs``` and modify the hello-world function :
+Edit ```src/hello_reagent/core.cljs``` and modify the hello-world function.
 
 ```
 (defn hello-world []
@@ -299,15 +296,15 @@ edit ```src/hello_reagent/core.cljs``` and modify the hello-world function :
    [:h3 "It should change!"]])
 ```
 
-and save the file. the page in the browser should update automagically to the new content.
+Save the file. The page in the browser should update automagically to the new content.
 
-and we are ready for action!
+And we are ready for action!
 
 ## Creating a single page application
 
-we will create a simple but complex enough application to showcase datomic, server-side apis, reagent and css.  we will build up the basics of ```milgra.com```, the four cards containing apps, protos, games and blogs.
+We will create a simple but complex enough application to showcase datomic, server-side apis, reagent and css. We will build up the basics of ```milgra.com```, the four cards containing apps, protos, games and blogs.
 
-delete ```hello-world``` function and create a ```page``` function that will be the main component of our app :
+Delete ```hello-world``` function and create a ```page``` function that will be the main component of our app.
 
 ```
 (defn page []
@@ -318,7 +315,7 @@ delete ```hello-world``` function and create a ```page``` function that will be 
    [:div "FOUR"]])
 ```
 
-and tell reagent in function ```start``` to render this component instead of ```hello-world```
+And tell reagent in function ```start``` to render this component instead of ```hello-world```.
 
 ``` 
 (defn start []
@@ -326,7 +323,7 @@ and tell reagent in function ```start``` to render this component instead of ```
                             (. js/document (getElementById "app"))))
 ```
 
-if you check out the actual state of the page in the browser it's just four labels under each other. how do we make vertical cards out of them? the answer is css power, and we can add it inline with hiccup!
+If you check out the actual state of the page in the browser it's just four labels under each other. How do we make vertical cards out of them? The answer is css power, and we can add it inline with hiccup!
 
 ```
 (defn page []
@@ -361,9 +358,9 @@ if you check out the actual state of the page in the browser it's just four labe
     "FOUR"]])
 ```
 
-the page now looks better but isn't it repetitive a little bit? is there a way the make it less repetitive? the answer is programming!!!
+The page now looks better but isn't it repetitive a little bit? Is there a way the make it less repetitive? The answer is programming!!!
 
-let's create a data structure first to store the individual properties of each card
+Let's create a data structure first to store the individual properties of each card.
 
 ```
 (def carddata [{:x "200px" :w "200px" :col "#AAFFAA" :txt "ONE"}
@@ -372,7 +369,7 @@ let's create a data structure first to store the individual properties of each c
                {:x "500px" :w "400px" :col "#FFAAFF" :txt "FOUR"}])
 ```
 
-let's create the function that generates a card based on a data structure item
+Let's create a function that generates a card based on a data structure item.
 
 ```
 (defn card [ data ]
@@ -384,7 +381,7 @@ let's create the function that generates a card based on a data structure item
             :min-height "100vh"}}
    (:txt data)])
 ```
-and finally add component generation to the page component
+And finally add component generation to the page component.
 
 ```
 (defn page []
@@ -392,9 +389,9 @@ and finally add component generation to the page component
    (map card carddata)])
 ```
 
-and now we want the clicked one move to the center. we will use reagent's ability to auto-update components where a shared reagent atom is used.
+And now we want the clicked one move to the center. We will use reagent's ability to auto-update components where a shared reagent atom is used.
 
-first we will have to be able to rearrange cards so we make an atom called cardlist containing the unique parts of ```carddata``` and two another vectors containing fixed card widths and poisitions
+First we will have to be able to rearrange cards so we make an atom called cardlist containing the unique parts of ```carddata``` and two another vectors containing fixed card widths and poisitions
 
 ```
 (defonce cardlist (atom [{:col "#AAFFAA" :txt "ONE"}
@@ -406,7 +403,7 @@ first we will have to be able to rearrange cards so we make an atom called cardl
 (defonce cardwth ["100px" "100px" "100px" "400px"])
 ```
 
-we will have to modify the iteration in ```page``` function sightly, we want to pass an indexed item to ```card``` function so it knows which position and width element to use for rendering the actual card. ```map-indexed vector``` pairs the indexes with elements in cardlist.
+We will have to modify the iteration in ```page``` function sightly, we want to pass an indexed item to ```card``` function so it knows which position and width to use for rendering the actual card. ```map-indexed vector``` pairs the indexes with elements in cardlist.
 
 ```
 (defn page []
@@ -414,7 +411,7 @@ we will have to modify the iteration in ```page``` function sightly, we want to 
    (map card (map-indexed vector @cardlist))])
 ```
 
-we also have to slighyl modify ```card``` function and add click event
+We also have to slighyl modify ```card``` function and add a click event.
 
 ```
 (defn card [ [ index data ] ]
@@ -434,17 +431,17 @@ we also have to slighyl modify ```card``` function and add click event
      (:txt data)]))
 ```
 
-and now the selected card jumps to the middle and the others shift left. splendid!
+And now the selected card jumps to the middle and the others shift left. Splendid!
 
-but we have an annoyinh warning in the developer console of the browser :
+But we have an annoyinh warning in the developer console of the browser!
 
 ```
 Warning: Every element in a seq should have a unique :key:
 ```
 
-and that's because react needs a unique id for every component to speed up state changes. so let's add a key to our pages
+And that's because react needs a unique id for every component to speed up state changes. So let's add a key to our pages
 
-so let's add a key to each card to fix this 
+so let's add a key to each card to fix this. 
 
 ```
 (defn card [ [ index data ] ]
@@ -465,7 +462,7 @@ so let's add a key to each card to fix this
      (:txt data)]))
 ```
 
-good, but there's another warning for react not handling lazy-seqs very well, so let's modify ```page``` function to fix that also with a forced evaluation with doall :
+Good, but there's another warning for react not handling lazy-seqs very well, so let's modify ```page``` function to fix that also with a forced evaluation with doall.
 
 ```
 (defn page []
@@ -473,7 +470,7 @@ good, but there's another warning for react not handling lazy-seqs very well, so
    (doall (map card (map-indexed vector @cardlist)))])
 ```
 
-the only thing I don't like is the little gap between the top and the cards, let's fix this with css, edit ```public/css/style.css``` :
+The only thing I don't like is the little gap between the top and the cards, let's fix this with css, edit ```public/css/style.css```.
 
 ```
 body {
@@ -481,31 +478,29 @@ body {
 }
 ```
 
-so we have four dynamically positioned cards crying for content! this is the time for datomic and a server side api!
+So we have four dynamically positioned cards crying for content! This is the time for datomic and a server side api!
 
 ## Setting up datomic
 
-request a license for the starter version of datomic on-prem from [datomic](https://www.datomic.com/get-datomic.html)
+Request a license for the starter version of datomic on-prem from [datomic](https://www.datomic.com/get-datomic.html).
 
-after that go to [https://my.datomic.com/account](https://my.datomic.com/account)
+After that go to [https://my.datomic.com/account](https://my.datomic.com/account), there will be the wget link for the full distribution, download and unzip it.
 
-there will be the wget link for the full distribution, download it
-
-at the bottom of the page there is an ```or via leiningen``` section. copy the first three lines and create a file
+At the bottom of the page there is an ```or via leiningen``` section. Copy the first three lines and create a file
 
 ```~/.lein/credentials.clj```
 
-and paste the lines into it
+and paste the lines into it.
 
-download and install gnupg for your system and create a default key with ```gpg --gen-key```
+Download and install gnupg for your system and create a default key with ```gpg --gen-key```.
 
-now you can encrypt the previously created credentials.clj with gpg :
+Now you can encrypt the previously created credentials.clj with gpg.
 
 ```gpg --default-recipient-self -e ~/.lein/credentials.clj > ~/.lein/credentials.clj.gpg```
 
-and now leiningen can download the peer library automagically for datomic
+And now leiningen can download the peer library automagically for datomic.
 
-go back to our server project, hello-compojure and edit project.clj. you have to add a ```:repositories``` part and a datomic dependency
+Go back to the server project hello-compojure and edit project.clj. You have to add a ```:repositories``` part and a datomic dependency.
 
 ```
 :repositories {"my.datomic.com" {:url "https://my.datomic.com/repo"
@@ -518,29 +513,29 @@ go back to our server project, hello-compojure and edit project.clj. you have to
                [ring/ring-defaults "0.3.2"]]
 ```
 
-your datomic-pro version might differ, use the correct dependency version!
+Your datomic-pro version might differ, use the correct dependency version!
 
-before starting up datomic you have to select a transactor properties file and add your license key to it
+Before starting up datomic you have to select a transactor properties file and add your license key to it.
 
-go to datomic folder and copy the dev-transactor-template.properties file to the root folder
+Go to datomic folder and copy the dev-transactor-template.properties file to the root folder.
 
 ```cp /config/samples/dev-transactor-template.properties dev.properties```
 
-then edit dev.properties add add the license key after ```license-key``` part that your received via email from datomic
+Then edit dev.properties add add the license key after ```license-key``` part that your received via email from datomic.
 
-and now we are ready to start up datomic. at the root folder of datomic type
+And now we are ready to start up datomic. Go to the root folder and type
 
 ```bin/transactor dev.properties```
 
-then, in another terminal, go to the root folder of hello-compojure and start up the project
+Then, in another terminal, go to the root folder of hello-compojure and start up the project.
 
 ```lein ring server-headless```
 
-if everything goes well, lein downloads the datomic peer library and starts up
+If everything goes well, lein downloads the datomic peer library and starts up.
 
 ## Creating the database
 
-we are going to edit ```handler.clj``` under src/hello_compojure. require datomic peer lib first
+We are going to edit ```handler.clj``` under src/hello_compojure. Require datomic peer lib first.
 
 ```
 (ns hello-compojure.handler
@@ -551,13 +546,13 @@ we are going to edit ```handler.clj``` under src/hello_compojure. require datomi
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]])
 ```
 
-bind the uri
+Bind the uri.
 
 ```
 (def uri "datomic:dev://localhost:4334/hello-datomic")
 ```
 
-create a setup-db function
+Create a setup-db function.
 
 ```
 (defn setup-db []
