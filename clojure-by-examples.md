@@ -69,35 +69,43 @@ or
 
 ## Core functions
 
-let's create a new vector based on a vector with all elements increased by one
+define a name for the previous vector
 
-```(map inc [4 5 6])```
+```(def v1 [4 5 6])```
+
+let's create a new vector based on v1 with all elements increased by one
+
+```(map inc v1)```
 
 so we mapped an existing vector to a new vector by applying inc(rease) function on every item
 
 what if we want to increase elements by two?
 
-```(map (fn [elem] (+ elem 2)) [4 5 6])```
+```(map (fn [elem] (+ elem 2)) v1)```
 
 so we created an anonymous custom function here for handling the elements
 
 there's a syntactic sugar in clojure for shortening anonymous function definitions, let's try it
 
-```(map #(+ % 2) [4 5 6])```
+```(map #(+ % 2) v1)```
 
 let's calculate the sum of the elements of the previous vector
 
-```(reduce + [4 5 6])```
+```(reduce + v1)```
 
 reduce creates one result after iterating through all elements ( reduces the elements ), map creates a sequence with the same item number as the original vector
 
+define a name for the previous map
+
+```(def m1 {:key0 "something" :key1 "anything"})```
+
 let's create a new map based on a map replacing key1
 
-```(assoc {:key0 "something" :key1 "anything"} :key1 "nothing")```
+```(assoc m1 :key1 "nothing")```
 
 let's create a new map based on this map with "nnn" added to every value
 
-```(into { } (map (fn [ elem ] { (key elem) (str (val elem) "nnn") } ) {:key0 "something" :key1 "anything" } ) )```
+```(into { } (map (fn [ elem ] { (key elem) (str (val elem) "nnn") } ) m1 ) )```
 
 wooo, wait a minute, a lot of things happening here
 
@@ -115,20 +123,26 @@ and that's what clojure is about. you chain data processing functions and anonym
 
 let's remember that we can simplify this expression with syntactic sugar :
 
-```(into {} (map #(hash-map (key %) (str (val %) "nnn")) {:key0 "something" :key1 "anything"}))```
+```(into {} (map #(hash-map (key %) (str (val %) "nnn")) m1))```
+
+or
+
+```(into {} (map #(do { (key %) (str (val %) "nnn") }) m1))```
+
+why do we need the ```do``` keyword here? because #% syntactic sugar encapsulates a single function call inside by default and ```do``` tells clojure that multiple expressions will follow where we can now use the map constructor. you will use it 
 
 and let's implement the same functionality with reduce :
 
-```(reduce (fn [res elem] (assoc res (key elem) (str (val elem) "nnn"))) {} {:key0 "something" :key1 "anything"}) ```
+```(reduce (fn [res elem] (assoc res (key elem) (str (val elem) "nnn"))) {} m1)```
 
 or in the simpler form
 
-```(reduce #(assoc %1 (key %2) (str (val %2) "nnn")) {} {:key0 "something" :key1 "anything"})```
+```(reduce #(assoc %1 (key %2) (str (val %2) "nnn")) {} m1)```
 
 ## Enter the editor
 
 Things are getting complicated now, we have to outgrow the repl and use a code editor with inline evaluation.
-Downlad your favorite editor with it's clojure plugin ( emacs - cider , visual studio code - calva , cursive ( IntelliJ ), etc ) 
+Downlad your favorite editor with it's clojure plugin ( emacs - cider , visual studio code - calva , cursive ( IntelliJ ), etc ) and set it up. Start a repl session if you can, or start ```lein repl``` from a terminal and connect to it from your editor.
 
 let bindings
 
