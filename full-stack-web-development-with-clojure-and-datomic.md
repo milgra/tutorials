@@ -1249,7 +1249,7 @@ Check if it starts up successfully. If yes, stop it with CTRL-C and start it in 
 
 Then start up the server with reduced memory usage.
 
-```java -server -Xms256m -Xmx256m -Ddatomic.objectCacheMax=64m -Ddatomic.memoryIndexMax=64m -jar milgra.com.server-0.1.0-SNAPSHOT-standalone.jar```
+```java -server -Xms256m -Xmx256m -Ddatomic.objectCacheMax=64m -Ddatomic.memoryIndexMax=64m -jar hello-compojure-0.1.0-SNAPSHOT-standalone.jar```
 
 If it starts without problems, check your brand new site in the browser.
 
@@ -1257,7 +1257,7 @@ If it starts without problems, check your brand new site in the browser.
 
 It should show up. Now stop the server with CTRL+C and start it in the background.
 
-```nohup java -server -Xms256m -Xmx256m -Ddatomic.objectCacheMax=64m -Ddatomic.memoryIndexMax=64m -jar milgra.com.server-0.1.0-SNAPSHOT-standalone.jar &```
+```nohup java -server -Xms256m -Xmx256m -Ddatomic.objectCacheMax=64m -Ddatomic.memoryIndexMax=64m -jar hello-compojure-0.1.0-SNAPSHOT-standalone.jar &```
 
 If you want to re-start them, kill them first with the ```killall java``` command.
 
