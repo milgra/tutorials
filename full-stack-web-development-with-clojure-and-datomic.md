@@ -14,6 +14,7 @@
 * Loading content with the server side API
 * Merging the two projects together
 * Deploying to a server
+* Summary
 
 
 ## Prerequisites
@@ -1065,6 +1066,8 @@ cool, now our page is working well and looking good. we should deploy it to a se
 
 ## Merging the two projects into one project
 
+so far we have two webservers running on our machine, one for ring/compojure from the server-side and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! let's merge at least the project to simplify things.
+
 since shadow-cljs uses shadow-cljs.edn and lein uses project.clj we can easily merge the two projects without problems.
 create a new folder called ```hello-fullstack```
 
@@ -1079,73 +1082,104 @@ so we create a separate clj folder for server-side code, and a cljs folder for c
  
 copy ```hello-reagent/public``` to ```hello-fullstack/resources/public```
 
-and now we have to modify shadow-cljs.edn for the updated sources and resources location :
+and now we have to modify ```hello-fullstack/shadow-cljs.edn``` for the updated sources and resources location :
 
 ```
+;; shadow-cljs configuration
+{:source-paths ["src/cljs"]
 
+ :dependencies [[binaryage/devtools "0.9.7"]
+                [cider/cider-nrepl "0.25.0-SNAPSHOT"]
+                [cljs-http "0.1.45"]
+                [reagent "0.8.0-alpha2"]]
+
+ ;; set an nrepl port for connection to a REPL.
+ :nrepl        {:port 8777}
+
+ :builds
+ {:app {:target :browser
+        :output-dir "resources/public/js/compiled"
+        :asset-path "/js/compiled"
+
+        :modules
+        {:main
+         {:entries [hello-reagent.core]}}
+
+        :devtools
+        ;; before live-reloading any code call this function
+        {:before-load hello-reagent.core/stop
+         ;; after live-reloading finishes call this function
+         :after-load hello-reagent.core/start
+         ;; serve the public directory over http at port 8700
+         :http-root    "resources/public"
+         :http-port    8700
+         :preloads     [devtools.preload]}}}}
 ```
 
-if you want to get 
+in ```hello-fullstack/project.clj``` we have to add the new source-path location
 
-so we now have two webservers running on our machine, one for ring/compojure from the previous examples and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! let's merge at least the project to simplify things.
+```
+(defproject hello-compojure "0.1.0-SNAPSHOT"
+  :description "FIXME: write description"
+  :url "http://example.com/FIXME"
+  :min-lein-version "2.0.0"
+  :repositories {"my.datomic.com" {:url "https://my.datomic.com/repo"
+                                   :creds :gpg}}
+  :source-paths ["src/clj"]
+  :dependencies [[org.clojure/clojure "1.10.0"]
+                 [org.clojure/tools.nrepl "0.2.13"]
+                 [com.datomic/datomic-pro "0.9.6024"]
+                 [org.clojure/data.json "0.2.6"]
+                 [ring-cors "0.1.13"]
+                 [compojure "1.6.1"]
+                 [hiccup "1.0.5"]
+                 [ring/ring-defaults "0.3.2"]]
+  :plugins [[lein-ring "0.12.5"]]
+  :ring {:handler hello-compojure.handler/app
+         :nrepl {:start? true}}
+  :profiles
+  {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
+                        [ring/ring-mock "0.3.2"]]}})
+```
+
+and now close all terminals and editors, we will do a fresh start with everything wit our newly created project
+
+start datomic first with ```bin/transactor dev.properties```
+
+then start the server, go to ```hello-fullstack``` and type ```lein ring headless```
+
+then download npm dependencies with ```npm install```
+
+then start shadow with ```shadow-cljs watch app```
+
+if everything went fine check the page in the browser ```localhost:8700```
+
+and the cool thing is, since we merged the two project and pointed resources folder to the same folder, the freshly generated shadow-cljs output is also reachable by our compojure server, and since we added a redirect for index.html it can also serve our client-side code like it will do in production
+
+so check out that also at ```localhost:3000```
+
+you should see the same on both addresses
+
+cool, now development/project structure/version control improved big time! the only thing left is deployment!!!
 
 ## Deploying to a server
-
-## Summary
-
-so that's what full stack web development is about. you add and request data to/from a database through a server with api calls and resource requests, and you maintain states in a single page web application and stylize it with css. hope you liked the tutorial and you will stick with clojure! 
-
-
-
-to see how to create a more complex app using markdown to store post, reanimated for css animations, check out milgra.com github project
-
 
 check DEBUG mode, auto url switching
 port 80 when release mode for auto port switching
 
-
-
-
-
-
-
-create pager, update css
-
-create menus for all page, request data from server, mock server responses
-
-create database connection, show how to test server inline
-
-use data returned from server on the client side
-
-use a href's for url browsability & search engine optimization
-
 deploy the whole stuff to hetzner
-
-markdown html contnet
-
-html a href link out
-
-secretary for history
-
-a href's
-
-todo : history
-
-database connection
-
-shadow cljs - web server 8700, repl
-datomic db 4334
-datomic console 8080
-ring server headless - 3000
-
-deploy to serever
 
 hetzner.com - ssh
 install java 8
 memory limit
 port set
 
+## Summary
 
----
+so that's what full stack web development is about. you add and request data to/from a database through a server with api calls and resource requests, and you maintain states in a single page web application and stylize it with css. hope you liked the tutorial and you will stick with clojure! 
 
-If you want to know how to send posts from the client side and store them, how to store posts in markdown syntax and render them as html on the client side, how to create a number-addition captcha, how to protect admin requests with password, how to animate components with reanimated then check out my milgra.com repository
+If you want to know how to send posts from the client side and store them, how to store posts in markdown syntax and render them as html on the client side, how to create a number-riddle-based captcha, how to protect admin requests with password, how to animate components with reanimated, how to add menus, how to use ```a href```'s insted of ```on-click``` events for search engine optimization then check out my milgra.com github project.
+
+todo :
+tests with temporary db
+secretary for history
