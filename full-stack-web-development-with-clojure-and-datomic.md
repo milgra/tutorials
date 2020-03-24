@@ -774,15 +774,86 @@ let's go to client side.
 
 we are going back to ```hello-reagent/src/hello_reagent/core.clj```
 
-let's modify the card labels to apps, games, protos and blog
+let's modify the card labels to apps, games, protos and blog and add a type property to them
 
 ```
-(defonce cardlist (atom [{:col "#AAFFAA" :txt "APPS"}
-                         {:col "#FFFFAA" :txt "GAMES"}
-                         {:col "#AAFFFF" :txt "PROTOS"}
-                         {:col "#FFAAFF" :txt "BLOG"}]))
+(defonce cardlist (atom [{:col "#AAFFAA" :txt "APPS" :type "app"}
+                         {:col "#FFFFAA" :txt "GAMES" :type "game"}
+                         {:col "#AAFFFF" :txt "PROTOS" :type "proto"}
+                         {:col "#FFAAFF" :txt "BLOG" :type "blog"}]))
+```
+we will also need a new reagent atom for strogin the received posts
+
+```
+(defonce content (atom nil))
+```
+we will need ```cljs-http``` library. add to the dependencies in ```shadow-cljs.edn```
+
+```
+ :dependencies [[binaryage/devtools "0.9.7"]
+                [cljs-http "0.1.45"]
+                [reagent "0.9.1"]
+                [markdown-to-hiccup "0.6.2"]
+                [cider/cider-nrepl "0.24.0"]
+                [reanimated "0.6.1"]]
 ```
 
+and require it in ```core.cljs``` . we also have to require clojure.core.async for async operations
+
+```
+(ns hello-reagent.core
+  (:require [reagent.core :as reagent :refer [atom]]
+  	    [clojure.core.async :as async]
+            [cljs-http.client :as http]))
+```
+
+and now restart shadow-cljs
+
+let's create the function that requests posts from the server-side API
+
+```
+(defn get-posts-by-type [type]
+  (async/go
+    (let [{:keys [status body]} (async/<! (http/get (str server-url "/api-getpostsbytype")
+                                                    {:query-params {:type type}}))
+          result (js->clj (.parse js/JSON body) :keywordize-keys true)
+          posts (reverse (result :posts))]
+      (println "posts" posts)
+      (reset! content posts))))
+```
+
+let's call this function from the top of the ```card``` function when the index is 4, so only the active card will load it's content
+
+```
+(defn card [ [ index data ] ]
+  (if (= index 3)
+    (get-posts-by-type (:type data)))
+  (let [txt (:txt data)]
+    [:div
+     {:key (str "card" index)
+      :style {:position "absolute"
+              :width (nth cardwth index)
+              :left (nth cardpos index)
+              :background (:col data)
+              :min-height "100vh"}
+      :on-click (fn [e]
+                  ; shift menuitems
+                  (reset! cardlist
+                          (concat
+                          (filter #(not= (% :txt) txt) @cardlist)
+                          (filter #(= (% :txt) txt) @cardlist))))}
+     (:txt data)]))
+```
+
+and we are ready to roll!!! let's try it in the browser
+
+hmm, something is wrong, check the developer console of the browser :
+
+```
+Access to XMLHttpRequest at 'http://localhost:3000/api-getpostsbytype?type=blog' from origin 'http://localhost:8700' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+```
+
+we are blocked by a server-side policy! whoa!
 
 
 if you want to get 
