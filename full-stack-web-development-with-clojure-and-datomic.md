@@ -654,6 +654,20 @@ no we are ready to fill up the database. create a test-data structure
     :post/date  #inst "2017-07-30T00:00:00"
     :post/content "Bestest app eva!!!"}])
 ```
+let's create a fillup-db function to pass this data to datomic
+
+```
+(defn fillup-db []
+  (let [conn (d/connect uri)
+        db (d/db conn)
+        resp (d/transact conn test-data)]
+    (println "post insertion resp" resp)))
+```
+evaluate the inner part and the test data should be in the database
+
+and now... query time!!!
+
+
 
 
 so we now have two webservers running on our machine, one for ring/compojure from the previous examples and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! let's merge at least the project to simplify things.
