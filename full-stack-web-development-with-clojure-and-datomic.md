@@ -11,6 +11,8 @@
 * Creating a single page application
 * Setting up datomic
 * Creating the database
+* Loading content with the server side API
+* Merging the two projects together
 * Deploying to a server
 
 
