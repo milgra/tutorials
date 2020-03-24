@@ -4,6 +4,7 @@
 
 * Prerequisites
 * Basics
+* Data types
 * Core functions
 * Lexical bindings
 
