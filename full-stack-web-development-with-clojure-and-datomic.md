@@ -1167,21 +1167,119 @@ cool, now development/project structure/version control improved big time! the o
 
 ## Deploying to a server
 
-check DEBUG mode, auto url switching
-port 80 when release mode for auto port switching
+to deploy to a server first you need a server! :) I recommend [https://www.hetzner.com/cloud](https://www.hetzner.com/cloud), for only 2.96 EUR/month you get a server in the cloud with 2 Gigs of RAM and 20GB of SSD and they seem really professional.
 
-deploy the whole stuff to hetzner
+so sign up for a CX11 clud server
 
-hetzner.com - ssh
-install java 8
-memory limit
-port set
+select the latest Debian image for it (10.3)
+
+you should access it with ssh key
+
+if it is started connect to it via ssh ```ssh root@your.servers.ip.address```
+
+the only thing it needs is Java 8. on Debian 10 it looks like this :
+
+```
+sudo apt install apt-transport-https ca-certificates wget dirmngr gnupg software-properties-common
+wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
+sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
+sudo apt update
+sudo apt install adoptopenjdk-8-hotspot
+```
+
+check java with
+
+```java -version```
+
+choool! now let's create a release build from our project, go to the project root and type
+
+first we have to tell leiningen to tell ring to use port 80 when in production so we add an uberjar part to profiles
+
+```
+(defproject hello-compojure "0.1.0-SNAPSHOT"
+  :description "FIXME: write description"
+  :url "http://example.com/FIXME"
+  :min-lein-version "2.0.0"
+  :repositories {"my.datomic.com" {:url "https://my.datomic.com/repo"
+                                   :creds :gpg}}
+  :source-paths ["src/clj"]
+  :dependencies [[org.clojure/clojure "1.10.0"]
+                 [org.clojure/tools.nrepl "0.2.13"]
+                 [com.datomic/datomic-pro "0.9.6024"]
+                 [org.clojure/data.json "0.2.6"]
+                 [ring-cors "0.1.13"]
+                 [compojure "1.6.1"]
+                 [hiccup "1.0.5"]
+                 [ring/ring-defaults "0.3.2"]]
+  :plugins [[lein-ring "0.12.5"]]
+  :ring {:handler hello-compojure.handler/app
+         :nrepl {:start? true}}
+  :profiles
+  {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
+                        [ring/ring-mock "0.3.2"]]}
+   :uberjar {:dependencies [[javax.servlet/servlet-api "2.5"]
+                            [ring/ring-mock "0.3.2"]]
+             :ring {:port 80}}})
+```
+
+then we have to tell the client side code to use the production server's ip address in production, only use localhost when in dev. let's redefine ```server-url``` in src/cljs/hello_reagent/core.cljs
+
+```(def server-url (if js/goog.DEBUG "http://localhost:3000" "http://your.servers.ip.address"))```
+
+we check if google closure lib's DEBUG flag is true or false to determine if we are a dev or a release build.
+
+and now go to the root of ```hello-fullstack```
+
+```shadow-cljs release app```
+
+shadow compiles a highly optimized js at /resources/public/js/compiled/main.js
+delete ```cljs-runtime``` folder and ```manifest.edn``` from the same folder.
+
+now type
+
+```lein ring uberjar``` at the root folder of ```hello-fullstack```
+
+lein packages the code under ```/target``` into two jars, we will use the standalone one
+
+now we are ready to deploy stuff to the server
+
+first you have to copy datomic from your machine with everything, including dev.properties, to the server :
+
+```rsync -v -r -e ssh datomic-pro-0.9.6024 root@116.203.87.141:/root/```
+
+it will be copied under /root
+
+then copy the generated standalone jar from ```target``` folder
+
+```rsync -v -r -e ssh hello-compojure-0.1.0-SNAPSHOT-standalone.jar root@your.servers.ip.address:/root/```
+
+then ssh to the server and start datomic first with reduced memory in case you are not on hetzner :
+
+```bin/transactor -Xmx256m -Xms256m dev.properties```
+
+check if it starts up successfully. if yes, stop it with CTRL-C and start it in the background :
+
+```nohup bin/transactor -Xmx256m -Xms256m dev.properties &```
+
+then start up the server with reduced memory usage
+
+```java -server -Xms256m -Xmx256m -Ddatomic.objectCacheMax=64m -Ddatomic.memoryIndexMax=64m -jar milgra.com.server-0.1.0-SNAPSHOT-standalone.jar```
+
+if it starts without problems, check your brand new site in the browser :
+
+```http://your.servers.ip.address/```
+
+it should show up. now stop the server with CTRL+C and start it in the background :
+
+```nohup java -server -Xms256m -Xmx256m -Ddatomic.objectCacheMax=64m -Ddatomic.memoryIndexMax=64m -jar milgra.com.server-0.1.0-SNAPSHOT-standalone.jar &```
+
+and that's all!!! CONGRATULATIONS!!!
 
 ## Summary
 
 so that's what full stack web development is about. you add and request data to/from a database through a server with api calls and resource requests, and you maintain states in a single page web application and stylize it with css. hope you liked the tutorial and you will stick with clojure! 
 
-If you want to know how to send posts from the client side and store them, how to store posts in markdown syntax and render them as html on the client side, how to create a number-riddle-based captcha, how to protect admin requests with password, how to animate components with reanimated, how to add menus, how to use ```a href```'s insted of ```on-click``` events for search engine optimization then check out my milgra.com github project.
+if you want to know how to send posts from the client side to the server and the database, how to store posts in markdown syntax and render them as html on the client side, how to create a riddle-based captchas, how to protect admin requests with password, how to animate components with reanimated, how to add menus, how to use ```a href```'s insted of ```on-click``` events for search engine optimization then check out [milgra.com github project](https://github.com/milgra/milgra.com)
 
 todo :
 tests with temporary db
