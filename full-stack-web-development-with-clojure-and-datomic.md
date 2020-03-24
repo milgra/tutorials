@@ -463,6 +463,14 @@ so let's add a key to each card to fix this
      (:txt data)]))
 ```
 
+good, but there's another warning for react not handling lazy-seqs very well, so let's modify ```page``` function to fix that also with a forced evaluation with doall :
+
+```
+(defn page []
+  [:div
+   (doall (map card (map-indexed vector @cardlist)))])
+```
+
 the only thing I don't like is the little gap between the top and the cards, let's fix this with css, edit ```public/css/style.css``` :
 
 ```
@@ -779,7 +787,7 @@ let's modify the card labels to apps, games, protos and blog and add a type prop
 ```
 (defonce cardlist (atom [{:col "#AAFFAA" :txt "APPS" :type "app"}
                          {:col "#FFFFAA" :txt "GAMES" :type "game"}
-                         {:col "#AAFFFF" :txt "PROTOS" :type "proto"}
+                         {:col "#AAFFFF" :txt "PROTOS" :type "prototype"}
                          {:col "#FFAAFF" :txt "BLOG" :type "blog"}]))
 ```
 we will also need a new reagent atom for strogin the received posts
@@ -822,7 +830,7 @@ let's create the function that requests posts from the server-side API
       (reset! content posts))))
 ```
 
-let's call this function from the top of the ```card``` function when the index is 4, so only the active card will load it's content
+let's call this function from the top of the ```card``` function when the index is 3, so only the active card will load it's content. we will also show the content as string if index is 3
 
 ```
 (defn card [ [ index data ] ]
@@ -842,7 +850,10 @@ let's call this function from the top of the ```card``` function when the index 
                           (concat
                           (filter #(not= (% :txt) txt) @cardlist)
                           (filter #(= (% :txt) txt) @cardlist))))}
-     (:txt data)]))
+     (:txt data)
+     (if (= index 3)
+       (str @content))
+     ]))
 ```
 
 and we are ready to roll!!! let's try it in the browser
@@ -855,6 +866,49 @@ Access to XMLHttpRequest at 'http://localhost:3000/api-getpostsbytype?type=blog'
 
 we are blocked by a server-side policy! whoa!
 
+add ring-cors dependency to hello-compojure in project.clj
+
+```
+  :dependencies [[org.clojure/clojure "1.10.0"]
+                 [org.clojure/tools.nrepl "0.2.13"]
+                 [com.datomic/datomic-pro "0.9.6024"]
+                 [org.clojure/data.json "0.2.6"]
+                 [ring-cors "0.1.13"]
+                 [compojure "1.6.1"]
+                 [hiccup "1.0.5"]
+                 [ring/ring-defaults "0.3.2"]]
+```
+
+require it in handler.clj in the server
+
+```
+(ns hello-compojure.handler
+  (:require [compojure.core :refer :all]
+            [compojure.route :as route]
+            [datomic.api :as d]
+            [clojure.data.json :as json]
+            [ring.util.response :as resp]
+            [ring.middleware.cors :refer [wrap-cors]]
+            [ring.middleware.defaults :refer [wrap-defaults site-defaults]])
+```
+and finally replace app definition in handler.clj with this :
+
+```
+(def app
+  (-> app-routes
+      (wrap-cors :access-control-allow-origin [#".*"]
+                 :access-control-allow-methods [:post :get]
+                 :access-control-allow-credentials "true"
+                 :access-control-allow-headers "Content-Type, Accept, Authorization, Authentication, If-Match, If-None-Match, If-Modified-Since, If-Unmodified-Since")
+      (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false))))
+```
+
+and restart the server ( ```lein ring server-headless``` )
+
+and now if you load the site in the browser the posts should show up in the third card. yaay!!!
+
+```
+```
 
 if you want to get 
 
