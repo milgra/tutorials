@@ -10,7 +10,9 @@
 
 ## Prerequisites
 
-Download clojure to your platform and start it in a terminal by typing ```clojure```. It starts up the clojure REPL, the read-eval-print loop, an interactive environment where we can practice clojure. Press CTRL+D to cancel the actual expression, press ENTER to evaluate it.
+Download [clojure](https://clojure.org/guides/getting_started) and [leiningen](https://leiningen.org/) to your platform and start a leiningen repl in a terminal by typing ```lein repl```. There are a lot of REPL's for clojure but leiningen's repl supports multi-line editing out of the box so we will go with this.
+REPL stands for "read-eval-print-loop", an interactive environment where we can practice clojure. 
+Press CTRL+D to cancel the actual expression, press ENTER to evaluate it, press CTRL+ENTER or SHIFT+ENTER to start a new line without evaluation.
 
 ## Basics
 
