@@ -60,7 +60,7 @@ let's create a map
 
 ```{:key0 "something" :key1 "anything"}``` or ```(hash-map :key0 "something" :key1 "anything")```
 
-words with double colons are keywords
+any word with a double colon is a keyword
 
 let's get key 0 from this map
 
