@@ -114,15 +114,15 @@ wooo, wait a minute, a lot of things happening here
 
 we always have to start understanding from the innermost function
 
-the anonymous function ```fn [elem]``` gets a key-value pair from the original map
+the anonymous function ```(fn [ elem ] { (key elem) (str (val elem) "nnn") } )``` gets one element at a time from the original map and that element is key-value pair
 
-it creates a one-element length map ( because of the brackets ), with the original key and a modified value ( str concatenates two strings, the value of the element and ```nnn``` )
+it returns a new, one-element length map ( because of the brackets ), with the original key and a modified value ( str concatenates two strings, the value of the element and ```nnn``` )
 
-map iterates through all elements of the original map and creates a sequence containing one element length maps
+```map``` in front of it iterates through all elements of the original map and with the previous function it creates a sequence containing one element length maps
 
-and ```into``` function at the beginning merges all one-length maps in the vector created by map into one big map
+```into``` function at the beginning merges all one-length maps into one big map
 
-and that's what clojure is about. you chain data processing functions and anonymus functions to get something totally different or totally similar at the end that conforms your algorithm's needs
+and that's what clojure is about. you chain functions to get something totally different or slightly similar at the end that conforms your algorithm's needs
 
 let's remember that we can simplify this expression with syntactic sugar :
 
