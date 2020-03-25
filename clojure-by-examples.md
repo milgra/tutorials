@@ -142,24 +142,22 @@ or in the simpler form
 
 ```(reduce #(assoc %1 (key %2) (str (val %2) "nnn")) {} m1)```
 
+a reducer function always gets two parameters : the first is the starting value ( or the first item of the sequence of there is no starting value ) and the actual element
+
 ## Lexical bindings
 
-Clojure has no variables, it has immutable values, still, we need a lot of named values for our functions/algorithms,
+Clojure has no variables, it has immutable values, still, we need a lot of named values for our functions/algorithms, we use the ```let``` from for this
 
 ```
 (fn []
-  (let []
-  
+  (let [str1 "I am a string"
+        num1 34
+        num2 575.77
+        vec1 [4 5 6]
+        map1 {:a 3 :b "b"}]
+    (println str1 num1 num2 vec1 map1)
   )
 )
 ```
+## Destructuring
 
-## Enter the editor
-
-Things are getting complicated now, we have to outgrow the repl and use a code editor with inline evaluation.
-Downlad your favorite editor with it's clojure plugin ( emacs - cider , visual studio code - calva , cursive ( IntelliJ ), etc ) and set it up. Start a repl session if you can, or start ```lein repl``` from a terminal and connect to it from your editor.
-
-let bindings
-
-
-destructuring
