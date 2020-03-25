@@ -58,7 +58,7 @@ vector is an indexed array, list is a linked list. linked lists are faster but y
 
 let's create a map
 
-```{:key0 "something" :key1 "anything"}```
+```{:key0 "something" :key1 "anything"}``` or ```(hash-map :key0 "something" :key1 "anything")```
 
 words with double colons are keywords
 
