@@ -1,4 +1,4 @@
-# Clojure By Examples
+# Clojure Kickstart By Examples
 
 ## Table Of Content
 
@@ -160,4 +160,3 @@ Clojure has no variables, it has immutable values, still, we need a lot of named
 )
 ```
 ## Destructuring
-
