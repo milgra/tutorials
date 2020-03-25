@@ -132,7 +132,7 @@ or
 
 ```(into {} (map #(do { (key %) (str (val %) "nnn") }) m1))```
 
-why do we need the ```do``` keyword here? because #% syntactic sugar encapsulates a single function call inside by default and ```do``` tells clojure that multiple expressions will follow where we can now use the map constructor. you will use it in a lot of places, mainly in ```if``` and ```cond``` statements where syntax expects a single expression by default.
+why do we need the ```do``` keyword here? because #% syntactic sugar encapsulates a single function call inside by default and ```do``` tells clojure that multiple expressions will follow where so we can now use the bracket syntax here for hash-map construction. You will use ```do``` in a lot of places, mainly in ```if``` and ```cond``` statements where syntax expects a single expression by default.
 
 and let's implement the same functionality with reduce :
 
