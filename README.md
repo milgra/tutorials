@@ -8,7 +8,7 @@ Full-stack web development with clojure and datomic
 
 [full-stack-web-development-with-clojure-and-datomic.md](full-stack-web-development-with-clojure-and-datomic.md)
 
-Clojure by examples ( in progress )
+Clojure kickstart by examples ( in progress )
 
 [clojure-by-examples](clojure-by-examples.md)
 
