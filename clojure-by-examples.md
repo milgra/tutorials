@@ -159,4 +159,13 @@ Clojure has no variables, it has immutable values, still, we need a lot of named
   )
 )
 ```
+
 ## Destructuring
+
+destructuring
+
+let
+
+threading
+
+conditional threading
