@@ -169,3 +169,19 @@ let
 threading
 
 conditional threading
+
+```
+(defn updatespeed [{[sx sy] :speed :as state}
+                   {:keys [left right up down]}
+                   time]
+  (let [nsx (cond-> sx
+              right (max (+ (* 0.4 time)) 10.0)
+              left  (min (- (* 0.4 time)) -10.0)
+              (not (and left right)) (* 0.9))
+        dir (cond
+              (and (> nnsx 0.0 ) right) 1
+              (and (<= nnsx 0.0 ) left ) -1)]
+    (-> state
+        (assoc :speed [sx sy])
+        (assoc :facing dir)))) ; TODO replace facing with dir
+```
