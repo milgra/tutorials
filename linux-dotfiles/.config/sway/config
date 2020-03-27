@@ -23,7 +23,7 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg ~/.config/sway/sway-clear.png fill
 #
 # Example configuration:
 #
@@ -234,6 +234,7 @@ input 1739:52575:MSFT0001:01_06CB:CD5F_Touchpad tap enabled
 input 1739:52575:MSFT0001:01_06CB:CD5F_Touchpad natural_scroll enabled
 input 1739:52575:MSFT0001:01_06CB:CD5F_Touchpad accel_profile flat
 input 1739:52575:MSFT0001:01_06CB:CD5F_Touchpad pointer_accel 0
+input 1739:52575:MSFT0001:01_06CB:CD5F_Touchpad drag disabled
 
 # gaps
 gaps inner 3
@@ -265,6 +266,18 @@ set $screengrab wf-recorder -o ~/Downloads/grab-$(date +"%Y-%m-%d-%H-%M-%S").mp4
 bindsym $mod+Print exec $screenshot
 bindsym $mod+Shift+Print exec $screenclip
 bindsym $mod+Alt+Print exec $screengrab
+bindsym $mod+c exec google-chrome-stable --new-window
+
+assign [class="Google-chrome" title="messenger.com"] workspace 1
+assign [class="Google-chrome" title="music.google.com"] workspace 2
+assign [class="Google-chrome" title="^.*Google Play Music$"] workspace 2
+assign [class="Mailspring"] workspace 1
+assign [class="Simplenote"] workspace 2
+exec mailspring
+exec simplenote 
+exec google-chrome-stable --new-window --app=https://www.messenger.com 
+exec google-chrome-stable --new-window --app=https://music.google.com 
+workspace 3
+exec google-chrome-stable
 
 include /etc/sway/config.d/*
-

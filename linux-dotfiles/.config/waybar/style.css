@@ -78,6 +78,7 @@ window#waybar.chromium {
 #mode,
 #disk,
 #idle_inhibitor,
+#custom-lang,
 #mpd {
     padding: 0 5px;
     padding-top: 3px;

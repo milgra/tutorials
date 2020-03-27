@@ -198,5 +198,5 @@ esac
 export TERM=xterm-256color
 
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
- XKB_DEFAULT_LAYOUT=us exec sway 
+ XKB_DEFAULT_LAYOUT=us exec sway --my-next-gpu-wont-be-nvidia
 fi

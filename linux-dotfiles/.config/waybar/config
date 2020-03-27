@@ -6,7 +6,7 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces"],
     "modules-center": [],
-    "modules-right": ["idle_inhibitor", "disk", "temperature", "cpu", "memory","battery", "backlight", "pulseaudio", "network", "clock"],
+    "modules-right": [ "disk", "temperature", "cpu", "memory","battery", "backlight", "pulseaudio", "network", "custom/lang", "clock", "idle_inhibitor"],
     // Modules configuration
     // "sway/workspaces": {
     //     "disable-scroll": true,
@@ -25,6 +25,9 @@
     // },
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
+    },
+    "sway/window":{
+	"max-length":50
     },
     "mpd": {
         "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
@@ -149,5 +152,10 @@
         "escape": true,
         "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
         // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    },
+    "custom/lang": {
+        "format": " {}",
+	"exec" : "swaymsg -t get_inputs | grep -A 9 'ITE Tech. Inc. ITE Device(8910) Keyboard' | tail -1 | cut -c33,34",
+	"interval": 10
     }
 }
