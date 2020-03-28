@@ -149,15 +149,12 @@ a reducer function always gets two parameters : the first is the starting value 
 Clojure has no variables, it has immutable values, still, we need a lot of named values for our functions/algorithms, we use the ```let``` from for this
 
 ```
-(fn []
-  (let [str1 "I am a string"
-        num1 34
-        num2 575.77
-        vec1 [4 5 6]
-        map1 {:a 3 :b "b"}]
-    (println str1 num1 num2 vec1 map1)
-  )
-)
+(let [str1 "I am a string"
+      num1 34
+      num2 575.77
+      vec1 [4 5 6]
+      map1 {:a 3 :b "b"}]
+  (println str1 num1 num2 vec1 map1))
 ```
 
 ## Destructuring
