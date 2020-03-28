@@ -162,13 +162,51 @@ Clojure has no variables, it has immutable values, still, we need a lot of named
 
 ## Destructuring
 
-destructuring
+Instead of extracting the needed values from maps and vectors in the function body line by line you can destruct these maps and vectors in place when receiving them.
 
-let
+```
+(let [{ mykey :key1 }  {:key1 "something" :key2 "anything"}])
 
-threading
+; mykey is "something" here
 
-conditional threading
+(let[ [_ myvalue] [200 300] ])
+
+; myvalue is 300 here
+```
+
+## Threading
+
+Often you will have to modify a value multiple times in a series. Instead of writing
+
+```
+(let [val1 (fun1 val0 arg1 arg2 argn)]
+  (let [val2 (fun2 val1 arg1 arg2 argn)]
+    (let [val3 (fun3 val2 arg1 arg2 argn)]
+      val3)))
+```
+
+You can use the thread first and thread last macros :
+
+```
+(-> val1
+  (fun1 arg1 arg2 argn)
+  (fun2 arg1 arg2 argn)
+  (fun3 arg1 arg2 argn))
+```
+
+## Conditional threading
+
+What if you want to use threading, but you don't want to execure functions on the value in certain conditions?
+
+```
+(cond-> val1
+  (something true) (fun1 arg1 arg2 argn)
+  (something false) (fun2 arg1 arg2 argn)
+  (something true) (fun3 arg1 arg2 argn))
+```
+
+
+## In action
 
 ```
 (defn updatespeed [{[sx sy] :speed :as state}
