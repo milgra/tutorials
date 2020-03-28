@@ -217,6 +217,6 @@ What if you want to use threading, but you don't want to execure functions on th
               (and (> nnsx 0.0 ) right) 1
               (and (<= nnsx 0.0 ) left ) -1)]
     (-> state
-        (assoc :speed [sx sy])
-        (assoc :facing dir)))) ; TODO replace facing with dir
+        (assoc :speed [snx sy])
+        (assoc :dir dir))))
 ```
