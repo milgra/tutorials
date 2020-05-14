@@ -1155,7 +1155,7 @@ Cool, now development/project structure/version control improved big time! the o
 
 To deploy to a server first you need a server! :) I recommend [https://www.hetzner.com/cloud](https://www.hetzner.com/cloud), for only 2.96 EUR/month you get a server in the cloud with 2 Gigs of RAM and 20GB of SSD and they seem really professional.
 
-So sign up for a CX11 clud server.
+So sign up for a CX11 cloud server.
 
 Select the latest Debian image for it (10.3).
 
