@@ -1057,7 +1057,7 @@ Since shadow-cljs uses shadow-cljs.edn and lein uses project.clj for project set
 
 Create a new folder called ```hello-fullstack```.
 
-Copy ```hello-compojure/project.clj``` to ```hello-fullstack/project.clk```
+Copy ```hello-compojure/project.clj``` to ```hello-fullstack/project.clj```
 
 Copy ```hello-compojure/src/hello_compojure/``` to ```hello-fullstack/src/clj/hello_compojure/```
 
