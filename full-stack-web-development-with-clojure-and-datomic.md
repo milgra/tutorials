@@ -133,7 +133,7 @@ A static resource can be any kind of a file but they are mainly images and other
 
 And how do we tell the server to show index.html without adding ```/index.html``` to the address to act as the main page of our site?
 
-We have to use the ```ring.util.respponse``` namespace for that. Update the requirements at the top of the file like this.
+We have to use the ```ring.util.response``` namespace for that. Update the requirements at the top of the file like this.
 
 ```
 (:require [compojure.core :refer :all]
@@ -1051,7 +1051,7 @@ Cool, now our page is working well and looking good. We should deploy it to a se
 
 ## Merging the two projects into one project
 
-Ao far we have two webservers running on our machine, one for ring/compojure from the server-side and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! Let's merge at least the project to simplify things.
+So far we have two webservers running on our machine, one for ring/compojure from the server-side and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! Let's merge at least the project to simplify things.
 
 Since shadow-cljs uses shadow-cljs.edn and lein uses project.clj for project setup we can easily merge the two projects with only a few modifications.
 
