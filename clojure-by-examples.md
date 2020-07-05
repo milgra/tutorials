@@ -149,14 +149,74 @@ a reducer function always gets two parameters : the first is the starting value 
 Clojure has no variables, it has immutable values, still, we need a lot of named values for our functions/algorithms, we use the ```let``` from for this
 
 ```
-(fn []
-  (let [str1 "I am a string"
-        num1 34
-        num2 575.77
-        vec1 [4 5 6]
-        map1 {:a 3 :b "b"}]
-    (println str1 num1 num2 vec1 map1)
-  )
-)
+(let [str1 "I am a string"
+      num1 34
+      num2 575.77
+      vec1 [4 5 6]
+      map1 {:a 3 :b "b"}]
+  (println str1 num1 num2 vec1 map1))
 ```
+
 ## Destructuring
+
+Instead of extracting the needed values from maps and vectors in the function body line by line you can destruct these maps and vectors in place when receiving them.
+
+```
+(let [{ mykey :key1 }  {:key1 "something" :key2 "anything"}])
+
+; mykey is "something" here
+
+(let[ [_ myvalue] [200 300] ])
+
+; myvalue is 300 here
+```
+
+## Threading
+
+Often you will have to modify a value multiple times in a series. Instead of writing
+
+```
+(let [val1 (fun1 val0 arg1 arg2 argn)]
+  (let [val2 (fun2 val1 arg1 arg2 argn)]
+    (let [val3 (fun3 val2 arg1 arg2 argn)]
+      val3)))
+```
+
+You can use the thread first and thread last macros :
+
+```
+(-> val1
+  (fun1 arg1 arg2 argn)
+  (fun2 arg1 arg2 argn)
+  (fun3 arg1 arg2 argn))
+```
+
+## Conditional threading
+
+What if you want to use threading, but you don't want to execure functions on the value in certain conditions?
+
+```
+(cond-> val1
+  (something true) (fun1 arg1 arg2 argn)
+  (something false) (fun2 arg1 arg2 argn)
+  (something true) (fun3 arg1 arg2 argn))
+```
+
+
+## In action
+
+```
+(defn updatespeed [{[sx sy] :speed :as state}
+                   {:keys [left right up down]}
+                   time]
+  (let [nsx (cond-> sx
+              right (max (+ (* 0.4 time)) 10.0)
+              left  (min (- (* 0.4 time)) -10.0)
+              (not (and left right)) (* 0.9))
+        dir (cond
+              (and (> nnsx 0.0 ) right) 1
+              (and (<= nnsx 0.0 ) left ) -1)]
+    (-> state
+        (assoc :speed [nsx sy])
+        (assoc :dir dir))))
+```

@@ -133,7 +133,7 @@ A static resource can be any kind of a file but they are mainly images and other
 
 And how do we tell the server to show index.html without adding ```/index.html``` to the address to act as the main page of our site?
 
-We have to use the ```ring.util.respponse``` namespace for that. Update the requirements at the top of the file like this.
+We have to use the ```ring.util.response``` namespace for that. Update the requirements at the top of the file like this.
 
 ```
 (:require [compojure.core :refer :all]
@@ -1051,13 +1051,13 @@ Cool, now our page is working well and looking good. We should deploy it to a se
 
 ## Merging the two projects into one project
 
-Ao far we have two webservers running on our machine, one for ring/compojure from the server-side and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! Let's merge at least the project to simplify things.
+So far we have two webservers running on our machine, one for ring/compojure for the server-side and one for shadow-cljs development/evaluation, we also have two nrepl ports, one for ring/compojure development and one for the client-side development and we have two separate projects! Let's merge at least the projects to simplify things.
 
 Since shadow-cljs uses shadow-cljs.edn and lein uses project.clj for project setup we can easily merge the two projects with only a few modifications.
 
 Create a new folder called ```hello-fullstack```.
 
-Copy ```hello-compojure/project.clj``` to ```hello-fullstack/project.clk```
+Copy ```hello-compojure/project.clj``` to ```hello-fullstack/project.clj```
 
 Copy ```hello-compojure/src/hello_compojure/``` to ```hello-fullstack/src/clj/hello_compojure/```
 
@@ -1155,7 +1155,7 @@ Cool, now development/project structure/version control improved big time! the o
 
 To deploy to a server first you need a server! :) I recommend [https://www.hetzner.com/cloud](https://www.hetzner.com/cloud), for only 2.96 EUR/month you get a server in the cloud with 2 Gigs of RAM and 20GB of SSD and they seem really professional.
 
-So sign up for a CX11 clud server.
+So sign up for a CX11 cloud server.
 
 Select the latest Debian image for it (10.3).
 
