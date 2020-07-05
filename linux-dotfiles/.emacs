@@ -27,7 +27,7 @@
     ("7675ffd2f5cb01a7aab53bcdd702fa019b56c764900f2eea0f74ccfc8e854386" "e61752b5a3af12be08e99d076aedadd76052137560b7e684a8be2f8d2958edc3" default)))
  '(package-selected-packages
    (quote
-    (magit org centered-cursor-mode neotree paredit rainbow-delimiters cider)))
+    (magit org neotree paredit rainbow-delimiters cider)))
  '(show-paren-mode t))
 
 (custom-set-faces
@@ -36,10 +36,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-(and
-      (require 'centered-cursor-mode)
-      (global-centered-cursor-mode +1))
 
 (global-hl-line-mode +1)
 (menu-bar-mode 0)
@@ -56,3 +52,10 @@
 ;;(add-hook 'prog-mode-hook #'paredit-mode)
 
 (put 'erase-buffer 'disabled nil)
+
+(setq scroll-preserve-screen-position t
+      scroll-conservatively 0
+      maximum-scroll-margin 0.5
+      scroll-margin 99999)
+
+(setq css-fontify-colors nil)

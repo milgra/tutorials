@@ -247,7 +247,7 @@ input "1165:49408:ITE_Tech._Inc._ITE_Device(8910)_Keyboard" {
 	xkb_layout "us,hu"
 	xkb_variant ",101_qwerty_dot_nodead"
 	xkb_options "grp:alt_space_toggle"
-	repeat_rate 60
+	repeat_rate 40
     	repeat_delay 250
 }
 
@@ -267,6 +267,8 @@ bindsym $mod+Print exec $screenshot
 bindsym $mod+Shift+Print exec $screenclip
 bindsym $mod+Alt+Print exec $screengrab
 bindsym $mod+c exec google-chrome-stable --new-window
+bindsym $mod+x exec "MOZ_ENABLE_WAYLAND=1 firefox"
+bindsym $mod+m exec "$term -e mc"
 
 assign [class="Google-chrome" title="messenger.com"] workspace 1
 assign [class="Google-chrome" title="music.google.com"] workspace 2
