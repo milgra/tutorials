@@ -533,6 +533,12 @@ to unmount all mounted disk type
 
 ```udiskie-umount -a```
 
+**install menu-calc for calculations**
+
+```yay -S menu-calc```
+
+if you open dmenu ( WIN(MAC) + d ) the cursor will be on an equals sign by default, press enter and you are in the calculator 
+
 **install google chrome**
 
 ```yay -S google-chrome```
