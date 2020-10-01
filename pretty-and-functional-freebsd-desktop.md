@@ -1,26 +1,39 @@
-After 15 years of MacOS and 1 year of Linux finally I moved to FreeBSD. I wanted to do that right before MacOS but hardware support for new laptops are leaking down slowly to FreeBSD.
+# Pretty and functional FreeBSD desktop for design freaks - step by step
 
-freebsd
+FreeBSD is the best server operating system out there and it has everything linux has for desktop use besides drivers. The FreeBSD dev community is much smaller than the Linux dev community so not all laptop driver is arriving for FreeBSD and the others are arriving slowly - usually 1-2 years is needed. So if ypu want the FreeBSD laptop experience you better start on az older supported laptop or go with a desktop machine.
 
-well.architectured piece of software. no Spotify or netflix
+So why choose FreeBSD over Linux? Easy :
+- one kernel one distro - no fragmentation
+- exteremely well architected, clean design
+- no systemd and pulse audio
+- no instability, freezing, random things, surprises
 
-freebsd 13 current to use the latest/beta drivers
-usb stick, boot up
-select install
-default keyboard
-random hostname
-optional system components
-add ports tree and system source tree
-partition Auto UFS 
-select entire disk or delete some partitions, finish, auto partition again, voila
-root password
-network interface - if there is no driver for your hardware no wireless is appearing
-auto configure everything
-select region
-set time date
-services at boot - ntpd powerd dumpdev
-no hardening options
-add user - don't use root
+Why not choose FreeBSD over Linux?
+- not supported laptop
+- you need Spotify, Netflix or Steam
+
+I'm installing FreeBSD on my new laptop ( one year old ) so I will go with the latest CURRENT ( = dev branch or nightly build ) brach, which is 13.0-CURRENT currently. 
+
+Download the latest memstick image from here :
+https://download.freebsd.org/ftp/snapshots/ISO-IMAGES/13.0/
+
+Burn it to a flash drive with your favorite tool and boot your machine with it.
+
+1 Select install
+2 Select default keyboard
+3 Choose host name
+4 At Optional System Components select ports tree and system source tree, they can be useful when you want to recompile the kernel for some reason or an utility is non-BSD licensed and not present in pkg repository.
+4 Partition your drive - Auto UFS is the best for laptops but feel free to go with other
+Let the installer create the partitions
+5 Select root password
+6 Select network - if there is no driver for your wifi hardware then no wireless will appear in the list
+Let the installer auto config DHCP and everything
+7 Select region
+8 Select time and date
+9 Select services at boot : ntpd powerd and dumpdev
+10 No hardening options
+11 Add a separate user besides root
+12 Reboot
 
 reboot
 login as root
