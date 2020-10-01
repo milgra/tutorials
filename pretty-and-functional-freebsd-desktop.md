@@ -35,12 +35,22 @@ Let the installer auto config DHCP and everything
 11 Add a separate user besides root  
 12 Reboot  
 
-reboot
-login as root
-ping something
-PKG install sudo
-yes for PKG
-yes for sudo
+Cool, the base system is ready. Now we have to install the needed tools and drivers.
+
+Login with the root user
+
+Check internet connection first : ping freebsd.org
+
+If it's not working you have to figure out why the wifi interface is down - dmesg, sysctl, etc
+
+'''
+pkg install sudo
+'''
+
+It will offer you to install package, say yes
+After installing pkg, say yes for sudo install
+
+The we have to add your separate user to the sudoers file.
 
 add user to sudoers
 
