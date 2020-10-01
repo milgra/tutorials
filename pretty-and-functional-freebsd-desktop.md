@@ -19,21 +19,21 @@ https://download.freebsd.org/ftp/snapshots/ISO-IMAGES/13.0/
 
 Burn it to a flash drive with your favorite tool and boot your machine with it.
 
-1 Select install
-2 Select default keyboard
-3 Choose host name
-4 At Optional System Components select ports tree and system source tree, they can be useful when you want to recompile the kernel for some reason or an utility is non-BSD licensed and not present in pkg repository.
-4 Partition your drive - Auto UFS is the best for laptops but feel free to go with other
-Let the installer create the partitions
-5 Select root password
-6 Select network - if there is no driver for your wifi hardware then no wireless will appear in the list
-Let the installer auto config DHCP and everything
-7 Select region
-8 Select time and date
-9 Select services at boot : ntpd powerd and dumpdev
-10 No hardening options
-11 Add a separate user besides root
-12 Reboot
+1 Select install  
+2 Select default keyboard  
+3 Choose host name  
+4 At Optional System Components select ports tree and system source tree, they can be useful when you want to recompile the kernel for some reason or an utility is non-BSD licensed and not present in pkg repository.  
+4 Partition your drive - Auto UFS is the best for laptops but feel free to go with other  
+Let the installer create the partitions  
+5 Select root password  
+6 Select network - if there is no driver for your wifi hardware then no wireless will appear in the list  
+Let the installer auto config DHCP and everything  
+7 Select region  
+8 Select time and date  
+9 Select services at boot : ntpd powerd and dumpdev  
+10 No hardening options  
+11 Add a separate user besides root  
+12 Reboot  
 
 reboot
 login as root
