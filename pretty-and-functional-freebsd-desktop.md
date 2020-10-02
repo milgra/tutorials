@@ -234,3 +234,7 @@ zsh - -etc/local/share plugin
 volume, brightness - MOD key instead of Fn
 
 report iwm 9560 startup problem, acpi, resume
+
+numlock?
+resume?
+
