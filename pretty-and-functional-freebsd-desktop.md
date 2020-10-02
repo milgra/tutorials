@@ -62,6 +62,8 @@ press enter
 type
 myuser ALL=(ALL) NOPASSWD: ALL
 
+wifimgr!!
+
 exit
 login as your user
 
