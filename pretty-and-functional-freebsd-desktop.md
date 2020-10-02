@@ -7,7 +7,7 @@ So why choose FreeBSD over Linux? Easy :
 - exteremely well architected, clean design
 - easy to remember command line tools with logical switches
 - no systemd and pulse audio
-- no instability, freezing, random things, surprises
+- no random things, surprises after time passes/rolling updates
 
 Why not choose FreeBSD over Linux?
 - not supported laptop
