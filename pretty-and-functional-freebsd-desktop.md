@@ -33,7 +33,7 @@ Burn it to a flash drive with your favorite tool and boot up your machine with i
 4 Partition your drive - Auto UFS is the best for laptops but feel free to go with other, let the installer create the partitions  
 5 Select root password  
 6 Select network - if there is no driver for your wifi hardware then no wireless will appear in the list. Let the installer auto config DHCP and everything  
-7 Select your region
+7 Select your region  
 8 Select time and date  
 9 Select services at boot : ntpd powerd and dumpdev  
 10 No hardening options  
