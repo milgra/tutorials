@@ -4,7 +4,7 @@
 ![Image](screen2.png)
 ![Image](screen3.png)
 
-FreeBSD is the best (server) operating system out there and it has everything linux has for desktop use besides drivers. The FreeBSD user/dev community is much smaller than Linux's so not all laptop driver is arriving for FreeBSD and the others are arriving slowly - usually 1-2 years is needed. So if ypu want the FreeBSD laptop experience you better start with an older and supported laptop or go with a desktop machine.
+FreeBSD is the best (server) operating system and it has everything linux has for desktop use besides drivers. The FreeBSD user/dev community is much smaller than Linux's so not all laptop driver is arriving for FreeBSD and the others are arriving slowly - usually 1-2 years is needed. So if you want the FreeBSD laptop experience you better start with an older and supported laptop or go with a desktop machine.
 
 **So why choose FreeBSD over Linux?**
 - one kernel one distro - no fragmentation
@@ -46,29 +46,30 @@ Cool, the base system is ready. Now we have to install the needed tools and driv
 
 Login with the root user
 
-Check internet connection first : ping freebsd.org ( If it's not working you have to figure out why the wifi interface is down - dmesg, sysctl, etc, google bravely! )
+Check internet connection first : ping freebsd.org
+If it's not working you have to figure out why the wifi interface is down - dmesg, sysctl, etc, google bravely!
 
 **pkg and sudo**
 
-If you have internet install sudo first:
+Install sudo first:
 
-'''
+```
 pkg install sudo
-'''
+```
 
 It will offer you to install pkg first, say yes. After installing pkg, say yes for sudo install.
 
 Now we have to add your separate user to the sudoers file to make things comfortable. Type :
 
-'''
+```
 visudo
-'''
+```
 
 Go down/page down to the bottom, go to the end of the line, press i to enter edit mode, press enter to go to newline, type
 
-'''
+```
 youruser ALL=(ALL)
-'''
+```
 
 Press escape, type :wq to save it. If you want to quit without saveing press esc anytime and type :q!
 
@@ -78,23 +79,23 @@ Now your user is in the sudoers file. Type exit to log out as root and login as 
 
 Let's install zsh because it can figure out your thoughts.
 
-'''
+```
 sudo pkg install zsh
-'''
+```
 
 Now we need to change the default shell to it :
 
-'''
+```
 chsh -s zsh
-'''
+```
 
 Cool, now log out with your user and log in, zsh will ask for default settings, generate a config with the default settings.
 
 **window manager: sway**
 
-'''
+```
 sudo pkg install sway swaylock swayidle dmenu alacritty slurp grim
-'''
+```
 
 sway is the wayland based window manager
 swaylock is the screen lock utility for sway
@@ -106,15 +107,15 @@ grim is the default screen region shot utility for sway
 
 For sway to run XDG_RUNTIME_DIR has to be set, let's add it to .zshrc
 
-'''
+```
 vi .zshrc
-'''
+```
 
 Go to the end of file, go into edit mode with i and type
 
-'''
+```
 exportr XDG_RUNTIME_DIR=/tmp
-'''
+```
 
 Press escape and type :wq to save and exit.
 
@@ -124,23 +125,23 @@ Logout and login again.
 
 After login, type
 
-'''
+```
 sway
-'''
+```
 
 If it shows up you have video drivers/the default driver works for you. If not you have to tell FreeBSD to load it at startup.
 The video drivers for FreeBSD are called drm-kmod, drm-current-kmod, drm-devel-kmod.
 Since we are on the CURRENT branch we have to use drm-current-kmod
 
-'''
+```
 sudo pkg install drm-current-kmod
-'''
+```
 
 Now depending on your GPU manufacturer you have to load the corresponding kernel mode settings. I have an intel UHD so I will go with i915kms. Adding new lines to /etc/rc.conf is done with and editor or with the sysrc tool, we will use the latter.
 
-'''
+```
 sudo sysrc kld_list += "i915kms"
-'''
+```
 
 
 wifimgr!!
