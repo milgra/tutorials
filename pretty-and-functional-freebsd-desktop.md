@@ -75,7 +75,7 @@ Press escape, type :wq to save it. If you want to quit without saveing press esc
 
 Now your user is in the sudoers file. Type exit to log out as root and login as your user.
 
-**default shsell : zsh**
+**default shell : zsh**
 
 Let's install zsh because it can figure out your thoughts.
 
@@ -114,7 +114,7 @@ vi .zshrc
 Go to the end of file, go into edit mode with i and type
 
 ```
-exportr XDG_RUNTIME_DIR=/tmp
+export XDG_RUNTIME_DIR=/tmp
 ```
 
 Press escape and type :wq to save and exit.
@@ -137,41 +137,111 @@ Since we are on the CURRENT branch we have to use drm-current-kmod
 sudo pkg install drm-current-kmod
 ```
 
-Now depending on your GPU manufacturer you have to load the corresponding kernel mode settings. I have an intel UHD so I will go with i915kms. Adding new lines to /etc/rc.conf is done with and editor or with the sysrc tool, we will use the latter.
+Now depending on your GPU manufacturer you have to load the corresponding kernel mode settings. I have an intel UHD so I will go with i915kms. Adding new lines to /etc/rc.conf is done with an editor or with the sysrc tool, we will use the latter.
 
 ```
 sudo sysrc kld_list += "i915kms"
 ```
 
+Cool, now reboot by typing
 
-wifimgr!!
-
-now restart
+```
 sudo reboot
+```
+If the screen reamined black after reboot, then you installed or selected the wrong driver. Don't panic, reboot in single user mode, it starts up with the bios vesa driver, you can safely login and remove the driver from /etc/rc.conf and then you can reboot and login in the normal way.
 
-if the drivers fails to load, boot single user, dmesg
+After login check if driver is loaded :
 
-for touchpad install iichd
-sudo PKG install iichd
+```
+dmesg | grep drm
+```
 
-sudo sysrc
-​ig4_load="YES"
-iicbus_load="YES"
-iichid_load="YES"
+If it's loaded then greay, start up sway.
 
-kld_list+="ig4 iichid"
+```
+sway
+```
 
-reboot, login, type sway
+You should see a beautiful blue background. To open a terminal press WIN+ENTER. To open the launcher menu press WIN+d and start typing anything. To kill a window press WIN + SHIFT + q
 
-win d dmenu
-win enter terminal
-win shift q kill window
+Cool but why doesn't the touchpad working?!?!?
+
+**touchpad***
+
+It you have no touchpad you have to install the latest iichd drivers.
+
+```
+sudo pkg install iichd
+```
+
+And the let's load them at startup :
+
+```
+sudo sysrc ig4_load="YES"
+sudo sysrc iicbus_load="YES"
+sudo sysrc iichid_load="YES"
+sudo sysrc kld_list+="ig4 iichid"
+```
+
+Reboot, login and touchpad should work.
+
+**webcam**
+
+To make the webcam work webcamd has to be installed and started, usb unit.addr has to be set ( the example should work for 99 percent of the machines ) and you have to add your user to webcamd group
+
+```
+sudo pkg install webcamd
+sudo sysrc kldnlist+="cuse"
+sudo sysrc webcamd_enable="YES"
+sudo sysrc webcamd_0_flags="-d 0.2 - I 0 -v 0"
+sudo groupmod webcamd -m youruser
+````
+
+Reboot, login and webcam should work. Let's test it on the web!
+
+**chromium, firefox***
+
+```
+sudo pkg install chromium
+sudo pkg install firefox
+```
+
+Start up chromium and go to a webcam tester page, does it work?
+
+**set default sway config**
+
+Copy default config. Let's check where is the default config :
+
+```
+pkg info -l sway
+```
+It's under /usr/local/etc/sway/config.sample. Let's copy it to ~/.config/sway/
+
+```
+mkdir -p ~/.config/sway
+cp /usr/local/etc/sway/config.sample ~/.config/sway/
+```
+
+Don't forget that by pressing TAB in the terminal it completes the path or lists possible subfolders if you are uncertain.
+
+**make sway autostart at terminal 0**
+
+```
+vi .zshrc
+```
+
+At the bottom add
+
+```
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/ttyv0 ]]; then
+ exec sway
+fi
+
+```
+
+Now after reboot and login sway will start automagically.
 
 
-autostart sway
-zshrc
-if tty = ttyv0
-exec sway
 
 turn off GPU
 
@@ -181,10 +251,10 @@ kldnlist+= "acpi_call'
 
 mkdir Scripts
 touch turn off GPU.sh
+
 add command to sudo nopasswd
 add it to zshrc before sway
 
-reboot
 
 stop beeping
 
@@ -199,27 +269,6 @@ sysrc autofs_enable="YES"
 sudo vi /etc/auto_master
 uncomment media line
 
-camera
-
-sudo PKG install webcamd
-
-sudo sysrc kldnlist+="cuse"
-sudo sysrc webcamd_enable="YES"
-sudo sysrc webcamd_0_flags="-d 0.2 - I 0 -v 0"
-
-PW groupmod webcamd -m milgra
-
-chromium
-
-sudo PKG.install chromium
-
-test webcam after reboot
-
-sudo PKG install firefox
-
-sudo PKG install rhythmbox gstreamer
-sudo dbus-uuidgen --ensure
-
 sudo PKG install x11/rxvt-unicode
 
 sudo PKG install terminus-font
@@ -231,8 +280,6 @@ swaystart.sh
 Inc brightness
 Dec brightness
 enable java
-
-copy sway config
 
 Firefox enable ssn
 
@@ -256,23 +303,14 @@ sudo pkg install virtualbox-ose
 
 firefox theme aurora australis
 
-at setup setup wifi
-install krm current devel
-load i915 Kms
-install sway
-xdg temp sir set
-touchpad install iichd akármi
-enable evdev?
-load iichd Kms
-
-dmesg / grep pcm, iijd, video, etc
-PKG info sway / default config
 libinpit list devices
 automount /etc automaster
 
 RC conf loader conf sysctl conf
 
 zsh - -etc/local/share plugin
+
+wifimgr!!
 
 volume, brightness - MOD key instead of Fn
 
