@@ -349,40 +349,84 @@ bindsym $mod+F5 exec ~/Scripts/dec_brightness.sh
 bindsym $mod+F6 exec ~/Scripts/inc_brightness.sh
 ```
 
+**mute, increase and decrease audio volume on WIN + volume control keys**
 
-Firefox enable ssn
+Add shortcuts to ~/.config/sway/config
 
-sudo PKG install emacs-nox 
-copy Emacs conf
+```
+bindsym $mod+F1 exec mixer vol 0
+bindsym $mod+F2 exec mixer vol -10
+bindsym $mod+F3 exec mixer vol +10
+```
 
-sudo PKG install clojure Leiningen
+**language switching on keyboard shortcut**
 
-pimp zsh
-pkg autosuggest
-PKG syntax high
-git download history substring
+Add definition to ~/.config/sway/config
 
-PKG install npm
-npm install shadow cljs
+```
+input * {
+    xkb_layout "us,hu"
+    xkb_variant ",101_qwerty_dot_nodead"
+    xkb_options "grp:alt_space_toggle"
+    repeat_rate 40
+    repeat_delay 250
+}
+```
 
-sudo pkginstall libreoffice
-sudo pkg install virtualbox-ose
+**touchpad natural scroll and double finger tap**
 
-firefox theme aurora australis
+get your touchpad id with
 
-libinpit list devices
-automount /etc automaster
+```
+swaymsg -t get_inputs
+```
 
-RC conf loader conf sysctl conf
+with your id add this to sway config
+```
+input "1739:52575:MSFT0001:00_06CB:CD5F_TouchPad" {
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+    drag disabled
+}
+```
 
-zsh - -etc/local/share plugin
+**setup sway font and colors**
 
-wifimgr!!
+Download my sway config and use the font/color configs from it.
 
-volume, brightness - MOD key instead of Fn
+https://github.com/milgra/tutorials/blob/master/freebsd-dotfiles/.config/sway
 
-report iwm 9560 startup problem, acpi, resume
+**setup zsh plugins and colors**
 
-numlock?
-resume?
+Install zsh autosuggest and syntax highlighting, downoad zsh-history-substring and copy to usr/local/share
 
+```
+sudo pkg install zsh-autosuggestions
+sudo pkg install zsh-syntax-highlighting
+```
+
+Download my .zshrc and use it
+
+https://github.com/milgra/tutorials/blob/master/freebsd-dotfiles/.zshrc
+
+**enable site-specific browsing in firefox to be able to open sites as desktop apps**
+
+Go to about:config url in firefox, search for ssb and enable it, then open firefox with -ssb parameter. If you use chromium then use --app switch/
+
+**other office and media tools**
+
+```
+sudo pkg install libreoffice gimp vlc virtualbox-ose
+```
+**select wifi network**
+
+```
+sudo pkg install wifimgr
+wifimgr
+```
+
+**things to be done**
+make numlock work
+make resume work
