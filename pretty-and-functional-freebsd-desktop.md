@@ -191,7 +191,7 @@ To make the webcam work webcamd has to be installed and started, usb unit.addr h
 
 ```
 sudo pkg install webcamd
-sudo sysrc kldnlist+="cuse"
+sudo sysrc kld_list+="cuse"
 sudo sysrc webcamd_enable="YES"
 sudo sysrc webcamd_0_flags="-d 0.2 - I 0 -v 0"
 sudo groupmod webcamd -m youruser
@@ -241,45 +241,114 @@ fi
 
 Now after reboot and login sway will start automagically.
 
+**turn off dedicated GPU ( if exists )**
 
+Install and load acpi_call on startup
 
-turn off GPU
+```
+sudo pkg install acpi_call
+sudo sysrc kld_list+= "acpi_call'
+```
 
-sudo PKG install acpi_call
+Download this script :
 
-kldnlist+= "acpi_call'
+https://github.com/milgra/tutorials/blob/master/freebsd-dotfiles/Scripts/turn_off_gpu.sh
 
-mkdir Scripts
-touch turn off GPU.sh
+Edit .zshrc, execute it before exec sway
 
-add command to sudo nopasswd
-add it to zshrc before sway
+```
+ sudo ~/Scripts/turn_off_gpu.sh
+```
 
+**stop keyboard beeping**
 
-stop beeping
+```
+sudo sysrc allscreen_kbdflags="-b quiet.off"
+```
 
-sysrc allscreen_kbdflags="-b quiet.off"
+**mount linux filesystems**
 
-mount Linux filesystems
-sysrc kldnlist+="ext2fs"
+```
+sudo sysrc kld_list+="ext2fs"
+```
 
-auto mount
+**auto mount connected drives**
 
+```
 sysrc autofs_enable="YES"
+```
+
+```
 sudo vi /etc/auto_master
-uncomment media line
+```
 
-sudo PKG install x11/rxvt-unicode
+Uncomment media line.
 
-sudo PKG install terminus-font
-pimp sway
+**install rxvt for a non-cpu-demanding terminal experience**
 
-swaybar.sh
-swaylock.sh
-swaystart.sh
-Inc brightness
-Dec brightness
-enable java
+```
+sudo pkg install x11/rxvt-unicode
+```
+
+**install terminus-font for coolness***
+```
+sudo pkg install terminus-font
+```
+
+**make sway status bar show system information**
+
+Download this script :
+
+https://github.com/milgra/tutorials/blob/master/freebsd-dotfiles/Scripts/swaybar.sh
+
+Add it to ~/.config/sway/config
+
+```
+...
+bar {
+    ...
+    status_command while ~/Scripts/swaybar.sh; do sleep 5; done
+...
+```
+
+**lock/sleep on shortcut**
+
+Download this script :
+
+https://github.com/milgra/tutorials/blob/master/freebsd-dotfiles/Scripts/swaylock.sh
+
+Add shortcut to ~/.config/sway/config
+
+```
+bindsym $mod+p exec ~/Scripts/swaylock.sh
+```
+
+**start up desktop apps automatically on given workspaces after sway start**
+
+Download this script :
+
+https://github.com/milgra/tutorials/blob/master/freebsd-dotfiles/Scripts/swaystart.sh
+
+Add exec to ~/.config/sway/config
+
+```
+exec ~/Scripts/swaystart.sh
+```
+
+**increase and decrease screen brightness on WIN + brightness control keys**
+
+Download this script :
+
+https://github.com/milgra/tutorials/blob/master/freebsd-dotfiles/Scripts/dec_brightness.sh
+https://github.com/milgra/tutorials/blob/master/freebsd-dotfiles/Scripts/inc_brightness.sh
+
+Add shortcuts to ~/.config/sway/config
+
+```
+bindsym $mod+F5 exec ~/Scripts/dec_brightness.sh
+bindsym $mod+F6 exec ~/Scripts/inc_brightness.sh
+```
+
 
 Firefox enable ssn
 
@@ -296,9 +365,7 @@ git download history substring
 PKG install npm
 npm install shadow cljs
 
-
 sudo pkginstall libreoffice
-
 sudo pkg install virtualbox-ose
 
 firefox theme aurora australis
