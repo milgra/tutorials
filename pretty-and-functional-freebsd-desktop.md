@@ -260,6 +260,8 @@ Edit .zshrc, execute it before exec sway
  sudo ~/Scripts/turn_off_gpu.sh
 ```
 
+note : since sudo is happening in the background, you have to add the script to the sudoers file with NOPASSWD
+
 **stop keyboard beeping**
 
 ```
