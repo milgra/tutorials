@@ -148,7 +148,7 @@ Cool, now reboot by typing
 ```
 sudo reboot
 ```
-If the screen reamined black after reboot, then you installed or selected the wrong driver. Don't panic, reboot in single user mode, it starts up with the bios vesa driver, you can safely login and remove the driver from /etc/rc.conf and then you can reboot and login in the normal way.
+If the screen remained black after reboot, then you installed or selected the wrong driver. Don't panic, reboot in single user mode, it starts up with the bios vesa driver, you can safely login and remove the driver from /etc/rc.conf and then you can reboot and login in the normal way.
 
 After login check if driver is loaded :
 
@@ -166,7 +166,7 @@ You should see a beautiful blue background. To open a terminal press WIN+ENTER. 
 
 Cool but why doesn't the touchpad working?!?!?
 
-**touchpad***
+**touchpad**
 
 It you have no touchpad you have to install the latest iichd drivers.
 
@@ -199,7 +199,7 @@ sudo groupmod webcamd -m youruser
 
 Reboot, login and webcam should work. Let's test it on the web!
 
-**chromium, firefox***
+**chromium, firefox**
 
 ```
 sudo pkg install chromium
