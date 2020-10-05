@@ -156,7 +156,7 @@ After login check if driver is loaded :
 dmesg | grep drm
 ```
 
-If it's loaded then greay, start up sway.
+If it's loaded then great, start up sway.
 
 ```
 sway
