@@ -1,5 +1,9 @@
 # Step-by-step tutorials
 
+Pretty and functional FreeBSD Desktop for former Mac Users and Design Freaks
+
+[pretty-and-functional-freebsd-desktop.md](pretty-and-functional-freebsd-desktop.md)
+
 Pretty and functional Linux Desktop for former Mac Users and Design Freaks
 
 [pretty-and-functional-linux-destkop.md](pretty-and-functional-linux-destkop.md)
