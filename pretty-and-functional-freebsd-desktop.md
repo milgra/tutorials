@@ -1,4 +1,4 @@
-# Pretty and functional FreeBSD desktop for design freaks - step by step
+# Pretty and functional FreeBSD desktop for design freaks
 
 ![Image](screen1.png)
 ![Image](screen2.png)
