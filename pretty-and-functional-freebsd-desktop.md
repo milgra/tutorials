@@ -162,7 +162,7 @@ If it's loaded then great, start up sway.
 sway
 ```
 
-You should see a beautiful blue background. To open a terminal press WIN+ENTER. To open the launcher menu press WIN+d and start typing anything. To kill a window press WIN + SHIFT + q
+You should see a beautiful blue background. To open a terminal press WIN+ENTER. To open the launcher menu press WIN+d and start typing anything. To kill a window press WIN + SHIFT + q. To switch between workspaces press WIN+numbers, to move a window to an other workspace press WIN+SHIFT+arrows
 
 Cool but why doesn't the touchpad working?!?!?
 
