@@ -46,7 +46,7 @@ Cool, the base system is ready. Now we have to install the needed tools and driv
 
 Login with the root user
 
-Check internet connection first : ping freebsd.org
+Check internet connection first : ping freebsd.org   
 If it's not working you have to figure out why the wifi interface is down - dmesg, sysctl, etc, google bravely!
 
 **pkg and sudo**
@@ -428,5 +428,6 @@ wifimgr
 ```
 
 **things to be done**
-make numlock work
-make resume work
+
+make numlock work  
+make resume work  
