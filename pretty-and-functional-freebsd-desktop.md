@@ -97,13 +97,13 @@ Cool, now log out with your user and log in, zsh will ask for default settings, 
 sudo pkg install sway swaylock swayidle dmenu alacritty slurp grim
 ```
 
-sway is the wayland based window manager
-swaylock is the screen lock utility for sway
-swayidle is the idle lock utility for sway
-dmenu is the default launcher for sway
-alacritty is the default wayland based terminal for sway
-slurp is the default screenshot utility for sway
-grim is the default screen region shot utility for sway
+sway is the wayland based window manager  
+swaylock is the screen lock utility for sway  
+swayidle is the idle lock utility for sway  
+dmenu is the default launcher for sway  
+alacritty is the default wayland based terminal for sway  
+slurp is the default screenshot utility for sway  
+grim is the default screen region shot utility for sway  
 
 For sway to run XDG_RUNTIME_DIR has to be set, let's add it to .zshrc
 
