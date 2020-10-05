@@ -37,7 +37,7 @@ Burn it to a flash drive with your favorite tool and boot up your machine with i
 8 Select time and date  
 9 Select services at boot : ntpd powerd and dumpdev  
 10 No hardening options  
-11 Add a separate user for yourself besides root
+11 Add a separate user for yourself besides root  
 12 Reboot  
 
 Cool, the base system is ready. Now we have to install the needed tools and drivers.
