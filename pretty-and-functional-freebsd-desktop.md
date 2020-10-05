@@ -7,15 +7,15 @@
 FreeBSD is the best (server) operating system and it has everything linux has for desktop use besides drivers. The FreeBSD user/dev community is much smaller than Linux's so not all laptop driver is arriving for FreeBSD and the others are arriving slowly - usually 1-2 years is needed. So if you want the FreeBSD laptop experience you better start with an older and supported laptop or go with a desktop machine.
 
 **So why choose FreeBSD over Linux?**
-- one kernel one distro - no fragmentation
-- exteremely well architected, clean design
-- logical command line tools (pkg install vs pacman -Qs, pkg info vs dpkg -s, pkg search vs pacman -Ss)
-- no systemd and pulse audio
-- no random malfunctions, surprises after rolling updates
+- one kernel one distro - no fragmentation  
+- exteremely well architected, clean design  
+- logical command line tools (pkg install vs pacman -Qs, pkg info vs dpkg -s, pkg search vs pacman -Ss)  
+- no systemd and pulse audio  
+- no random malfunctions, surprises after rolling updates  
 
 **Why not choose FreeBSD over Linux?**
-- no drivers for your laptop
-- you need Spotify, Netflix or Steam
+- no drivers for your laptop  
+- you need Spotify, Netflix or Steam  
 
 **Installing**
 
