@@ -71,7 +71,7 @@ setopt prompt_subst
 # Maia prompt
 PROMPT="%B%{$fg[cyan]%}%(4~|%-1~/.../%2~|%~)%u%b >%{$fg[cyan]%}>%B%(?.%{$fg[cyan]%}.%{$fg[red]%})>%{$reset_color%}%b " # Print some system information when the shell is first started
 # Print a greeting message when shell is started
-echo $USER@$HOST  $(uname -srm) $(lsb_release -rcs)
+# echo $USER@$HOST  $(uname -srm) $(lsb_release -rcs)
 ## Prompt on right side:
 #  - shows status of git when in git repository (code adapted from https://techanic.net/2012/12/30/my_git_prompt_for_zsh.html)
 #  - shows exit status of previous command (if previous command finished with an error)
@@ -163,11 +163,11 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 # Apply different settigns for different terminals
-case $(basename "$(cat "/proc/$PPID/comm")") in
-  login)
-    	RPROMPT="%{$fg[red]%} %(?..[%?])" 
-    	alias x='startx ~/.xinitrc'      # Type name of desired desktop after x, xinitrc is configured for it
-    ;;
+# case $(basename "$(cat "/proc/$PPID/comm")") in
+#  login)
+#    	RPROMPT="%{$fg[red]%} %(?..[%?])" 
+#    	alias x='startx ~/.xinitrc'      # Type name of desired desktop after x, xinitrc is configured for it
+#    ;;
 #  'tmux: server')
 #        RPROMPT='$(git_prompt_string)'
 #		## Base16 Shell color themes.
@@ -186,14 +186,14 @@ case $(basename "$(cat "/proc/$PPID/comm")") in
 #		ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 #  		ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 #     ;;
-  *)
+#  *)
         RPROMPT='$(git_prompt_string)'
 		# Use autosuggestion
 		source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 		ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
   		ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
-    ;;
-esac
+#    ;;
+#esac
 
 export TERM=xterm-256color
 export XDG_RUNTIME_DIR=/tmp
@@ -202,6 +202,9 @@ export JAVA_HOME=/usr/local/openjdk8
 export CLASSPATH=/usr/local/openjdk8/lib:/usr/local/share/clojure/libexec:/home/milgra/Projects/datomic-pro-0.9.6024/bin
 export PATH=$PATH:/usr/local/openjdk8/bin
 
-if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+export QT_QPA_PLATFORMTHEME=qt5ct
+
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/ttyv0 ]]; then
+ sudo ~/Scripts/turn_off_gpu.sh
  XKB_DEFAULT_LAYOUT=us exec sway --my-next-gpu-wont-be-nvidia
 fi

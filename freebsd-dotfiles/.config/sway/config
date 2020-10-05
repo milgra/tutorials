@@ -14,7 +14,7 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term alacritty
+set $term urxvt
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -35,10 +35,9 @@ output * bg /usr/local/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png 
 #
 # Example configuration:
 #
-# exec swayidle -w \
+#exec swayidle -w \
 #          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-#          before-sleep 'swaylock -f -c 000000'
+#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -196,6 +195,10 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+bindsym $mod+p exec ~/Scripts/swaylock.sh
+
+
+
 include /usr/local/etc/sway/config.d/*
 
 input "1739:52575:MSFT0001:00_06CB:CD5F_TouchPad" {
@@ -214,18 +217,20 @@ input * {
     repeat_delay 250
 }
 
-# class                 border    backgr.   text    indicator   child_border
-client.focused          #0000002F #FFFFFFFF #000000 #0000002F   #0000002F
-client.focused_inactive #0000002F #FFFFFFFF #000000 #0000002F   #0000002F
-client.unfocused        #0000002F #FFFFFFFF #888888 #0000002F   #0000002F
-client.urgent           #0000002F #FFFFFFFF #000000 #0000002F   #0000002F
-client.placeholder      #0000002F #FFFFFFFF #000000 #0000002F   #0000002F
+# class                 border  backgr.   text    indicator   child_border
+client.focused          #000000 #FFFFFFFF #000000 #0000002F   #00000055
+client.focused_inactive #000000 #FFFFFFFF #000000 #0000002F   #00000055
+client.unfocused        #000000 #FFFFFFFF #888888 #0000002F   #00000055
+client.urgent           #000000 #FFFFFFFF #000000 #0000002F   #00000055
+client.placeholder      #000000 #FFFFFFFF #000000 #0000002F   #00000055
 client.background       #ffffff
 
-# gaps
-gaps inner 3
 default_border pixel 1
-default_floating_border pixel 1
+default_floating_border pixel 0
+
+font xos4 Terminus Bold 10
+
+gaps inner 3
 
 bindsym $mod+c exec chrome --new-window
 
@@ -236,27 +241,34 @@ bar {
     # The default just shows the current date and time.
     # status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
 
-    status_command while ~/.config/sway/mybar.sh; do sleep 5; done
+    status_command while ~/Scripts/swaybar.sh; do sleep 5; done
     height 30
+    
+    strip_workspace_numbers yes
 
     colors {
-        statusline #ffffff
-        background #32323255
-	focused_workspace #32323255 #32323255 #FFFFFF
-        active_workspace #323232 #323232 #FFFFFF
-        inactive_workspace #32323255 #32323255 #DDDDDD
-        urgent_workspace #2ECC71 #900000 #FFFFFF    
+        statusline #AADDFF
+        background #000000FF
+	focused_workspace  #000000 #000000 #AADDFF
+        active_workspace   #323232 #323232 #BBBBBB
+        inactive_workspace #000000 #000000 #003366
+        urgent_workspace   #000000 #000000 #FF0000    
 	}
 }
 
-output * bg ~/.config/sway/sway-clear.png fill
+output * bg ~/.config/sway/green_wallpaper.jpg fill
 
 # Sreen brightness controls --
 # https://github.com/haikarainen/light
-bindsym XF86MonBrightnessUp exec sysctl sys.class.backlight.intel_backlight.bl_device.brightness=13333
-bindsym XF86MonBrightnessDown exec sysctl sys.class.backlight.intel_backlight.bl_device.brightness=26666
+bindsym $mod+F1 exec mixer vol 0
+bindsym $mod+F2 exec mixer vol -10
+bindsym $mod+F3 exec mixer vol +10
 
-# Audio buttons
-bindsym XF86AudioRaiseVolume exec --no-startup-id mixer vol +10
-bindsym XF86AudioLowerVolume exec --no-startup-id mixer vol -10
-bindsym XF86AudioMute exec --no-startup-id mixer vol 0
+bindsym $mod+F5 exec ~/Scripts/dec_brightness.sh
+bindsym $mod+F6 exec ~/Scripts/inc_brightness.sh
+
+exec ~/Scripts/swaystart.sh
+
+for_window [class="URxvt"] opacity 0.9
+
+exec_always swaymsg rename "Workspace 1" to '1 1'

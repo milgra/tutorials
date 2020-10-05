@@ -7,13 +7,13 @@ usage() {
 
 [ "`whoami`" != "root" ] && usage && exit 1
 
-kldstat -q -n acpi_call.ko
-MODULE_LOADED=$?
+#kldstat -q -n acpi_call.ko
+#MODULE_LOADED=$?
 
-if [ $MODULE_LOADED != "0" ]; then
-	echo "The acpi_call module is not loaded, try running `kldload acpi_call` as root"
-	exit 1
-fi
+#if [ $MODULE_LOADED != "0" ]; then
+#	echo "The acpi_call module is not loaded, try running `kldload acpi_call` as root"
+#	exit 1
+#fi
 
 
 if [ -f ~/.gpu_method ]; then
