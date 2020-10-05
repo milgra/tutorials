@@ -9,7 +9,7 @@ FreeBSD is the best server operating system out there and it has everything linu
 So why choose FreeBSD over Linux?
 - one kernel one distro - no fragmentation
 - exteremely well architected, clean design
-- easy to remember command line tools (and parameters)
+- easy to remember command line tools with logical parameters (package install vs pacman -Qs, package info vs dpkg -s for example)
 - no systemd and pulse audio
 - no random malfunctions, surprises after rolling updates
 
