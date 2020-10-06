@@ -436,6 +436,12 @@ Go to web.skype.com
 Select Windows/Edge in the user agent switcher.
 Roll!
 
+**download youtube video**
+
+```
+sudo pkg install youtube-dl
+```
+
 **things to be done**
 
 make numlock work  
