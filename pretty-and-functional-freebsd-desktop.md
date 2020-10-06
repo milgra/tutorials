@@ -429,6 +429,13 @@ sudo pkg install wifimgr
 wifimgr
 ```
 
+**using skype from firefox**
+
+Add "User Agent Switcher" plugin to Firefox.  
+Go to web.skype.com  
+Select Windows/Edge in the user agent switcher.
+Roll!
+
 **things to be done**
 
 make numlock work  
