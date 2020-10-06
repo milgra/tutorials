@@ -442,6 +442,12 @@ Roll!
 sudo pkg install youtube-dl
 ```
 
+**for managing partitions**
+
+```
+sudo sade
+```
+
 **things to be done**
 
 make numlock work  
