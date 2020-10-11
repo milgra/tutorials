@@ -448,6 +448,16 @@ sudo pkg install youtube-dl
 sudo sade
 ```
 
+**for unicode chars in terminal**
+
+edit ~/.login_conf
+
+```
+me:\
+	:charset=UTF-8:\
+	:lang=en_US.UTF-8:
+```
+
 **things to be done**
 
 make numlock work  
