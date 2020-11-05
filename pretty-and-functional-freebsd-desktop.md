@@ -458,6 +458,23 @@ me:\
 	:lang=en_US.UTF-8:
 ```
 
+**android connection**
+
+```
+sudo pkg install fusefs-jmtpfs    
+
+/boot/loader.conf :
+fuse_load="YES"
+
+/etc/sysctl.conf
+vfs.usermount=1
+
+/etc/rc.conf
+kld_list="fusefs"
+
+
+```
+
 **things to be done**
 
 make numlock work  
