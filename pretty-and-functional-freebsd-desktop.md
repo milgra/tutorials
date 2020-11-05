@@ -4,7 +4,7 @@
 ![Image](screen2.png)
 ![Image](screen3.png)
 
-FreeBSD is the best (server) operating system and it has everything linux has for desktop use besides (laptop) device drivers. The FreeBSD user/dev community is much smaller than Linux's so not all device driver is arriving for FreeBSD and the others are arriving slowly - usually 1-2 years is needed. So if you want the FreeBSD laptop experience you better start with an older and supported laptop or go with a desktop machine.
+FreeBSD is the best (server) operating system and it has everything linux has for desktop use besides (laptop) device drivers. The FreeBSD user/dev community is much smaller than Linux's so not all device drivers are arriving for FreeBSD and the others are arriving slowly - usually 1-2 years is needed. So if you want the FreeBSD laptop experience you better start with an older and supported laptop or go with a desktop machine.
 
 **So why choose FreeBSD over Linux?**
 - one kernel one distro - no fragmentation  
