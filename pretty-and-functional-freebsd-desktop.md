@@ -472,6 +472,8 @@ vfs.usermount=1
 /etc/rc.conf
 kld_list="fusefs"
 
+sudo jmtpfs -o allow_other /mnt
+
 
 ```
 
