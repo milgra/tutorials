@@ -477,6 +477,12 @@ sudo jmtpfs -o allow_other /mnt
 
 ```
 
+**enable mic in firefox**
+```
+about:config
+media.cubeb.backend                             oss
+```
+
 **things to be done**
 
 make numlock work  
